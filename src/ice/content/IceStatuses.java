@@ -1,0 +1,30 @@
+package ice.content;
+
+import ice.graphics.IcePal;
+import mindustry.graphics.Pal;
+import mindustry.type.StatusEffect;
+
+public class IceStatuses {
+    public static StatusEffect inSoot, positiveCharge, negativeCharge;
+    public static void load(){
+        inSoot = new StatusEffect("in-soot"){{
+            color = IcePal.sootColor;
+            speedMultiplier = 0.9f;
+            healthMultiplier = 0.9f;
+        }};
+        positiveCharge = new StatusEffect("positive-charge"){{
+            color = IcePal.positiveStatusCol;
+            reloadMultiplier = 0.5f;
+            dragMultiplier = 0.5f;
+            buildSpeedMultiplier = 1.5f;
+            damageMultiplier = 1.5f;
+        }};
+        negativeCharge = new StatusEffect("negative-charge"){{
+            color = IcePal.negativeStatusCol;
+            reloadMultiplier = 1.5f;
+            dragMultiplier = 1.5f;
+            buildSpeedMultiplier = 0.5f;
+            damageMultiplier = 0.5f;
+        }};
+    }
+}
