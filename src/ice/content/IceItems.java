@@ -5,9 +5,11 @@ import arc.struct.*;
 import mindustry.content.Items;
 import mindustry.type.*;
 
+import static mindustry.content.Items.*;
+
 public class IceItems {
     public static Item
-        thallium, prinute, ceramicalDust, sporeWood, soptin, livesteel;
+        thallium, prinute, ceramicalDust, sporeWood, soptin, ceramic, livesteel, polonium;
     public static final Seq<Item> RkiItems = new Seq<>();
     public static void load(){
         Items.scrap.buildable = true;
@@ -32,10 +34,23 @@ public class IceItems {
             cost = 0.6f;
             buildable = false;
         }};
+        ceramic = new Item("ceramic", Color.valueOf("cbcbcb")){{
+            hardness = 3;
+            cost = 1.5f;
+        }};
         livesteel = new Item("livesteel", Color.valueOf("8a5294")){{
             hardness = 3;
             cost = 2.1f;
             flammability = 0.55f;
         }};
+        polonium = new Item("polonium", Color.valueOf("86b641")){{
+            hardness = 4;
+            cost = 3f;
+            healthScaling = 2;
+            radioactivity = 1.8f;
+        }};
+        RkiItems.addAll(
+                scrap, silicon, thallium, sporeWood, prinute, soptin, ceramicalDust, ceramic, livesteel, polonium
+        );
     }
 }

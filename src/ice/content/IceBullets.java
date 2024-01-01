@@ -16,7 +16,7 @@ import static arc.graphics.g2d.Lines.*;
 public class IceBullets {
     public static BulletType
     //main bullets
-    pointBullet, pointCoreBullet, vesselBullet, basisBullet, stemBullet, sporeSkimmerBullet, siliconSkimmerBullet, methaneSpike, yellowBlast, yellowPlasma,
+    pointBullet, pointCoreBullet, vesselBullet, basisBullet, stemBullet, sporeSkimmerBullet, siliconSkimmerBullet, methaneSpike, yellowBlast, yellowPlasma, ceramicChunk, radBlast,
     //funny bullets
     basicBullet;
     public static void load(){
@@ -87,6 +87,7 @@ public class IceBullets {
             lifetime = 20f;
             hitColor = backColor = IcePal.sporeMid;
             frontColor = IcePal.sporeLight;
+            collidesGround = true;
         }};
         sporeSkimmerBullet = new BasicBulletType(4, 30){{
             shootEffect = new MultiEffect(Fx.shootTitan, new WaveEffect(){{
@@ -232,6 +233,79 @@ public class IceBullets {
 
             hitEffect = despawnEffect = IceFx.hitSplashBulletColor;
         }};
+        ceramicChunk = new BasicBulletType(8f, 30){{
+            ammoMultiplier = 2f;
+            shootEffect = Fx.shootSmall;
+            lifetime = 18.75f;
+            width = 8f;
+            height = 11f;
+            hitEffect = Fx.flakExplosion;
+            fragBullet = new BasicBulletType(4f, 8, "shell"){{
+                width = 6f;
+                height = 8f;
+                lifetime = 15f;
+                homingPower = 0.3f;
+                backColor = Pal.gray;
+                frontColor = Color.white;
+                despawnEffect = Fx.none;
+            }};
+            fragBullets = 6;
+            collidesGround = true;
+        }};
+        radBlast = new BasicBulletType(6f, 30f){{
+            sprite = "missile-large";
+
+            lifetime = 200f / 6f;
+            width = 9f;
+            height = 18f;
+
+            hitSize = 7f;
+            shootEffect = Fx.lancerLaserShoot;
+            smokeEffect = Fx.none;
+            ammoMultiplier = 1;
+            hitColor = backColor = trailColor = lightningColor;
+            frontColor = Color.white;
+            trailWidth = 2.5f;
+            trailLength = 9;
+            hitEffect = despawnEffect = Fx.hitBulletColor;
+            buildingDamageMultiplier = 0.3f;
+
+            trailEffect = Fx.colorSpark;
+            trailRotation = true;
+            trailInterval = 3f;
+            lightning = 1;
+            lightningColor = IcePal.poloniumLight;
+            lightningCone = 15f;
+            lightningLength = 5;
+            lightningLengthRand = 10;
+            lightningDamage = 5f;
+
+            homingPower = 0.3f;
+            homingDelay = 5f;
+            homingRange = 160f;
+            despawnShake = 3f;
+
+            fragBullet = new LaserBulletType(10f){{
+                colors = new Color[]{IcePal.poloniumLight.cpy().a(0.4f), IcePal.poloniumMid, Color.white};
+                buildingDamageMultiplier = 0.25f;
+                width = 10f;
+                hitEffect = Fx.hitLancer;
+                sideAngle = 175f;
+                sideWidth = 1f;
+                sideLength = 40f;
+                lifetime = 22f;
+                drawSize = 200f;
+                length = 80f;
+                pierceCap = 2;
+            }};
+
+            fragSpread = fragRandomSpread = 0f;
+
+            splashDamage = 0f;
+            hitEffect = Fx.hitSquaresColor;
+            collidesGround = true;
+        }};
+
         yellowBlast = new BasicBulletType(4f, 50){{
             backColor = trailColor = hitColor = Pal.accent;
             frontColor = Color.white;
@@ -281,6 +355,7 @@ public class IceBullets {
             lightning = 3;
             lightningDamage = 8;
             lightningLength = 5;
+            collidesGround = true;
         }};
         basicBullet = new BasicBulletType(5, 50){{
             width = height = 7f;

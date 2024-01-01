@@ -15,6 +15,7 @@ public class WorldDuster extends Block {
     public int displayRange = 16;
     public int minPos = -2;
     public int maxPos = 2;
+    public int amount = 1;
     public float reload = 430f;
     public WorldDuster(String name) {
         super(name);
@@ -25,6 +26,7 @@ public class WorldDuster extends Block {
         replaceable = false;
         targetable = false;
         destructible = false;
+        drawTeamOverlay = false;
     }
     @Override
     public boolean canBreak(Tile tile){
@@ -37,7 +39,6 @@ public class WorldDuster extends Block {
     }
     public class WorldDusterBuild extends Building {
         public float reloadTime = reload;
-        public int xShift, yShift;
 
         @Override
         public void updateTile() {
@@ -45,15 +46,17 @@ public class WorldDuster extends Block {
                 place();
                 reloadTime = reload;
             }
-            xShift = Mathf.random(minPos, maxPos);
-            yShift = Mathf.random(minPos, maxPos);
             reloadTime -= Time.delta;
         }
         public void place() {
-                    Tile tile = world.tileWorld(x + xShift * 8, y + yShift * 8);
+            for(int i = 0; i < amount; i++) {
+                int posX = Mathf.random(minPos, maxPos);
+                int posY = Mathf.random(minPos, maxPos);
+                Tile tile = world.tileWorld(x + posX * 8, y + posY * 8);
 
-                    if (tile.floor() != Blocks.air) Fx.smeltsmoke.at(x + xShift * 8, y + yShift * 8);
-                    tile.setOverlay(IceBlocks.oreDust);
+                if (tile.floor() != Blocks.air) Fx.smeltsmoke.at(x + posX * 8, y + posY * 8);
+                tile.setOverlay(IceBlocks.oreDust);
+            }
         }
     }
 }

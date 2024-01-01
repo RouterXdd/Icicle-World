@@ -10,11 +10,11 @@ import mindustry.world.blocks.production.*;
 
 
 public class BreakDrill extends Drill {
-    public float randAngle = Mathf.random(0, 360);
     public float reload = 130;
     public int lengthLight = 5;
     public float damageLight = 10;
     public Color colorLight = IcePal.thalliumMid;
+    public boolean blockTeam = false;
 
     public BreakDrill(String name) {
         super(name);
@@ -33,9 +33,12 @@ public class BreakDrill extends Drill {
                 return;
             }
             if (reloadTime <= 0) {
-                Lightning.create(Team.derelict,colorLight,damageLight ,this.x, this.y, randAngle, lengthLight);
+                if (blockTeam){
+                    Lightning.create(this.team,colorLight,damageLight ,this.x, this.y, Mathf.random(0, 360), lengthLight);
+                } else {
+                    Lightning.create(Team.derelict, colorLight, damageLight, this.x, this.y, Mathf.random(0, 360), lengthLight);
+                }
                 reloadTime = reload;
-                randAngle = Mathf.random(0, 360);
             }
 
             timeDrilled += warmup * delta();

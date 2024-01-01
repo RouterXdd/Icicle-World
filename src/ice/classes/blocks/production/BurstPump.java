@@ -15,7 +15,7 @@ public class BurstPump extends Pump {
     @Override
     public void setBars(){
         super.setBars();
-        addBar("escape", (BurstPumpBuild e) -> new Bar("bar.progress", Pal.ammo, e::fraction));
+        addBar("escape", (BurstPumpBuild e) -> new Bar("bar.pump", Pal.ammo, e::fraction));
     }
     public class BurstPumpBuild extends PumpBuild {
         float reloadProgress;

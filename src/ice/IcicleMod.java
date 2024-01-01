@@ -28,12 +28,17 @@ public class IcicleMod extends Mod{
     public void loadContent(){
         IceAttributes.load();
         IceLogs.load();
+        IceTeams.load();
         IceStatuses.load();
         IceLiquids.load();
         IceItems.load();
         IceBullets.load();
         IceUnitTypes.load();
         IceBlocks.load();
+        IceLoadouts.load();
+        IcePlanets.load();
+        IceSectors.load();
+        RkiTechTree.load();
     }
     void loadSettings(){
         ui.settings.addCategory(bundle.get("setting.icicle-world-title"), "icicle-world-settings-ui", t -> {
