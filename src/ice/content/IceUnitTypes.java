@@ -1,6 +1,7 @@
 package ice.content;
 
 import arc.graphics.*;
+import arc.math.Interp;
 import arc.math.geom.Rect;
 import ice.classes.entities.abilities.RepairPillAbility;
 import ice.classes.entities.types.*;
@@ -11,7 +12,9 @@ import mindustry.entities.bullet.*;
 import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
+import mindustry.graphics.Pal;
 import mindustry.type.*;
+import mindustry.type.unit.MissileUnitType;
 import mindustry.type.unit.TankUnitType;
 import mindustry.type.weapons.*;
 
@@ -21,7 +24,7 @@ public class IceUnitTypes {
     //core
     malice,
     //construct W.I.P/ //I NOT GONNA DO THAT
-    vessel, basis, stem,
+    vessel, basis, stem, ewer, xylem, fundament,
     //wave (presets of construct units)
     vesselPoint,
         //executioners (Mini bosses)
@@ -47,6 +50,7 @@ public class IceUnitTypes {
             engineOffset = 4f;
             hitSize = 14f;
             constructor = LegsUnit::create;
+            mineWalls = true;
             legLength = 12f;
             hovering = true;
             lockLegBase = true;
@@ -169,7 +173,7 @@ public class IceUnitTypes {
             health = 600;
             armor = 8f;
             itemCapacity = 0;
-            treadRects = new Rect[]{new Rect(-11, 18, 9, 53)};
+            treadRects = new Rect[]{new Rect(-14, 18, 13, 53)};
             researchCostMultiplier = 0f;
             constructor = TankUnit::create;
 
@@ -187,6 +191,30 @@ public class IceUnitTypes {
                 cooldownTime = 32f;
 
                 bullet = basisBullet;
+            }});
+        }};
+        xylem = new RkiUnitType("xylem"){{
+            speed = 0.65f;
+            rotateSpeed = 7f;
+            armor = 7;
+            itemCapacity = 15;
+            health = 3720f;
+            hitSize = 29f;
+            constructor = MechUnit::create;
+            weapons.add(new Weapon("icicle-world-xylem-weapon"){{
+                top = false;
+                reload = 10f;
+                rotate = false;
+                shootCone = 45;
+                mirror = true;
+                shootSound = Sounds.flame2;
+                x = 13f;
+                y = 0f;
+                shootY = 4f;
+
+                ejectEffect = Fx.none;
+
+                bullet = xylemFlame;
             }});
         }};
         vesselPoint = new RkiUnitType("vessel-point"){{

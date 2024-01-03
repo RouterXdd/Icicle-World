@@ -68,7 +68,7 @@ public class IceFx {
                 Draw.z(Layer.effect);
                 Draw.color(Pal.surge);
                 Lines.stroke(1F + e.fin());
-                Lines.poly(e.x, e.y, 6, 5 * e.fin(), Time.time / 0.5f);
+                Lines.poly(e.x, e.y, 6, 6 * e.fin(), Time.time / 0.5f);
                 Draw.reset();
     }),
     hitSplashBulletColor = new Effect(14.0F, (e) -> {
@@ -87,5 +87,12 @@ public class IceFx {
             Lines.lineAngle(e.x + x, e.y + y, ang, e.fout() * size + 1.5F);
         });
         Drawf.light(e.x, e.y, size, e.color, 0.6F * e.fout());
-    });
+    }),
+            shootWoodFlame = new Effect(33f, 80f, e -> {
+                color(IcePal.sporeLightish, IcePal.sporeLight, Color.gray, e.fin());
+
+                randLenVectors(e.id, 20, e.finpow() * 85f, e.rotation, 15f, (x, y) -> {
+                    Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f);
+                });
+            });
 }

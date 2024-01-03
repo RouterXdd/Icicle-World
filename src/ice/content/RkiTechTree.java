@@ -69,7 +69,11 @@ public class RkiTechTree {
                     node(methaneDigger, () -> {
 
                     });
+                    node(engineDrill, () -> {
+                        node(nuclearDrill, () -> {
 
+                        });
+                    });
                 });
                 node(burstPump, () -> {
 
@@ -93,9 +97,11 @@ public class RkiTechTree {
             //turrets
             node(bail, () -> {
                 //item
-                node(skimmer, () -> {
-                    node(shatter, () -> {
+                node(clockwise, () -> {
+                    node(skimmer, () -> {
+                        node(shatter, () -> {
 
+                        });
                     });
                     //power
                     node(demonCore, () -> {
@@ -122,7 +128,9 @@ public class RkiTechTree {
             //crafting
             node(prinuteMerger, () -> {
                 node(siliconDissembler, () -> {
+                    node(metalIncubator, () -> {
 
+                    });
                 });
             });
             node(lamp, () -> {
@@ -134,9 +142,14 @@ public class RkiTechTree {
 
                 });
                 node(stem, () -> {
+                    node(xylem, Seq.with(new Research(forcedConstructor)),() -> {
 
+                    });
                 });
                 node(basis, () -> {
+
+                });
+                node(forcedConstructor, () -> {
 
                 });
             });

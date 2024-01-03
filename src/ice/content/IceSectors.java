@@ -10,6 +10,7 @@ public class IceSectors {
         fallPoint = new SectorPreset("fall-point", IcePlanets.rki, 33){{
             captureWave = 15;
             startWaveTimeMultiplier = 2.5f;
+            alwaysUnlocked = true;
         }};
     }
 }

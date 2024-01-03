@@ -4,6 +4,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Lines;
 import ice.graphics.IcePal;
 import mindustry.content.Fx;
+import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
@@ -16,7 +17,9 @@ import static arc.graphics.g2d.Lines.*;
 public class IceBullets {
     public static BulletType
     //main bullets
-    pointBullet, pointCoreBullet, vesselBullet, basisBullet, stemBullet, sporeSkimmerBullet, siliconSkimmerBullet, methaneSpike, yellowBlast, yellowPlasma, ceramicChunk, radBlast,
+    pointBullet, pointCoreBullet,
+    vesselBullet, basisBullet, stemBullet, yellowBlast, yellowPlasma, xylemFlame,
+    scrapMissile, sporeSkimmerBullet, siliconSkimmerBullet, methaneSpike,  ceramicChunk, radBlast,
     //funny bullets
     basicBullet;
     public static void load(){
@@ -87,7 +90,47 @@ public class IceBullets {
             lifetime = 20f;
             hitColor = backColor = IcePal.sporeMid;
             frontColor = IcePal.sporeLight;
-            collidesGround = true;
+            collideTerrain = true;
+        }};
+        xylemFlame = new BulletType(5f, 45f){{
+            hitSize = 7f;
+            lifetime = 15f;
+            pierce = true;
+            pierceBuilding = true;
+            pierceCap = 2;
+            statusDuration = 60f * 4;
+            shootEffect = IceFx.shootWoodFlame;
+            hitEffect = Fx.hitFlameSmall;
+            despawnEffect = Fx.none;
+            status = StatusEffects.burning;
+            collideTerrain = true;
+            keepVelocity = false;
+            hittable = false;
+        }};
+        scrapMissile = new MissileBulletType(5f, 10){{
+            smokeEffect = Fx.shootBigSmoke;
+            shootEffect = Fx.shootBigColor;
+            width = 6.5f;
+            height = 8f;
+            lifetime = 22f;
+            hitSize = 4f;
+            hitColor = backColor = trailColor = Pal.metalGrayDark;
+            frontColor = Color.white;
+            trailWidth = 1.9f;
+            homingDelay = 5;
+            trailLength = 7;
+            despawnEffect = hitEffect = Fx.hitBulletColor;
+            fragBullets = 5;
+            collideTerrain = true;
+            fragBullet = new ArtilleryBulletType(){{
+                damage = 0;
+                splashDamage = 5;
+                splashDamageRadius = 12;
+                speed = 3;
+                lifetime = 10;
+                width = 9f;
+                height = 9f;
+            }};
         }};
         sporeSkimmerBullet = new BasicBulletType(4, 30){{
             shootEffect = new MultiEffect(Fx.shootTitan, new WaveEffect(){{
@@ -250,7 +293,7 @@ public class IceBullets {
                 despawnEffect = Fx.none;
             }};
             fragBullets = 6;
-            collidesGround = true;
+            collideTerrain = true;
         }};
         radBlast = new BasicBulletType(6f, 30f){{
             sprite = "missile-large";
@@ -303,7 +346,7 @@ public class IceBullets {
 
             splashDamage = 0f;
             hitEffect = Fx.hitSquaresColor;
-            collidesGround = true;
+            collideTerrain = true;
         }};
 
         yellowBlast = new BasicBulletType(4f, 50){{
@@ -355,7 +398,7 @@ public class IceBullets {
             lightning = 3;
             lightningDamage = 8;
             lightningLength = 5;
-            collidesGround = true;
+            collideTerrain = true;
         }};
         basicBullet = new BasicBulletType(5, 50){{
             width = height = 7f;
