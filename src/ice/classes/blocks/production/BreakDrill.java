@@ -20,6 +20,7 @@ public class BreakDrill extends Drill {
     public Color colorLight = IcePal.thalliumMid;
     public boolean blockTeam, drawEngine, teamColorLight = false;
     public float engineSize, engineScale;
+    public float minHealth = 0.2f;
 
     public BreakDrill(String name) {
         super(name);
@@ -37,7 +38,7 @@ public class BreakDrill extends Drill {
             if (dominantItem == null) {
                 return;
             }
-            if (reloadTime <= 0) {
+            if (reloadTime <= 0 && health > maxHealth * minHealth) {
                 if (teamColorLight){
                     if (blockTeam){
                         Lightning.create(this.team,team.color,damageLight ,this.x, this.y, Mathf.random(0, 360), lengthLight);
@@ -52,6 +53,9 @@ public class BreakDrill extends Drill {
                     }
                 }
                 reloadTime = reload;
+            }
+            if (health < maxHealth * minHealth){
+                efficiency = efficiency / 2;
             }
 
             timeDrilled += warmup * delta();

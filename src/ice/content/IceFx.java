@@ -94,5 +94,41 @@ public class IceFx {
                 randLenVectors(e.id, 20, e.finpow() * 85f, e.rotation, 15f, (x, y) -> {
                     Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f);
                 });
+            }),
+    poloniumBlastExplosion = new Effect(30, e -> {
+        color(e.color, IcePal.poloniumDark, e.fin());
+
+        e.scaled(8, i -> {
+            stroke(3f * i.fout());
+            Lines.circle(e.x, e.y, 4f + i.fin() * 22f);
+        });
+
+        color(Color.gray);
+
+        randLenVectors(e.id, 5, 2f + 40f * e.finpow(), (x, y) -> {
+            Fill.circle(e.x + x, e.y + y, e.fout() * 5f + 0.5f);
+        });
+
+        color(IcePal.poloniumMid);
+        stroke(e.fout());
+
+        randLenVectors(e.id + 1, 4, 1f + 40f * e.finpow(), (x, y) -> {
+            lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 2f + e.fout() * 3f);
+        });
+
+        Drawf.light(e.x, e.y, 60f, IcePal.poloniumMid, 0.8f * e.fout());
+    }),
+            poloniumSteam = new Effect(140f, e -> {
+                color(IcePal.poloniumLightish, IcePal.poloniumMid, e.fin());
+
+                alpha(e.fslope() * 0.78f);
+
+                float length = 2.4f + e.finpow() * 10f;
+                rand.setSeed(e.id);
+                for(int i = 0; i < rand.random(3, 5); i++){
+                    v.trns(rand.random(360f), rand.random(length));
+                    Fill.circle(e.x + v.x, e.y + v.y, rand.random(1.2f, 2.7f) + e.fslope() * 1.1f);
+                    Drawf.light(e.x, e.y, 10f, IcePal.poloniumLight, 1f * e.fout());
+                }
             });
 }

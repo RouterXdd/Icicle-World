@@ -2,6 +2,7 @@ package ice;
 
 import arc.*;
 import arc.util.*;
+import ice.classes.graphic.IceEmojis;
 import ice.content.*;
 import ice.graphics.IceShaders;
 import mindustry.game.EventType.*;
@@ -21,7 +22,7 @@ public class IcicleMod extends Mod{
     }
     @Override
     public void init(){
-
+        IceEmojis.load();
     }
 
     @Override

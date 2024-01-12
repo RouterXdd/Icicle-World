@@ -1,7 +1,11 @@
 package ice.content;
 
 import arc.graphics.Color;
+import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
+import arc.math.Angles;
+import arc.math.Mathf;
+import ice.classes.entities.bullets.BoomerangBullet;
 import ice.graphics.IcePal;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
@@ -18,8 +22,8 @@ public class IceBullets {
     public static BulletType
     //main bullets
     pointBullet, pointCoreBullet,
-    vesselBullet, basisBullet, stemBullet, yellowBlast, yellowPlasma, xylemFlame,
-    scrapMissile, sporeSkimmerBullet, siliconSkimmerBullet, methaneSpike,  ceramicChunk, radBlast,
+    vesselBullet, basisBullet, stemBullet, yellowBlast, yellowPlasma, xylemFlame, ewerBullet, fundamentLightningBall,
+    scrapMissile, sporeSkimmerBullet, siliconSkimmerBullet, methaneSpike, ceramicChunk, radBlast, poloniumBlast, chargedBlast,
     //funny bullets
     basicBullet;
     public static void load(){
@@ -84,12 +88,31 @@ public class IceBullets {
             toColor = IcePal.thalliumMid;
             shootEffect = smokeEffect = Fx.shootBigColor;
         }};
-        stemBullet = new BasicBulletType(4f, 2.5f){{
+        stemBullet = new BasicBulletType(4f, 2f){{
             width = 4f;
             height = 9f;
             lifetime = 20f;
             hitColor = backColor = IcePal.sporeMid;
             frontColor = IcePal.sporeLight;
+            collideTerrain = true;
+        }};
+        ewerBullet = new BoomerangBullet(-8f, 40){{
+            width = 11f;
+            height = 21f;
+            hitSize = 7f;
+            shootEffect = new MultiEffect(Fx.shootBigColor, Fx.colorSparkBig);
+            smokeEffect = Fx.shootBigSmoke;
+            ammoMultiplier = 1;
+            reloadMultiplier = 1f;
+            lifetime = 30f;
+            pierceCap = 4;
+            pierce = true;
+            pierceBuilding = true;
+            hitColor = backColor = trailColor = Pal.metalGrayDark;
+            frontColor = Color.white;
+            trailWidth = 2.5f;
+            trailLength = 9;
+            hitEffect = despawnEffect = Fx.hitBulletColor;
             collideTerrain = true;
         }};
         xylemFlame = new BulletType(5f, 45f){{
@@ -106,6 +129,72 @@ public class IceBullets {
             collideTerrain = true;
             keepVelocity = false;
             hittable = false;
+        }};
+        fundamentLightningBall = new EmpBulletType(){{
+            float rad = 30f;
+
+            homingRange = 30;
+            homingPower = 0.6f;
+            homingDelay = 4;
+            scaleLife = false;
+            lightOpacity = 0.6f;
+            unitDamageScl = 0.8f;
+            timeIncrease = 1.88f;
+            timeDuration = 60f * 8f;
+            powerDamageScl = 1.8f;
+            damage = 50;
+            hitColor = lightColor = IcePal.thalliumLightish;
+            lightRadius = 50f;
+            shootEffect = IceFx.lightningThalliumShoot;
+            smokeEffect = Fx.shootBigSmoke2;
+            lifetime = 15f;
+            sprite = "circle-bullet";
+            backColor = IcePal.thalliumLightish;
+            frontColor = Color.white;
+            width = height = 9f;
+            shrinkY = 0f;
+            speed = 6f;
+            trailLength = 20;
+            trailWidth = 6f;
+            trailColor = IcePal.thalliumLightish;
+            trailInterval = 3f;
+            splashDamage = 30f;
+            splashDamageRadius = rad;
+            hitShake = 4f;
+            trailRotation = collideTerrain = true;
+            hitSound = Sounds.plasmaboom;
+
+            trailEffect = new Effect(12f, e -> {
+                color(IcePal.thalliumLightish);
+                for(int s : Mathf.signs){
+                    Drawf.tri(e.x, e.y, 4f, 30f * e.fslope(), e.rotation + 90f*s);
+                }
+            });
+
+            hitEffect = new Effect(50f, 100f, e -> {
+                e.scaled(7f, b -> {
+                    color(IcePal.thalliumLightish, b.fout());
+                    Fill.circle(e.x, e.y, rad);
+                });
+
+                color(IcePal.thalliumLightish);
+                stroke(e.fout() * 3f);
+                Lines.circle(e.x, e.y, rad);
+
+                int points = 6;
+                float offset = Mathf.randomSeed(e.id, 360f);
+                for(int i = 0; i < points; i++){
+                    float angle = i* 360f / points + offset;
+                    //for(int s : Mathf.zeroOne){
+                    Drawf.tri(e.x + Angles.trnsx(angle, rad), e.y + Angles.trnsy(angle, rad), 6f, 50f * e.fout(), angle/* + s*180f*/);
+                    //}
+                }
+
+                Fill.circle(e.x, e.y, 7f * e.fout());
+                color();
+                Fill.circle(e.x, e.y, 4f * e.fout());
+                Drawf.light(e.x, e.y, rad * 1.6f, IcePal.thalliumLightish, e.fout());
+            });
         }};
         scrapMissile = new MissileBulletType(5f, 10){{
             smokeEffect = Fx.shootBigSmoke;
@@ -346,6 +435,44 @@ public class IceBullets {
 
             splashDamage = 0f;
             hitEffect = Fx.hitSquaresColor;
+            collideTerrain = true;
+        }};
+        poloniumBlast = new ArtilleryBulletType(4f, 80){{
+            hitEffect = new MultiEffect(Fx.titanSmoke);
+            knockback = 0.8f;
+            hitColor = IcePal.poloniumLight;
+            lifetime = 80f;
+            width = height = 16f;
+            splashDamageRadius = 7f * 8f;
+            splashDamage = 90f;
+            status = IceStatuses.radiation;
+            statusDuration = 60f * 15f;
+            frontColor = IcePal.poloniumLight;
+            backColor = IcePal.poloniumMid;
+            makeFire = true;
+            trailEffect = IceFx.poloniumSteam;
+            trailChance = 0.8f;
+            ammoMultiplier = 4f;
+            collidesTiles = true;
+            collideTerrain = true;
+        }};
+        chargedBlast = new ArtilleryBulletType(4f, 120){{
+            hitEffect = new MultiEffect(Fx.titanSmoke);
+            knockback = 0.8f;
+            hitColor = IcePal.poloniumMid;
+            lifetime = 68f;
+            width = height = 16f;
+            splashDamageRadius = 10f * 8f;
+            splashDamage = 140f;
+            status = IceStatuses.radiation;
+            statusDuration = 60f * 28f;
+            frontColor = IcePal.poloniumMid;
+            backColor = IcePal.poloniumDark;
+            makeFire = true;
+            trailEffect = IceFx.poloniumSteam;
+            trailChance = 0.8f;
+            ammoMultiplier = 4f;
+            collidesTiles = true;
             collideTerrain = true;
         }};
 

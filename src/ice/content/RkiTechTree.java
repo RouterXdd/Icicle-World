@@ -6,7 +6,9 @@ import mindustry.game.Objectives.*;
 
 import static mindustry.content.TechTree.*;
 import static mindustry.content.Items.*;
+import static mindustry.content.Liquids.*;
 import static ice.content.IceItems.*;
+import static ice.content.IceLiquids.*;
 import static ice.content.IceBlocks.*;
 import static ice.content.IceUnitTypes.*;
 import static ice.content.IceSectors.*;
@@ -14,7 +16,7 @@ import static ice.content.IceSectors.*;
 public class RkiTechTree {
     public static void load(){
         IcePlanets.rki.techTree = nodeRoot("rki", coreAngry, false, () -> {
-            //items
+            //items/liquids
             nodeProduce(thallium, () -> {
                 nodeProduce(scrap, () -> {
                     nodeProduce(prinute, () -> {
@@ -23,6 +25,14 @@ public class RkiTechTree {
                         });
                         nodeProduce(soptin, () -> {
                             nodeProduce(polonium, () -> {
+                                nodeProduce(poloniumCharge, () -> {
+
+                                });
+                            });
+                            nodeProduce(methanum, () -> {
+                                nodeProduce(water, () -> {
+
+                                });
 
                             });
                         });
@@ -43,7 +53,9 @@ public class RkiTechTree {
             //distribution
             node(thalliumConveyor, () -> {
                 node(thalliumJunction, () -> {
+                    node(thalliumTunnel, Seq.with(new SectorComplete(primaryBase)),() -> {
 
+                    });
                 });
                 node(splitter, () -> {
 
@@ -58,11 +70,11 @@ public class RkiTechTree {
             //production
             node(protoDrill, () -> {
                 node(mechanicalCutter, () -> {
-                    node(laserCutter, () -> {
+                    node(laserCutter, Seq.with(new SectorComplete(primaryBase)),() -> {
 
                     });
                 });
-                node(advancedDrill, () -> {
+                node(advancedDrill, Seq.with(new SectorComplete(primaryBase)),() -> {
                     node(oreFinder, () -> {
 
                     });
@@ -126,9 +138,12 @@ public class RkiTechTree {
                 });
             });
             //crafting
-            node(prinuteMerger, () -> {
+            node(prinuteMerger, Seq.with(new OnSector(primaryBase)),() -> {
                 node(siliconDissembler, () -> {
                     node(metalIncubator, () -> {
+
+                    });
+                    node(distiller, () -> {
 
                     });
                 });
@@ -137,24 +152,29 @@ public class RkiTechTree {
 
             });
             //units
-            node(simpleConstructor, () -> {
-                node(vessel, () -> {
+            node(simpleConstructor, Seq.with(new OnSector(primaryBase)), () -> {
+                node(vessel, Seq.with(new OnSector(primaryBase)),() -> {
 
                 });
-                node(stem, () -> {
+                node(stem, Seq.with(new SectorComplete(primaryBase)),() -> {
                     node(xylem, Seq.with(new Research(forcedConstructor)),() -> {
 
                     });
                 });
-                node(basis, () -> {
+                node(basis, Seq.with(new SectorComplete(primaryBase)),() -> {
 
                 });
                 node(forcedConstructor, () -> {
 
                 });
             });
-            node(fallPoint, () -> {
+            node(coreHate, () -> {
 
+            });
+            node(fallPoint, () -> {
+                node(primaryBase, Seq.with(new OnSector(fallPoint)),() -> {
+
+                });
             });
         });
     }

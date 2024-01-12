@@ -662,13 +662,13 @@ public class RkiTrueGenerator extends PlanetGenerator {
 
     @Override
     public void postGenerate(Tiles tiles){
-        /*if(sector.hasEnemyBase()){
+        if(sector.hasEnemyBase()){
             basegen.postGenerate();
 
             //spawn air enemies
             if(spawner.countGroundSpawns() == 0){
                 state.rules.spawns = Waves.generate(sector.threat, new Rand(sector.id), state.rules.attackMode, true, false);
             }
-        }*/
+        }
     }
 }

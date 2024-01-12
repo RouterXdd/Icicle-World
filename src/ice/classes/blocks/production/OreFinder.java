@@ -87,6 +87,7 @@ public class OreFinder extends Block {
                 Lines.circle(x, y, range());
 
                 Draw.reset();
+                Draw.z(Layer.blockUnder);
                 locateOres(range());
             }
         }

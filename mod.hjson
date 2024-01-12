@@ -14,7 +14,7 @@ main: "ice.IcicleMod"
 description: "A Mod, who add underground planet gaming\nP.S.: This mod contain hard mechanics, so please read description of most blocks"
 
 #the mod version
-version: alpha 0.3
+version: alpha 0.35
 #the minimum game build required to run this mod
 minGameVersion: 146
 

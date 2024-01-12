@@ -5,7 +5,7 @@ import mindustry.graphics.Pal;
 import mindustry.type.StatusEffect;
 
 public class IceStatuses {
-    public static StatusEffect inSoot, positiveCharge, negativeCharge;
+    public static StatusEffect inSoot, positiveCharge, negativeCharge, radiation;
     public static void load(){
         inSoot = new StatusEffect("in-soot"){{
             color = IcePal.sootColor;
@@ -25,6 +25,11 @@ public class IceStatuses {
             dragMultiplier = 1.5f;
             buildSpeedMultiplier = 0.5f;
             damageMultiplier = 0.5f;
+        }};
+        radiation = new StatusEffect("radiation"){{
+            color = IcePal.poloniumLight;
+            speedMultiplier = 0.8f;
+            damage = 0.25f;
         }};
     }
 }
