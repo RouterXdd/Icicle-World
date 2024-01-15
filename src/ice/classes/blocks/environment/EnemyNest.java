@@ -2,27 +2,19 @@ package ice.classes.blocks.environment;
 
 import arc.Core;
 import arc.graphics.g2d.Draw;
-import arc.math.Mat;
 import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
-import arc.util.Nullable;
-import arc.util.Strings;
 import ice.IcicleVars;
 import ice.content.*;
 import mindustry.Vars;
-import mindustry.content.Blocks;
-import mindustry.content.Fx;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
-import mindustry.ui.Styles;
-import mindustry.world.Block;
 import mindustry.world.Tile;
-import mindustry.world.meta.BuildVisibility;
 
 import static mindustry.Vars.world;
 
-public class EnemyNest extends Block {
+public class EnemyNest extends EditorBlock {
     public float minInterval = 500;
     public float maxInterval = 700;
     public int startAmount = 3;
@@ -32,7 +24,6 @@ public class EnemyNest extends Block {
         health = 3000;
         solid = false;
         update = configurable = true;
-        buildVisibility = BuildVisibility.editorOnly;
         buildType = EnemyNestBuild::new;
         targetable = true;
         destructible = true;

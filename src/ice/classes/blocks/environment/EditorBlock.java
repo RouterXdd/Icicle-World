@@ -2,6 +2,7 @@ package ice.classes.blocks.environment;
 
 import mindustry.world.Block;
 import mindustry.world.Tile;
+import mindustry.world.meta.BuildVisibility;
 
 import static mindustry.Vars.state;
 
@@ -16,6 +17,7 @@ public class EditorBlock extends Block {
         targetable = false;
         destructible = false;
         drawTeamOverlay = false;
+        buildVisibility = BuildVisibility.sandboxOnly;
     }
     @Override
     public boolean canBreak(Tile tile){

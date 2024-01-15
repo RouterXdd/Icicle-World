@@ -103,7 +103,9 @@ public class RkiTechTree {
             //walls
             node(woodWall, () -> {
                 node(ceramicWall, () -> {
+                    node(aliveWall, () -> {
 
+                    });
                 });
             });
             //turrets
@@ -112,7 +114,9 @@ public class RkiTechTree {
                 node(clockwise, () -> {
                     node(skimmer, () -> {
                         node(shatter, () -> {
+                            node(burnout, () -> {
 
+                            });
                         });
                     });
                     //power
@@ -143,6 +147,9 @@ public class RkiTechTree {
                     node(metalIncubator, () -> {
 
                     });
+                    node(poloniumCrucible, () -> {
+
+                    });
                     node(distiller, () -> {
 
                     });
@@ -154,7 +161,9 @@ public class RkiTechTree {
             //units
             node(simpleConstructor, Seq.with(new OnSector(primaryBase)), () -> {
                 node(vessel, Seq.with(new OnSector(primaryBase)),() -> {
+                    node(ewer, Seq.with(new Research(forcedConstructor)),() -> {
 
+                    });
                 });
                 node(stem, Seq.with(new SectorComplete(primaryBase)),() -> {
                     node(xylem, Seq.with(new Research(forcedConstructor)),() -> {
@@ -162,7 +171,9 @@ public class RkiTechTree {
                     });
                 });
                 node(basis, Seq.with(new SectorComplete(primaryBase)),() -> {
+                    node(fundament, Seq.with(new Research(forcedConstructor)),() -> {
 
+                    });
                 });
                 node(forcedConstructor, () -> {
 

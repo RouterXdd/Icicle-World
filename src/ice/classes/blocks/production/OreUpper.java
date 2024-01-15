@@ -5,17 +5,22 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
+import arc.struct.ObjectFloatMap;
 import ice.classes.blocks.environment.UndergroundOre;
+import ice.classes.type.IceStats;
 import ice.content.IceBlocks;
+import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.gen.Building;
 import mindustry.graphics.Pal;
+import mindustry.type.Item;
 import mindustry.ui.Bar;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.meta.BlockGroup;
+import mindustry.world.meta.StatValues;
 
 import static mindustry.Vars.tilesize;
 import static mindustry.Vars.world;
@@ -28,6 +33,7 @@ public class OreUpper extends Block {
     public Color workColor = Color.white;
     public Color endColor = Pal.remove;
     public Effect drillEffect = Fx.mineBig;
+    public ObjectFloatMap<Item> drillMultipliers = new ObjectFloatMap<>();
     TextureRegion indicatorRegion;
     public OreUpper(String name) {
         super(name);
@@ -40,7 +46,7 @@ public class OreUpper extends Block {
         super.load();
         indicatorRegion = Core.atlas.find(this.name + "-indicator");
     }
-    @Override
+        @Override
     public void setBars(){
         super.setBars();
         addBar("drilling", (OreUpperBuild e) -> new Bar("bar.loadprogress", Pal.ammo, e::fraction));

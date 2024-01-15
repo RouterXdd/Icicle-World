@@ -30,9 +30,9 @@ public class IceUnitTypes {
     //wave (presets of construct units)
     vesselPoint,
         //executioners (Mini bosses)
-        yellow, purple,
+        yellow, purple, red, blue, green,
     //funny
-    basic, swarmling, reaver, giant;
+    basic, octo, swarmling, reaver, giant;
     public static void load(){
         malice = new RkiUnitType("malice"){{
             aiController = BuilderAI::new;
@@ -317,12 +317,12 @@ public class IceUnitTypes {
             constructor = MechUnit::create;
             weapons.add(new Weapon("icicle-world-xylem-weapon"){{
                 top = false;
-                reload = 10f;
+                reload = 8f;
                 rotate = false;
                 shootCone = 45;
                 mirror = true;
                 shootSound = Sounds.flame2;
-                x = 13f;
+                x = 15.75f;
                 y = 0f;
                 shootY = 4f;
 
@@ -463,6 +463,7 @@ public class IceUnitTypes {
             hitSize = 11f;
             drag = 1f;
             flying = true;
+            drawBody = false;
             range = 60f;
             constructor = UnitEntity::create;
             engineSize = 0;
@@ -485,8 +486,221 @@ public class IceUnitTypes {
                         shootSound = Sounds.blaster;
                         reload = 20f;
                         x = 0f;
-                        y = 4.5f;
+                        y = 5f;
                         shootY = 3;
+                        mirror = false;
+                        top = false;
+                        rotate = false;
+                        bullet = basicBullet;
+                        parts.add(new ShapePart(){{
+                                      progress = PartProgress.life;
+                                      color = Color.valueOf("5b5b5bff");
+                                      hollow = false;
+                                      sides = 4;
+                                      rotation = 45;
+                                      radius = 4f;
+                                  }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("5b5b5bff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 4f;
+                                    y = 2;
+                                }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("7e7e7eff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 2.8f;
+                                }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("7e7e7eff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 2.8f;
+                                    y = 2;
+                                }});
+                    }});
+        }};
+        octo = new UnitType("octo"){{
+            health = 1000;
+            speed = 7f;
+            hitSize = 11f;
+            drag = 1f;
+            flying = true;
+            drawBody = false;
+            range = 60f;
+            constructor = UnitEntity::create;
+            engineSize = 0;
+            parts.add(new ShapePart(){{
+                          progress = PartProgress.life;
+                          color = Color.valueOf("1d54a1");
+                          hollow = false;
+                          circle = true;
+                          radius = 6f;
+                      }},
+                    new ShapePart(){{
+                        progress = PartProgress.life;
+                        color = Color.valueOf("3873c5");
+                        hollow = false;
+                        radius = 4.8f;
+                        circle = true;
+                    }});
+            weapons.add(
+                    new Weapon("barrel"){{
+                        shootSound = Sounds.blaster;
+                        reload = 20f;
+                        x = 0f;
+                        y = 5f;
+                        shootCone = 360;
+                        shootY = 3;
+                        mirror = false;
+                        top = false;
+                        rotate = false;
+                        bullet = basicBullet;
+                        parts.add(new ShapePart(){{
+                                      progress = PartProgress.life;
+                                      color = Color.valueOf("5b5b5bff");
+                                      hollow = false;
+                                      sides = 4;
+                                      rotation = 45;
+                                      radius = 4f;
+                                  }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("5b5b5bff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 4f;
+                                    y = 2;
+                                }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("7e7e7eff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 2.8f;
+                                }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("7e7e7eff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 2.8f;
+                                    y = 2;
+                                }});
+                    }},
+                    new Weapon("barrel"){{
+                        shootSound = Sounds.blaster;
+                        reload = 20f;
+                        x = 0f;
+                        y = -5f;
+                        baseRotation = 180;
+                        shootCone = 360;
+                        shootY = 3;
+                        mirror = false;
+                        top = false;
+                        rotate = false;
+                        bullet = basicBullet;
+                        parts.add(new ShapePart(){{
+                                      progress = PartProgress.life;
+                                      color = Color.valueOf("5b5b5bff");
+                                      hollow = false;
+                                      sides = 4;
+                                      rotation = 45;
+                                      radius = 4f;
+                                  }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("5b5b5bff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 4f;
+                                    y = 2;
+                                }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("7e7e7eff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 2.8f;
+                                }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("7e7e7eff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 2.8f;
+                                    y = 2;
+                                }});
+                    }},
+                    new Weapon("barrel"){{
+                        shootSound = Sounds.blaster;
+                        reload = 20f;
+                        x = 5f;
+                        y = 0f;
+                        shootY = 3;
+                        shootCone = 360;
+                        baseRotation = -90;
+                        mirror = false;
+                        top = false;
+                        rotate = false;
+                        bullet = basicBullet;
+                        parts.add(new ShapePart(){{
+                                      progress = PartProgress.life;
+                                      color = Color.valueOf("5b5b5bff");
+                                      hollow = false;
+                                      sides = 4;
+                                      rotation = 45;
+                                      radius = 4f;
+                                  }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("5b5b5bff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 4f;
+                                    y = 2;
+                                }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("7e7e7eff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 2.8f;
+                                }},
+                                new ShapePart(){{
+                                    progress = PartProgress.life;
+                                    color = Color.valueOf("7e7e7eff");
+                                    hollow = false;
+                                    sides = 4;
+                                    rotation = 45;
+                                    radius = 2.8f;
+                                    y = 2;
+                                }});
+                    }},
+                    new Weapon("barrel"){{
+                        shootSound = Sounds.blaster;
+                        reload = 20f;
+                        x = -5f;
+                        y = 0f;
+                        shootY = 3;
+                        shootCone = 360;
+                        baseRotation = 90;
                         mirror = false;
                         top = false;
                         rotate = false;

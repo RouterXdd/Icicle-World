@@ -96,7 +96,7 @@ public class IceBullets {
             frontColor = IcePal.sporeLight;
             collideTerrain = true;
         }};
-        ewerBullet = new BoomerangBullet(-8f, 40){{
+        ewerBullet = new BasicBulletType(8f, 40){{
             width = 11f;
             height = 21f;
             hitSize = 7f;
@@ -104,7 +104,7 @@ public class IceBullets {
             smokeEffect = Fx.shootBigSmoke;
             ammoMultiplier = 1;
             reloadMultiplier = 1f;
-            lifetime = 30f;
+            lifetime = 18f;
             pierceCap = 4;
             pierce = true;
             pierceBuilding = true;

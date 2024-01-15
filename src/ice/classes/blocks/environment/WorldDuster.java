@@ -11,7 +11,7 @@ import mindustry.world.*;
 
 import static mindustry.Vars.*;
 
-public class WorldDuster extends Block {
+public class WorldDuster extends EditorBlock {
     public int displayRange = 16;
     public int minPos = -2;
     public int maxPos = 2;

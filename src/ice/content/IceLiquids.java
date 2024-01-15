@@ -23,6 +23,7 @@ public class IceLiquids {
             flammability = 0f;
             heatCapacity = 0f;
             boilPoint = 2f;
+            hidden = true;
             gasColor = Color.valueOf("5b080e").a(0.6f);
         }};
     }

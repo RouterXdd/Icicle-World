@@ -53,11 +53,11 @@ public class IceBlocks {
             //magnet cavern
             magnetRock, magnetChunk, magnetPositiveRock, magnetNegativeRock, positiveCrystal, negativeCrystal, magnetBoulder,
             //other
-            stoneLargeCrater, dustLargeCrater,
+            stoneLargeCrater, dustLargeCrater, rkiMetal, rkiMetalWall,
      //ores
     oreDust, oreThallium, oreSoptin, orePolonium, orePoloniumUnderground, oreThalliumUnderground,
     //crafting
-    prinuteMerger, siliconDissembler, distiller, metalIncubator,
+    prinuteMerger, siliconDissembler, distiller, metalIncubator, poloniumCrucible,
     //production
     protoDrill, advancedDrill, engineDrill, nuclearDrill, mechanicalCutter, laserCutter, oreFinder, methaneDigger,
     //distribution
@@ -91,7 +91,7 @@ public class IceBlocks {
             calamiteFloor.asFloor().wall = this;
         }};
         calamiteBoulder = new Prop("calamite-boulder"){{
-            variants = 1;
+            variants = 2;
             calamiteFloor.asFloor().decoration = this;
         }};
         dustFloor = new Floor("dust-stone");
@@ -165,6 +165,11 @@ public class IceBlocks {
             lightRadius = 26f;
             blendGroup = parent = dustFloor;
         }};
+        rkiMetal = new Floor("rki-metal", 0);
+        rkiMetalWall = new StaticWall("rki-metal-wall"){{
+            variants = 2;
+            rkiMetal.asFloor().wall = this;
+        }};
         dustCrusher = new WorldDuster("dust-crusher"){{
             requirements(Category.effect, BuildVisibility.sandboxOnly, with(thallium, 5));
         }};
@@ -198,7 +203,7 @@ public class IceBlocks {
             craftTime = 70f;
             size = 3;
             hasPower = true;
-            hasLiquids = false;
+            hasLiquids = squareSprite = false;
             itemCapacity = 30;
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawArcSmelt(){{
                 flameColor = IcePal.thalliumLight;
@@ -262,6 +267,30 @@ public class IceBlocks {
             consumeItems(with(scrap, 2, sporeWood, 4, prinute, 1));
             consumePower(2.8f);
         }};
+        poloniumCrucible = new GenericCrafter("polonium-crucible"){{
+            requirements(Category.crafting, with(thallium, 275, sporeWood, 190, silicon, 130, prinute, 110, polonium, 85));
+            craftEffect = Fx.none;
+            outputItems = with(poloniumCharge, 1);
+            craftTime = 150f;
+            size = 3;
+            hasPower = true;
+            hasLiquids = squareSprite = false;
+            itemCapacity = 12;
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(methanum, 2) ,new DrawArcSmelt(){{
+                flameColor = IcePal.poloniumLight;
+                midColor = IcePal.poloniumLightish;
+                circleSpace = 1.25f;
+                particleLen = 7f;
+                particleLife = 80f;
+            }}, new DrawDefault());
+            fogRadius = 3;
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.16f;
+
+            consumeItems(with(polonium, 3, prinute, 2));
+            consumeLiquid(methanum, 18f / 60f);
+            consumePower(8f);
+        }};
         protoDrill = new BreakDrill("proto-drill"){{
             requirements(Category.production, with(thallium, 20));
             health = 200;
@@ -271,6 +300,7 @@ public class IceBlocks {
             squareSprite = false;
             damageLight = 6;
             reload = 135;
+            minHealth = 0.26f;
 
             consumeLiquid(water, 0.05f).boost();
             researchCost = with(thallium, 25);
@@ -285,7 +315,7 @@ public class IceBlocks {
             damageLight = 5;
             lengthLight = 4;
             reload = 160;
-            minHealth = 0.25f;
+            minHealth = 0.32f;
 
             consumeLiquid(water, 0.05f).boost();
         }};
@@ -322,7 +352,7 @@ public class IceBlocks {
             consumePower(4f);
             minHealth = 0;
 
-            consumeLiquid(water, 0.15f).boost();
+            consumeLiquid(water, 0.125f).boost();
         }};
         mechanicalCutter = new NearMiner("mechanical-cutter"){{
             requirements(Category.production, with(thallium, 40));
@@ -794,8 +824,8 @@ public class IceBlocks {
             requirements(Category.units, with(thallium, 120, sporeWood, 75, prinute, 50));
             plans = Seq.with(
                     new UnitLeagcyPlan(vessel, 60f * 18, with(thallium, 25, prinute, 10)),
-                    new UnitLeagcyPlan(stem, 60f * 18, with(thallium, 15, prinute, 10, sporeWood, 20)),
-                    new UnitLeagcyPlan(basis, 60f * 21, with(thallium, 30, scrap, 15, prinute, 10))
+                    new UnitLeagcyPlan(stem, 60f * 19.5f, with(thallium, 15, prinute, 10, sporeWood, 20)),
+                    new UnitLeagcyPlan(basis, 60f * 21, with(thallium, 45, scrap, 20, prinute, 15))
             );
             size = 3;
             consumePower(1.8f);
@@ -806,7 +836,7 @@ public class IceBlocks {
             plans = Seq.with(
                     new UnitLeagcyPlan(ewer, 60f * 37, with(thallium, 145, prinute, 75, silicon, 90)),
                     new UnitLeagcyPlan(xylem, 60f * 54, with(thallium, 110, prinute, 60, livesteel, 70, silicon, 75)),
-                    new UnitLeagcyPlan(fundament, 60f * 60, with(thallium, 190, ceramic, 50, prinute, 80, silicon, 80))
+                    new UnitLeagcyPlan(fundament, 60f * 60, with(thallium, 190, ceramic, 60, prinute, 90, silicon, 110))
             );
             size = 5;
             consumeLiquid(methanum, 5f/ 60);

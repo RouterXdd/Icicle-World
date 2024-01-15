@@ -5,6 +5,7 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.*;
 import arc.util.*;
+import ice.classes.type.IceStats;
 import ice.graphics.IcePal;
 import mindustry.entities.*;
 import mindustry.game.Team;
@@ -25,6 +26,13 @@ public class BreakDrill extends Drill {
     public BreakDrill(String name) {
         super(name);
         update = true;
+    }
+    @Override
+    public void setStats() {
+        super.setStats();
+        if (minHealth > 0) {
+            stats.add(IceStats.minHealth, health * minHealth);
+        }
     }
 
     public class BreakDrillBuild extends DrillBuild {

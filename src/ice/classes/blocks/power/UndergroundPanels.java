@@ -11,6 +11,7 @@ public class UndergroundPanels extends ThermalGenerator {
     public float radius = 40f;
     public UndergroundPanels(String name) {
         super(name);
+        fogRadius = 1;
     }
     public class UndergroundPanelsBuild extends ThermalGeneratorBuild{
         @Override

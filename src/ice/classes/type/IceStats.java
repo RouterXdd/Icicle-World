@@ -10,9 +10,10 @@ public class IceStats implements Comparable<Stat>{
     public static final Seq<IceStats> allStats = new Seq<>();
 
     public static final Stat
+    underOres = new Stat("underores"),
     usePercent = new Stat("usePercent"),
     healPercent = new Stat("healPercent"),
-    weaponModules = new Stat("weaponModules", StatCat.function);
+    minHealth = new Stat("minhealth");
 
     public final StatCat category;
     public final String name;
