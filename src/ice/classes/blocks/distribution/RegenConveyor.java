@@ -1,6 +1,7 @@
 package ice.classes.blocks.distribution;
 
 import arc.math.Mathf;
+import arc.util.*;
 import mindustry.world.blocks.distribution.*;
 
 public class RegenConveyor extends Conveyor {
@@ -16,7 +17,7 @@ public class RegenConveyor extends Conveyor {
             minitem = 1f;
             mid = 0;
             if (damaged()){
-                heal(regenAmount);
+                heal(regenAmount*Time.delta);
             }
 
             //skip updates if possible
