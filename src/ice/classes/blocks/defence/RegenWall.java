@@ -1,7 +1,7 @@
 package ice.classes.blocks.defence;
 
 import mindustry.world.blocks.defense.Wall;
-
+import arc.util.*;
 public class RegenWall extends Wall {
     public float regenSpeed = 0.25f;
     public RegenWall(String name) {
@@ -13,7 +13,7 @@ public class RegenWall extends Wall {
         public void update(){
             boolean canHeal = !checkSuppression();
             if (damaged() && canHeal){
-                heal(regenSpeed);
+                heal(regenSpeed*Time.delta);
             }
         }
     }
