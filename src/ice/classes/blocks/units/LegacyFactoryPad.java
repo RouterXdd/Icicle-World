@@ -31,6 +31,7 @@ import mindustry.world.meta.Stat;
 public class LegacyFactoryPad extends Block {
     public int[] capacities = {};
     public TextureRegion topRegion;
+    public boolean drawTop = true;
     public Seq<UnitLeagcyPlan> plans = new Seq<>(4);
 
     public LegacyFactoryPad(String name) {
@@ -65,7 +66,11 @@ public class LegacyFactoryPad extends Block {
     }
     @Override
     public TextureRegion[] icons(){
-        return new TextureRegion[]{region, topRegion};
+        if (drawTop) {
+            return new TextureRegion[]{region, topRegion};
+        } else {
+            return new TextureRegion[]{region};
+        }
     }
     @Override
     public void load(){
@@ -244,8 +249,9 @@ public class LegacyFactoryPad extends Block {
                 UnitLeagcyPlan plan = plans.get(currentPlan);
                 Draw.draw(Layer.blockOver, () -> Drawf.construct(this, plan.unit, 0f, progress / plan.time, speedScl, time));
             }
-
-            Draw.rect(topRegion, x, y);
+            if (drawTop) {
+                Draw.rect(topRegion, x, y);
+            }
         }
 
         @Override

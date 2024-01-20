@@ -11,10 +11,10 @@ author: "R.O.T."
 main: "ice.IcicleMod"
 
 #the mod description as seen in the mod dialog
-description: "A Mod, who add underground planet gaming\nP.S.: This mod contain hard mechanics, so please read description of most blocks"
+description: "The underground nightmare is coming..."
 
 #the mod version
-version: alpha 0.4
+version: alpha 0.5
 #the minimum game build required to run this mod
 minGameVersion: 146
 

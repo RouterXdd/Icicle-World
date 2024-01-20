@@ -15,6 +15,7 @@ public class MonsterUnitType extends UnitType {
     public MonsterUnitType(String name){
         super(name);
         outlineColor = IcePal.monsterOutline;
+        createScorch = false;
         immunities.add(corroded);
         immunities.add(disarmed);
         immunities.add(radiation);

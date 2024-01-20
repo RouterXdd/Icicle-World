@@ -49,7 +49,7 @@ public class IceBlocks {
             //dust valley
             dustFloor, dustWall, dustSpit,
             //methane ocean
-            methaneFloor, thermalFloor, solidMethane, thermalBoulder,
+            methaneFloor, methaneFloorShallow, thermalFloor, solidMethane, thermalBoulder,
             //magnet cavern
             magnetRock, magnetChunk, magnetPositiveRock, magnetNegativeRock, positiveCrystal, negativeCrystal, magnetBoulder,
             //other
@@ -69,13 +69,13 @@ public class IceBlocks {
     //effect
     lamp,
     //power
-    oldNode, scrapSolar, siliconSolar, decomposer,
+    oldNode, armoredNode, recallNode, scrapSolar, siliconSolar, decomposer,
     //storage
     coreAngry, coreHate,
     //turrets
-    bail, clockwise, skimmer, perfection, shatter, demonCore, burnout,
+    bail, clockwise, skimmer, perfection, shatter, demonCore, burnout, discharge,
     //units
-    simpleConstructor, forcedConstructor, monsterNest
+    simpleConstructor, forcedConstructor, aquaConstructor, monsterNest
     ;
     public static void load(){
         undergroundTree = new TreeBlock("underground-tree"){{
@@ -111,6 +111,17 @@ public class IceBlocks {
             statusDuration = 120f;
             liquidDrop = methanum;
             isLiquid = true;
+            cacheLayer = CacheLayer.water;
+        }};
+        methaneFloorShallow = new Floor("methanum-floor-shallow"){{
+            speedMultiplier = 0.55f;
+            variants = 3;
+            status = StatusEffects.wet;
+            statusDuration = 120f;
+            liquidDrop = methanum;
+            liquidMultiplier = 0.75f;
+            isLiquid = true;
+            shallow = true;
             cacheLayer = CacheLayer.water;
         }};
         thermalFloor = new Floor("thermal-floor");
@@ -590,6 +601,31 @@ public class IceBlocks {
             consumePowerBuffered(5f);
             researchCost = with(thallium, 20, sporeWood, 20);
         }};
+        armoredNode = new AggressiveNode("armored-node"){{
+            requirements(Category.power, with(prinute, 8, silicon, 15));
+            consumesPower = outputsPower = true;
+            health = 470;
+            armor = 3;
+            range = 66;
+            size = 2;
+            laserRange = 7.5f;
+            maxNodes = 2;
+            fogRadius = 3;
+            laserColor2 = IcePal.thalliumLight;
+            consumePowerBuffered(50f);
+        }};
+        recallNode = new PowerNode("recall-node"){{
+            requirements(Category.power, with(silicon, 18, ceramic, 10));
+            consumesPower = outputsPower = true;
+            health = 220;
+            armor = 3;
+            size = 2;
+            laserRange = 9.5f;
+            maxNodes = 3;
+            fogRadius = 3;
+            laserColor2 = IcePal.thalliumLight;
+            consumePowerBuffered(20f);
+        }};
         scrapSolar = new UndergroundPanels("scrap-solar"){{
             requirements(Category.power, with(thallium, 25, scrap, 25));
             powerProduction = 0.5f;
@@ -820,6 +856,38 @@ public class IceBlocks {
             limitRange(0f);
             drawer = new DrawTurret("rik-");
         }};
+        discharge = new PowerTurret("discharge"){{
+            requirements(Category.turret, with(thallium, 430, sporeWood, 310, silicon, 390, prinute, 260, polonium, 190, denseAlloy, 110));
+
+            shootType = new RailBulletType(){{
+                length = 240f;
+                damage = 340f;
+                pierceArmor = true;
+                pierce = false;
+                lineEffect = IceFx.thalliumChainLightning;
+                hitEffect = IceFx.thalliumBlastExplosion;
+                collideTerrain = true;
+            }};
+            consumePower(9.7f);
+
+            inaccuracy = 8f;
+            outlineColor = IcePal.rkiOutline;
+            shootSound = Sounds.missileTrail;
+            heatColor = IcePal.thalliumLight;
+            shoot.shots = 4;
+            shoot.shotDelay = 15;
+            size = 4;
+            envEnabled |= Env.space;
+            reload = 175f;
+            shootY = -2.5f;
+            recoil = 3.8f;
+            range = 240;
+            shootCone = 70f;
+            scaledHealth = 195;
+            rotateSpeed = 4f;
+            drawer = new DrawTurret("rik-");
+            coolant = consumeCoolant(0.4f);
+        }};
         simpleConstructor = new LegacyFactoryPad("simple-constructor"){{
             requirements(Category.units, with(thallium, 120, sporeWood, 75, prinute, 50));
             plans = Seq.with(
@@ -841,6 +909,18 @@ public class IceBlocks {
             size = 5;
             consumeLiquid(methanum, 5f/ 60);
             consumePower(4.2f);
+        }};
+        aquaConstructor = new LegacyFactoryPad("aqua-constructor"){{
+            requirements(Category.units, with(thallium, 165, sporeWood, 90, prinute, 55, soptin, 70));
+            plans = Seq.with(
+                    new UnitLeagcyPlan(quant, 60f * 21, with(thallium, 28, prinute, 20, soptin, 15)),
+                    new UnitLeagcyPlan(sin, 60f * 24f, with(soptin, 20, prinute, 15))
+            );
+            size = 3;
+            floating = true;
+            drawTop = false;
+            consumePower(2.3f);
+            researchCost = with(thallium, 600, sporeWood, 300, prinute, 250, soptin, 350);
         }};
         monsterNest = new EnemyNest("monster-nest"){{
             requirements(Category.effect, with(thallium, 1000, scrap, 650));

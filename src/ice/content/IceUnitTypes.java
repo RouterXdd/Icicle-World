@@ -6,12 +6,15 @@ import arc.math.Mathf;
 import arc.math.geom.Rect;
 import ice.classes.entities.abilities.RepairPillAbility;
 import ice.classes.entities.types.*;
+import ice.classes.pattern.RandomShootSpread;
 import ice.graphics.IcePal;
 import mindustry.ai.UnitCommand;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
+import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.part.*;
+import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -27,6 +30,8 @@ public class IceUnitTypes {
     malice, charity,
     //construct W.I.P/ //I NOT GONNA DO THAT
     vessel, stem, basis, ewer, xylem, fundament,
+        //sub units
+    quant, sin, chronon, zen,
     //wave (presets of construct units)
     vesselPoint,
         //executioners (Mini bosses)
@@ -280,7 +285,7 @@ public class IceUnitTypes {
             accel = 0.11f;
             fogRadius = 11f;
             itemCapacity = 25;
-            health = 1960f;
+            health = 1760f;
             hitSize = 17f;
             constructor = LegsUnit::create;
             legLength = 17f;
@@ -312,7 +317,7 @@ public class IceUnitTypes {
             rotateSpeed = 7f;
             armor = 7;
             itemCapacity = 15;
-            health = 3720f;
+            health = 2920f;
             hitSize = 29f;
             constructor = MechUnit::create;
             weapons.add(new Weapon("icicle-world-xylem-weapon"){{
@@ -336,7 +341,7 @@ public class IceUnitTypes {
             treadPullOffset = 0;
             speed = 0.49f;
             rotateSpeed = 1.95f;
-            health = 4560;
+            health = 3860;
             armor = 14f;
             itemCapacity = 0;
             researchCostMultiplier = 0f;
@@ -361,6 +366,145 @@ public class IceUnitTypes {
                 cooldownTime = 40f;
 
                 bullet = fundamentLightningBall;
+            }});
+        }};
+        quant = new RkiUnitType("quant"){{
+            hovering = true;
+            shadowElevation = 0.1f;
+
+            drag = 0.07f;
+            speed = 1.65f;
+            rotateSpeed = 5f;
+            constructor = ElevationMoveUnit::create;
+
+            accel = 0.09f;
+            health = 340f;
+            armor = 2f;
+            hitSize = 13f;
+            engineOffset = 6f;
+            engineSize = 2.4f;
+            itemCapacity = 0;
+            useEngineElevation = false;
+            researchCostMultiplier = 0f;
+
+            abilities.add(new MoveEffectAbility(0f, -6f, Pal.sapBulletBack, Fx.missileTrailShort, 5.5f){{
+                teamColor = true;
+            }});
+
+                parts.add(new HoverPart(){{
+                    x = 0f;
+                    y = 0;
+                    mirror = true;
+                    radius = 9f;
+                    phase = 90f;
+                    stroke = 2f;
+                    layerOffset = -0.001f;
+                    color = IcePal.methaneMid;
+                }});
+
+            weapons.add(new Weapon("icicle-world-quant-weapon"){{
+                shootSound = Sounds.blaster;
+                y = 0f;
+                shootY = 3;
+                x = 0f;
+                top = true;
+                mirror = true;
+                reload = 55f;
+                shootCone = 80f;
+                recoil = 0;
+
+                shoot = new RandomShootSpread(2, 4, 9.5f, 12f);
+
+                bullet = new BasicBulletType(6f, 16){{
+                    width = 8f;
+                    height = 14.5f;
+                    lifetime = 22f;
+                    weaveRandom = true;
+                    weaveMag = 2.8f;
+                    weaveScale = 4.2f;
+                    recoil = 0.45f;
+                    shootEffect = Fx.sparkShoot;
+                    smokeEffect = Fx.shootBigSmoke;
+                    hitColor = backColor = trailColor = IcePal.methaneLight;
+                    frontColor = Color.white;
+                    trailWidth = 1.5f;
+                    trailLength = 5;
+                    collideTerrain = true;
+                    hitEffect = despawnEffect = Fx.hitBulletColor;
+                }};
+            }});
+        }};
+        sin = new RkiUnitType("sin"){{
+            speed = 0.95f;
+            drag = 0.16f;
+            hitSize = 13f;
+            health = 430;
+            accel = 0.45f;
+            range = 70;
+            rotateSpeed = 2.95f;
+            faceTarget = false;
+            constructor = UnitWaterMove::create;
+
+            armor = 3f;
+
+            weapons.add(new Weapon("icicle-world-sin-weapon"){{
+                reload = 20f;
+                x = 3.5f;
+                shootY = 2f;
+                y = -1f;
+                rotate = true;
+                ejectEffect = Fx.casing1;
+                bullet = new MissileBulletType(2.5f, 20){{
+                    keepVelocity = true;
+                    width = 5.5f;
+                    height = 9f;
+                    shrinkY = 0f;
+                    drag = -0.004f;
+                    homingRange = 55f;
+                    splashDamageRadius = 20f;
+                    splashDamage = 8f;
+                    lifetime = 50f;
+                    trailColor = Color.gray;
+                    backColor = Pal.bulletYellowBack;
+                    frontColor = Pal.bulletYellow;
+                    hitEffect = Fx.blastExplosion;
+                    despawnEffect = Fx.blastExplosion;
+                    weaveScale = 9f;
+                    weaveMag = 1.85f;
+                    collideTerrain = true;
+                }};
+            }});
+
+            weapons.add(new Weapon("icicle-world-sin-launcher"){{
+                mirror = false;
+                reload = 40f;
+                x = 0f;
+                y = -4.5f;
+                rotate = true;
+                ejectEffect = Fx.casing1;
+                shootSound = Sounds.missile;
+                bullet = new BasicBulletType(3.5f, 30, "circle-bullet"){{
+                    width = 8f;
+                    height = 8f;
+                    shrinkY = 0f;
+                    lifetime = 65f;
+                    trailColor = Color.gray;
+                    backColor = IcePal.methaneLight;
+                    frontColor = IcePal.methaneMid;
+                    hitEffect = Fx.colorSpark;
+                    despawnEffect = Fx.colorSpark;
+                    weaveScale = 8f;
+                    weaveMag = 2f;
+                    fragBullets = 3;
+                    collideTerrain = true;
+                    fragBullet = new ShrapnelBulletType(){{
+                        length = 20;
+                        damage = 10f;
+                        width = 8f;
+                        toColor = IcePal.methaneLight;
+                        shootEffect = smokeEffect = Fx.shootBigColor;
+                    }};
+                }};
             }});
         }};
         vesselPoint = new RkiUnitType("vessel-point"){{

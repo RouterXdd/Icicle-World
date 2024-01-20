@@ -95,7 +95,7 @@ public class IceFx {
                     Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f);
                 });
             }),
-    poloniumBlastExplosion = new Effect(30, e -> {
+    thalliumBlastExplosion = new Effect(30, e -> {
         color(e.color, IcePal.poloniumDark, e.fin());
 
         e.scaled(8, i -> {
@@ -109,7 +109,7 @@ public class IceFx {
             Fill.circle(e.x + x, e.y + y, e.fout() * 5f + 0.5f);
         });
 
-        color(IcePal.poloniumMid);
+        color(IcePal.thalliumLight);
         stroke(e.fout());
 
         randLenVectors(e.id + 1, 4, 1f + 40f * e.finpow(), (x, y) -> {
@@ -131,4 +131,42 @@ public class IceFx {
                     Drawf.light(e.x, e.y, 10f, IcePal.poloniumLight, 1f * e.fout());
                 }
             });
+    public static final Effect thalliumChainLightning = (new Effect(20.0F, 300.0F, (e) -> {
+        Object p$temp = e.data;
+        if (p$temp instanceof Position) {
+            Position p = (Position)p$temp;
+            float tx = p.getX();
+            float ty = p.getY();
+            float dst = Mathf.dst(e.x, e.y, tx, ty);
+            Tmp.v1.set(p).sub(e.x, e.y).nor();
+            float normx = Tmp.v1.x;
+            float normy = Tmp.v1.y;
+            float range = 6.0F;
+            int links = Mathf.ceil(dst / range);
+            float spacing = dst / (float)links;
+            Lines.stroke(2.5F * e.fout());
+            Draw.color(Color.white, e.color, e.fin());
+            Lines.beginLine();
+            Lines.linePoint(e.x, e.y);
+            rand.setSeed((long)e.id);
+
+            for(int i = 0; i < links; ++i) {
+                float nx;
+                float ny;
+                if (i == links - 1) {
+                    nx = tx;
+                    ny = ty;
+                } else {
+                    float len = (float)(i + 1) * spacing;
+                    Tmp.v1.setToRandomDirection(rand).scl(range / 2.0F);
+                    nx = e.x + normx * len + Tmp.v1.x;
+                    ny = e.y + normy * len + Tmp.v1.y;
+                }
+                Draw.color(IcePal.thalliumLightish);
+                Lines.linePoint(nx, ny);
+            }
+
+            Lines.endLine();
+        }
+    })).followParent(false).rotWithParent(false);
 }
