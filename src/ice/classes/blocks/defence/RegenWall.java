@@ -1,5 +1,6 @@
 package ice.classes.blocks.defence;
 
+import arc.util.Time;
 import mindustry.world.blocks.defense.Wall;
 
 public class RegenWall extends Wall {
@@ -13,7 +14,7 @@ public class RegenWall extends Wall {
         public void update(){
             boolean canHeal = !checkSuppression();
             if (damaged() && canHeal){
-                heal(regenSpeed);
+                heal(regenSpeed * Time.delta);
             }
         }
     }
