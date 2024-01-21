@@ -685,9 +685,6 @@ public class IceBlocks {
         }};
         coreHate = new CoreBlock("core-hate"){{
             requirements(Category.effect, with(thallium, 1360, sporeWood, 980, prinute, 640, silicon, 575));
-            alwaysUnlocked = true;
-
-            isFirstTier = true;
             unitType = charity;
             health = 2600;
             itemCapacity = 3400;

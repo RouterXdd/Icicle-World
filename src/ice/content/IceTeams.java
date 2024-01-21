@@ -5,10 +5,11 @@ import mindustry.game.Team;
 import mindustry.graphics.Pal;
 
 public class IceTeams {
-    public static Team genesis;
+    public static Team genesis, origin;
 
     public static void load() {
         genesis = newTeam(21, "genesis", Pal.logicControl);
+        origin = newTeam(22, "origin", Pal.darkerMetal);
     }
 
     //modify any of 256 teams' properties

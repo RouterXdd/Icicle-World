@@ -4,7 +4,7 @@ import mindustry.type.SectorPreset;
 
 public class IceSectors {
     public static SectorPreset
-    fallPoint, primaryBase
+    fallPoint, primaryBase, methanePurficate
             ;
     public static void load(){
         fallPoint = new SectorPreset("fall-point", IcePlanets.rki, 33){{
@@ -14,6 +14,9 @@ public class IceSectors {
         }};
         primaryBase = new SectorPreset("primary-base", IcePlanets.rki, 58){{
             difficulty = 2;
+        }};
+        methanePurficate = new SectorPreset("methane-purficate", IcePlanets.rki, 83){{
+            difficulty = 4;
         }};
     }
 }

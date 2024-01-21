@@ -121,18 +121,25 @@ public class RkiTechTree {
                     });
                     //power
                     node(demonCore, () -> {
+                        node(discharge, () -> {
 
+                        });
                     });
                 });
                 //liquid
-                node(perfection, () -> {
+                node(perfection, Seq.with(new SectorComplete(methanePurficate)),() -> {
 
                 });
             });
             //power
             node(scrapSolar, () -> {
                 node(oldNode, () -> {
+                    node(armoredNode, () -> {
 
+                    });
+                    node(recallNode, () -> {
+
+                    });
                 });
                 node(siliconSolar, () -> {
 
@@ -143,7 +150,7 @@ public class RkiTechTree {
             });
             //crafting
             node(prinuteMerger, Seq.with(new OnSector(primaryBase)),() -> {
-                node(siliconDissembler, () -> {
+                node(siliconDissembler, Seq.with(new SectorComplete(methanePurficate)),() -> {
                     node(metalIncubator, () -> {
 
                     });
@@ -178,13 +185,23 @@ public class RkiTechTree {
                 node(forcedConstructor, () -> {
 
                 });
+                node(aquaConstructor, Seq.with(new OnSector(methanePurficate)), () -> {
+                    node(quant, Seq.with(new OnSector(methanePurficate)),() -> {
+
+                    });
+                    node(sin, Seq.with(new OnSector(methanePurficate)),() -> {
+
+                    });
+                });
             });
             node(coreHate, () -> {
 
             });
             node(fallPoint, () -> {
-                node(primaryBase, Seq.with(new OnSector(fallPoint)),() -> {
+                node(primaryBase, Seq.with(new SectorComplete(fallPoint)),() -> {
+                    node(methanePurficate, Seq.with(new SectorComplete(primaryBase)),() -> {
 
+                    });
                 });
             });
         });
