@@ -231,7 +231,7 @@ public class IceUnitTypes {
             rotateSpeed = 12f;
             armor = 3;
             itemCapacity = 15;
-            health = 410f;
+            health = 360f;
             hitSize = 10f;
             constructor = MechUnit::create;
             weapons.add(new Weapon("icicle-world-stem-weapon"){{
@@ -255,8 +255,8 @@ public class IceUnitTypes {
             treadPullOffset = -3;
             speed = 0.75f;
             rotateSpeed = 3.5f;
-            health = 600;
-            armor = 8f;
+            health = 480;
+            armor = 6f;
             itemCapacity = 0;
             researchCostMultiplier = 0f;
             constructor = TankUnit::create;
