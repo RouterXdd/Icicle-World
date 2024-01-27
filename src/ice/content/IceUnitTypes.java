@@ -44,12 +44,12 @@ public class IceUnitTypes {
             defaultCommand = UnitCommand.rebuildCommand;
             isEnemy = false;
 
-            lowAltitude = true;
+            lowAltitude = false;
             mineSpeed = 5f;
             mineTier = 2;
             buildSpeed = 1f;
             drag = 0.06f;
-            speed = 2.5f;
+            speed = 2.3f;
             rotateSpeed = 15f;
             accel = 0.11f;
             fogRadius = 5f;
@@ -61,15 +61,15 @@ public class IceUnitTypes {
             legLength = 12f;
             hovering = true;
             lockLegBase = true;
-            legContinuousMove = true;
+            legContinuousMove = false;
             legExtension = -3f;
             legBaseOffset = 4f;
             legMaxLength = 1f;
             legMinLength = 0.2f;
             legLengthScl = 0.95f;
-            legForwardScl = 0.55f;
+            legForwardScl = 0.5f;
 
-            legMoveSpace = 1f;
+            legMoveSpace = 2f;
             groundLayer = Layer.legUnit - 1f;
 
             weapons.add(new Weapon("icicle-world-malice-gun"){{
@@ -119,12 +119,12 @@ public class IceUnitTypes {
             defaultCommand = UnitCommand.rebuildCommand;
             isEnemy = false;
 
-            lowAltitude = true;
+            lowAltitude = false;
             mineSpeed = 7.5f;
             mineTier = 3;
             buildSpeed = 1.6f;
             drag = 0.08f;
-            speed = 2.8f;
+            speed = 2.55f;
             rotateSpeed = 17f;
             accel = 0.13f;
             fogRadius = 5f;
@@ -136,7 +136,7 @@ public class IceUnitTypes {
             mineWalls = true;
             hovering = true;
             lockLegBase = true;
-            legContinuousMove = true;
+            legContinuousMove = false;
             legCount = 6;
             legExtension = -6.5f;
             legBaseOffset = 5f;
@@ -144,9 +144,9 @@ public class IceUnitTypes {
             legLength = 19f;
             legMinLength = 0.38f;
             legLengthScl = 1f;
-            legForwardScl = 0.6f;
+            legForwardScl = 0.75f;
 
-            legMoveSpace = 1f;
+            legMoveSpace = 1.8f;
             groundLayer = Layer.legUnit - 1f;
 
             weapons.add(new Weapon("icicle-world-malice-gun"){{

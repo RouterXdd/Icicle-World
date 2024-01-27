@@ -130,8 +130,44 @@ public class IceFx {
                     Fill.circle(e.x + v.x, e.y + v.y, rand.random(1.2f, 2.7f) + e.fslope() * 1.1f);
                     Drawf.light(e.x, e.y, 10f, IcePal.poloniumLight, 1f * e.fout());
                 }
+            }),
+    nuclearReactorExplosion = new Effect(30.0F, 500.0F, (b) -> {
+        float intensity = 7.5F;
+        float baseLifetime = 25.0F + intensity * 11.0F;
+        b.lifetime = 50.0F + intensity * 65.0F;
+        Draw.color(IcePal.poloniumMid);
+        Draw.alpha(0.7F);
+
+        for(int i = 0; i < 4; ++i) {
+            rand.setSeed((long)(b.id * 2 + i));
+            float lenScl = rand.random(0.4F, 1.0F);
+            b.scaled(b.lifetime * lenScl, (e) -> {
+                Angles.randLenVectors((long)(e.id + 3 - 1), e.fin(Interp.pow10Out), (int)(2.9F * intensity), 22.0F * intensity, (x, y, in, out) -> {
+                    float fout = e.fout(Interp.pow5Out) * rand.random(0.5F, 1.0F);
+                    float rad = fout * (2.0F + intensity) * 2.35F;
+                    Fill.circle(e.x + x, e.y + y, rad);
+                    Drawf.light(e.x + x, e.y + y, rad * 2.5F, IcePal.poloniumLightish, 0.5F);
+                });
             });
-    public static final Effect thalliumChainLightning = (new Effect(20.0F, 300.0F, (e) -> {
+        }
+
+        b.scaled(baseLifetime, (e) -> {
+            Draw.color();
+            e.scaled(5.0F + intensity * 2.0F, (i) -> {
+                Lines.stroke((3.1F + intensity / 5.0F) * i.fout());
+                Lines.circle(e.x, e.y, (3.0F + i.fin() * 14.0F) * intensity);
+                Drawf.light(e.x, e.y, i.fin() * 14.0F * 2.0F * intensity, Color.white, 0.9F * e.fout());
+            });
+            Draw.color(IcePal.poloniumLight, IcePal.poloniumMid, e.fin());
+            Lines.stroke(2.0F * e.fout());
+            Draw.z(110.001F);
+            Angles.randLenVectors((long)(e.id + 1), e.finpow() + 0.001F, (int)(8.0F * intensity), 28.0F * intensity, (x, y, in, out) -> {
+                Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 1.0F + out * 4.0F * (4.0F + intensity));
+                Drawf.light(e.x + x, e.y + y, out * 4.0F * (3.0F + intensity) * 3.5F, Draw.getColor(), 0.8F);
+            });
+        });
+    }),
+    thalliumChainLightning = new Effect(20.0F, 300.0F, (e) -> {
         Object p$temp = e.data;
         if (p$temp instanceof Position) {
             Position p = (Position)p$temp;
@@ -168,5 +204,5 @@ public class IceFx {
 
             Lines.endLine();
         }
-    })).followParent(false).rotWithParent(false);
+    }).followParent(false).rotWithParent(false);
 }

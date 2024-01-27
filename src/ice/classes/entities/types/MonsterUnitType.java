@@ -19,6 +19,7 @@ public class MonsterUnitType extends UnitType {
         immunities.add(corroded);
         immunities.add(disarmed);
         immunities.add(radiation);
+        immunities.add(rusting);
         abilities.add(new LiquidExplodeAbility(){{
             liquid = IceLiquids.blood;
             amount = bloodAmount;

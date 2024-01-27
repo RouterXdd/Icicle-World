@@ -33,7 +33,9 @@ public class RkiTechTree {
                                 nodeProduce(water, () -> {
 
                                 });
+                                nodeProduce(waste, () -> {
 
+                                });
                             });
                         });
                     });
@@ -145,7 +147,11 @@ public class RkiTechTree {
 
                 });
                 node(decomposer, () -> {
+                    node(methaneBurner, () -> {
+                        node(nuclearReactor, () -> {
 
+                        });
+                    });
                 });
             });
             //crafting
@@ -158,6 +164,9 @@ public class RkiTechTree {
 
                     });
                     node(distiller, () -> {
+
+                    });
+                    node(prinuteFabricator, () -> {
 
                     });
                 });

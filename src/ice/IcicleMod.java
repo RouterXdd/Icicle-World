@@ -28,6 +28,7 @@ public class IcicleMod extends Mod{
     @Override
     public void loadContent(){
         IceAttributes.load();
+        IceWeather.load();
         IceLogs.load();
         IceTeams.load();
         IceStatuses.load();
@@ -43,7 +44,7 @@ public class IcicleMod extends Mod{
     }
     void loadSettings(){
         ui.settings.addCategory(bundle.get("setting.icicle-world-title"), "icicle-world-settings-ui", t -> {
-            t.checkPref("icicle-world-debug", true);
+            t.checkPref("icicle-world-debug", false);
         });
     }
 }

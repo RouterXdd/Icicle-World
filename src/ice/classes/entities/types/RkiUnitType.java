@@ -1,8 +1,10 @@
 package ice.classes.entities.types;
 
 import arc.graphics.Color;
+import arc.graphics.g2d.TextureRegion;
 import ice.content.IceItems;
 import ice.graphics.IcePal;
+import mindustry.game.Team;
 import mindustry.type.UnitType;
 import mindustry.type.ammo.ItemAmmoType;
 

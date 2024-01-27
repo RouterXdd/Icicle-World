@@ -451,7 +451,7 @@ public class IceBullets {
             backColor = IcePal.poloniumMid;
             makeFire = true;
             trailEffect = IceFx.poloniumSteam;
-            trailChance = 0.8f;
+            trailChance = 0.35f;
             ammoMultiplier = 4f;
             collidesTiles = true;
             collideTerrain = true;
@@ -470,7 +470,7 @@ public class IceBullets {
             backColor = IcePal.poloniumDark;
             makeFire = true;
             trailEffect = IceFx.poloniumSteam;
-            trailChance = 0.8f;
+            trailChance = 0.35f;
             ammoMultiplier = 4f;
             collidesTiles = true;
             collideTerrain = true;

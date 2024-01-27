@@ -101,6 +101,7 @@ public class IceEmojis {
                 });
 
         IceTeams.genesis.emoji = Reflect.<ObjectMap<String, String>>get(Fonts.class, "stringIcons").get(IceTeams.genesis.name, "");
+        IceTeams.origin.emoji = Reflect.<ObjectMap<String, String>>get(Fonts.class, "stringIcons").get(IceTeams.origin.name, "");
     }
 
     public static class GenData {

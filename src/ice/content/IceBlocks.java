@@ -2,6 +2,7 @@ package ice.content;
 
 
 import arc.graphics.Color;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.struct.*;
 import ice.classes.blocks.defence.RegenWall;
@@ -16,6 +17,7 @@ import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.*;
+import mindustry.game.Team;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -28,6 +30,7 @@ import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.*;
+import mindustry.world.consumers.ConsumeItemRadioactive;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
@@ -43,7 +46,7 @@ public class IceBlocks {
     public static Block
     //environment
      //main
-    dustCrusher, dustSpreader, undergroundTree, destroyedMonsterNest,
+    dustCrusher, dustSpreader, undergroundTree, destroyedMonsterNest, ruinBlock,
             //calamite pikes
             calamiteFloor, calamiteWall, calamiteBoulder,
             //dust valley
@@ -57,7 +60,7 @@ public class IceBlocks {
      //ores
     oreDust, oreThallium, oreSoptin, orePolonium, orePoloniumUnderground, oreThalliumUnderground,
     //crafting
-    prinuteMerger, siliconDissembler, distiller, metalIncubator, poloniumCrucible,
+    prinuteMerger, prinuteFabricator, siliconDissembler, distiller, metalIncubator, poloniumCrucible,
     //production
     protoDrill, advancedDrill, engineDrill, nuclearDrill, mechanicalCutter, laserCutter, oreFinder, methaneDigger,
     //distribution
@@ -69,7 +72,7 @@ public class IceBlocks {
     //effect
     lamp,
     //power
-    oldNode, armoredNode, recallNode, scrapSolar, siliconSolar, decomposer,
+    oldNode, armoredNode, recallNode, scrapSolar, siliconSolar, decomposer, methaneBurner, nuclearReactor,
     //storage
     coreAngry, coreHate,
     //turrets
@@ -84,6 +87,15 @@ public class IceBlocks {
         destroyedMonsterNest = new EditorBlock("destroyed-monster-nest"){{
             size = 5;
             customShadow = true;
+        }};
+        ruinBlock = new EditorBlock("ruin-block"){{
+            buildVisibility = BuildVisibility.sandboxOnly;
+            health = 5500;
+            targetable = true;
+            destructible = true;
+            drawCracks = false;
+            solid = true;
+            forceDark = true;
         }};
         calamiteFloor = new Floor("calamite-floor", 2);
         calamiteWall = new StaticWall("calamite-wall"){{
@@ -206,6 +218,21 @@ public class IceBlocks {
 
             consumeItems(with(thallium, 2, scrap, 2));
             consumePower(1.5f);
+        }};
+        prinuteFabricator = new GenericCrafter("prinute-fabricator"){{
+            requirements(Category.crafting, with(thallium, 240, sporeWood, 175, silicon, 140, prinute, 80, soptin, 110));
+            craftEffect = Fx.smeltsmoke;
+            outputItem = new ItemStack(prinute, 3);
+            craftTime = 95f;
+            size = 3;
+            hasPower = true;
+            hasLiquids = false;
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(IcePal.thalliumLightish));
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.12f;
+
+            consumeItems(with(thallium, 4, scrap, 4, ceramic, 1));
+            consumePower(4.75f);
         }};
         siliconDissembler = new GenericCrafter("silicon-dissembler"){{
             requirements(Category.crafting, with(thallium, 210, sporeWood, 140, scrap, 110, prinute, 65));
@@ -417,6 +444,7 @@ public class IceBlocks {
         thalliumJunction = new Junction("thallium-junction"){{
             requirements(Category.distribution, with(thallium, 14, sporeWood, 4));
             researchCost = with(thallium, 30, sporeWood, 15);
+            squareSprite = false;
         }};
         splitter = new Splitter("splitter"){{
             requirements(Category.distribution, with(thallium, 10));
@@ -669,6 +697,43 @@ public class IceBlocks {
 
             drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion());
         }};
+        methaneBurner = new ConsumeGenerator("methane-burner"){{
+            requirements(Category.power, with(thallium, 140, prinute, 60, silicon, 75));
+            scaledHealth = 20f;
+            powerProduction = 8f;
+            itemDuration = 70f;
+            size = 3;
+
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.03f;
+            generateEffect = Fx.fuelburn;
+
+            consumeLiquid(methanum, 6f / 60f);
+            outputLiquid = new LiquidStack(waste, 1.5f / 60f);
+
+            drawer = new DrawMulti(new DrawDefault(), new DrawCrucibleFlame(){{
+                flameColor = IcePal.methaneMid;
+                midColor = IcePal.methaneLightish;
+                particleInterp = new Interp.PowIn(2f);
+                flameRadiusScl = 14f;
+            }},new DrawWarmupRegion());
+        }};
+        nuclearReactor = new RuinReactor("nuclear-reactor"){{
+            requirements(Category.power, with(thallium, 270, prinute, 170, silicon, 190, ceramic, 135, polonium, 98));
+            ambientSound = Sounds.hum;
+            ambientSoundVolume = 0.24f;
+            size = 4;
+            health = 700;
+            itemDuration = 380f;
+            powerProduction = 16f;
+            heating = 0.04f;
+            fuelItem = poloniumCharge;
+            lightColor = IcePal.poloniumLightish;
+            hotColor = IcePal.poloniumLight;
+            explodeEffect = IceFx.nuclearReactorExplosion;
+            consumeItem(poloniumCharge, 1);
+            consumeLiquid(water, heating / coolantPower).update(false);
+        }};
         coreAngry = new CoreBlock("core-angry"){{
             requirements(Category.effect, with(thallium, 860, sporeWood, 600));
             alwaysUnlocked = true;
@@ -682,7 +747,13 @@ public class IceBlocks {
 
             unitCapModifier = 5;
             drawTeamOverlay = false;
-        }};
+
+        }
+            @Override
+            public TextureRegion[] icons(){
+                return new TextureRegion[]{region,teamRegions[Team.sharded.id]};
+            }
+        };
         coreHate = new CoreBlock("core-hate"){{
             requirements(Category.effect, with(thallium, 1360, sporeWood, 980, prinute, 640, silicon, 575));
             unitType = charity;
@@ -693,7 +764,12 @@ public class IceBlocks {
 
             unitCapModifier = 15;
             drawTeamOverlay = false;
-        }};
+        }
+            @Override
+            public TextureRegion[] icons(){
+                return new TextureRegion[]{region,teamRegions[Team.sharded.id]};
+            }
+        };
         bail = new ItemTurret("bail"){{
             requirements(Category.turret, with(thallium, 90, sporeWood, 35, scrap, 40));
             ammo(
@@ -808,9 +884,9 @@ public class IceBlocks {
                 parts.addAll(
                         new RegionPart("-side"){{
                             heatProgress = PartProgress.warmup;
-                            x = 3;
+                            x = 2;
                             mirror = true;
-                            moveX = -3f;
+                            moveX = -2f;
                         }}
                 );
             }};
@@ -920,7 +996,7 @@ public class IceBlocks {
             researchCost = with(thallium, 600, sporeWood, 300, prinute, 250, soptin, 350);
         }};
         monsterNest = new EnemyNest("monster-nest"){{
-            requirements(Category.effect, with(thallium, 1000, scrap, 650));
+            requirements(Category.effect, BuildVisibility.sandboxOnly, with(thallium, 1000, scrap, 650));
             size = 5;
         }};
     }
