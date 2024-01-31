@@ -12,6 +12,7 @@ import static ice.content.IceLiquids.*;
 import static ice.content.IceBlocks.*;
 import static ice.content.IceUnitTypes.*;
 import static ice.content.IceSectors.*;
+import static ice.content.IceLogs.*;
 
 public class RkiTechTree {
     public static void load(){
@@ -66,7 +67,9 @@ public class RkiTechTree {
                     node(soptinRouter, () -> {
 
                     });
+                    node(soptinTunnel, () -> {
 
+                    });
                 });
             });
             //production
@@ -130,7 +133,9 @@ public class RkiTechTree {
                 });
                 //liquid
                 node(perfection, Seq.with(new SectorComplete(methanePurficate)),() -> {
+                    node(crypt, () -> {
 
+                    });
                 });
             });
             //power
@@ -156,7 +161,7 @@ public class RkiTechTree {
             });
             //crafting
             node(prinuteMerger, Seq.with(new OnSector(primaryBase)),() -> {
-                node(siliconDissembler, Seq.with(new SectorComplete(methanePurficate)),() -> {
+                node(siliconDissembler, Seq.with(new OnSector(purpleFortress)),() -> {
                     node(metalIncubator, () -> {
 
                     });
@@ -209,7 +214,11 @@ public class RkiTechTree {
             node(fallPoint, () -> {
                 node(primaryBase, Seq.with(new SectorComplete(fallPoint)),() -> {
                     node(methanePurficate, Seq.with(new SectorComplete(primaryBase)),() -> {
+                        node(purpleFortress, Seq.with(new SectorComplete(methanePurficate), new Research(perfection)),() -> {
+                            node(malis1, Seq.with(new OnSector(purpleFortress)),() -> {
 
+                            });
+                        });
                     });
                 });
             });

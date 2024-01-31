@@ -76,7 +76,7 @@ public class IceBlocks {
     //storage
     coreAngry, coreHate,
     //turrets
-    bail, clockwise, skimmer, perfection, shatter, demonCore, burnout, discharge,
+    bail, clockwise, skimmer, perfection, shatter, crypt, demonCore, burnout, discharge,
     //units
     simpleConstructor, forcedConstructor, aquaConstructor, monsterNest
     ;
@@ -874,6 +874,51 @@ public class IceBlocks {
             minRange = 30;
             limitRange(5);
             coolant = consumeCoolant(0.6f);
+        }};
+        crypt = new LiquidTurret("crypt"){{
+            requirements(Category.turret, with(thallium, 260, prinute, 110, silicon, 130, soptin, 90, ceramic, 75));
+            ammo(
+                    waste, new BasicBulletType(6, 55){{
+                        smokeEffect = Fx.shootBigSmoke;
+                        shootEffect = Fx.shootBigColor;
+                        width = 7f;
+                        height = 10.5f;
+                        lifetime = 30f;
+                        hitSize = 4f;
+                        hitColor = backColor = trailColor = IcePal.wasteLight;
+                        frontColor = Color.white;
+                        pierce = pierceBuilding = pierceArmor = true;
+                        pierceCap = 3;
+                        trailWidth = 2f;
+                        homingDelay = 8;
+                        homingPower = 0.5f;
+                        trailLength = 10;
+                        despawnEffect = hitEffect = Fx.hitBulletColor;
+                        status = IceStatuses.rusting;
+                        statusDuration = 90;
+                        collideTerrain = true;
+                    }}
+            );
+
+            outlineColor = IcePal.rkiOutline;
+            squareSprite = false;
+            reload = 60f;
+            range = 180f;
+            shootY = 0;
+            size = 3;
+            scaledHealth = 210;
+            shootSound = Sounds.pulseBlast;
+            drawer = new DrawTurret("rik-"){{
+                parts.addAll(
+                        new RegionPart("-side"){{
+                            heatProgress = PartProgress.reload;
+                            mirror = under = true;
+                            moveX = 1f;
+                            moveY = -1.5f;
+                            moveRot = -22;
+                        }}
+                );
+            }};
         }};
         demonCore = new PowerTurret("demon-core"){{
             requirements(Category.turret, with(thallium, 250, sporeWood, 160, silicon, 100, prinute, 120, polonium, 80));

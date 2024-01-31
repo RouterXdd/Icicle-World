@@ -1,27 +1,26 @@
 package ice.content;
 
 import arc.graphics.*;
-import arc.math.Interp;
 import arc.math.Mathf;
 import arc.math.geom.Rect;
+import arc.util.Tmp;
 import ice.classes.entities.abilities.RepairPillAbility;
 import ice.classes.entities.types.*;
 import ice.classes.pattern.RandomShootSpread;
 import ice.graphics.IcePal;
+import mindustry.Vars;
 import mindustry.ai.UnitCommand;
 import mindustry.ai.types.*;
 import mindustry.content.Fx;
 import mindustry.entities.abilities.MoveEffectAbility;
 import mindustry.entities.bullet.*;
 import mindustry.entities.part.*;
-import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.*;
-import mindustry.type.unit.MissileUnitType;
-import mindustry.type.unit.TankUnitType;
 import mindustry.type.weapons.*;
+import mindustry.world.meta.BlockFlag;
 
 import static ice.content.IceBullets.*;
 public class IceUnitTypes {
@@ -35,7 +34,7 @@ public class IceUnitTypes {
     //wave (presets of construct units)
     vesselPoint,
         //executioners (Mini bosses)
-        yellow, purple, red, blue, green,
+        yellow, purple, remnant, red, blue, green,
     //funny
     basic, octo, swarmling, reaver, giant;
     public static void load(){
@@ -600,6 +599,109 @@ public class IceUnitTypes {
 
                         bullet = yellowPlasma;
                     }});
+        }};
+        purple = new RkiTankUnitType("purple"){{
+            hitSize = 28f;
+            speed = 0.6f;
+            rotateSpeed = 1.75f;
+            health = 19500;
+            armor = 12f;
+            itemCapacity = 0;
+            constructor = TankUnit::create;
+            treadRects = new Rect[]{new Rect(38 - 70f, 14 - 62f, 12, 105)};
+            researchCostMultiplier = 0f;
+
+            weapons.add(new Weapon("icicle-world-purple-weapon"){{
+                shootSound = Sounds.dullExplosion;
+                layerOffset = 0.0001f;
+                reload = 110f;
+                shootY = 12f;
+                recoil = 3.5f;
+                rotate = true;
+                rotateSpeed = 1.55f;
+                mirror = false;
+                shootCone = 10f;
+                x = 0f;
+                y = 0f;
+                heatColor = IcePal.sporeLightish;
+                cooldownTime = 35f;
+                bullet = new BasicBulletType(7f, 180){{
+                    sprite = "missile-large";
+                    width = 9f;
+                    height = 17f;
+                    lifetime = 30f;
+                    hitSize = 8f;
+                    pierceCap = 4;
+                    pierce = true;
+                    collideTerrain = true;
+                    pierceBuilding = true;
+                    hitColor = backColor = trailColor = lightningColor = IcePal.sporeLight;
+                    frontColor = Color.white;
+                    trailWidth = 3f;
+                    trailLength = 8;
+                    hitEffect = despawnEffect = Fx.blastExplosion;
+                    shootEffect = Fx.shootTitan;
+                    smokeEffect = Fx.shootSmokeTitan;
+                    splashDamageRadius = 40f;
+                    splashDamage = 40f;
+                    lightningLength = 8;
+                    lightningDamage = 20;
+                    lightning = 4;
+
+                    trailEffect = Fx.hitSquaresColor;
+                    trailRotation = true;
+                    trailInterval = 3f;
+                }};
+            }});
+        }
+        public void killed(Unit unit) {
+                    Unit u = remnant.create(unit.team);
+                    u.set(unit.x, unit.y);
+                    u.rotation = Tmp.v1.angle();
+                    u.add();
+        }};
+        remnant = new RkiUnitType("remnant"){{
+            health = 1000;
+            speed = 1.2f;
+            accel = 0.08f;
+            drag = 0.016f;
+
+            flying = true;
+            hitSize = 10f;
+            targetAir = false;
+            engineSize = 0f;
+            faceTarget = false;
+            hittable = false;
+            targetable = false;
+            playerControllable = false;
+            createWreck = createScorch = false;
+            constructor = TimedKillUnit::create;
+            lifetime = 30 * 60;
+            armor = 5f;
+            itemCapacity = 0;
+            targetFlags = new BlockFlag[]{BlockFlag.turret, null};
+            circleTarget = true;
+
+            weapons.add(new Weapon(){{
+                x = 0f;
+                shootY = 0f;
+                reload = 40;
+                mirror = false;
+                shootCone = 180f;
+                ejectEffect = Fx.none;
+                shootSound = Sounds.lasershoot;
+                shoot.shots = 3;
+                shoot.shotDelay = 5;
+                bullet = new LaserBulletType(){{
+                    damage = 40f;
+                    recoil = 0f;
+                    sideAngle = 45f;
+                    sideWidth = 1.5f;
+                    sideLength = 80f;
+                    length = 170f;
+                    colors = new Color[]{Color.white.cpy().a(0.4f), Color.white, Color.white};
+                }};
+            }});
         }};
         basic = new UnitType("basic"){{
             health = 1000;
