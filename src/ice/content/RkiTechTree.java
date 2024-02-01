@@ -1,7 +1,6 @@
 package ice.content;
 
 import arc.struct.*;
-import mindustry.content.*;
 import mindustry.game.Objectives.*;
 
 import static mindustry.content.TechTree.*;
@@ -209,8 +208,12 @@ public class RkiTechTree {
                 });
             });
             node(coreHate, () -> {
-
+                node(coreFury, () -> {
+                    //node(censure);
+                });
+                node(charity);
             });
+            node(malice);
             node(fallPoint, () -> {
                 node(primaryBase, Seq.with(new SectorComplete(fallPoint)),() -> {
                     node(methanePurficate, Seq.with(new SectorComplete(primaryBase)),() -> {

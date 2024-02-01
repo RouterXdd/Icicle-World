@@ -15,6 +15,7 @@ import ice.graphics.IcePal;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.MultiEffect;
+import mindustry.entities.effect.ParticleEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.*;
 import mindustry.game.Team;
@@ -30,7 +31,6 @@ import mindustry.world.blocks.liquid.*;
 import mindustry.world.blocks.power.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.storage.*;
-import mindustry.world.consumers.ConsumeItemRadioactive;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
@@ -66,7 +66,7 @@ public class IceBlocks {
     //distribution
     thalliumConveyor, thalliumJunction, splitter, thalliumTunnel,
     //liquid
-    burstPump, soptinTube, soptinRouter, soptinTunnel,
+    burstPump, pulsePump, soptinTube, soptinRouter, soptinTunnel,
     //defence
     woodWall, ceramicWall, aliveWall, bleak, shine, flameDome,
     //effect
@@ -74,7 +74,7 @@ public class IceBlocks {
     //power
     oldNode, armoredNode, recallNode, scrapSolar, siliconSolar, decomposer, methaneBurner, nuclearReactor,
     //storage
-    coreAngry, coreHate,
+    coreAngry, coreHate, coreFury,
     //turrets
     bail, clockwise, skimmer, perfection, shatter, crypt, demonCore, burnout, discharge,
     //units
@@ -469,9 +469,45 @@ public class IceBlocks {
             size = 2;
             squareSprite = false;
         }};
+        //TODO effects
+        pulsePump = new BurstPump("pulse-pump"){{
+            requirements(Category.liquid, with(silicon, 85, ceramic, 68, soptin, 40));
+            pumpAmount = 1f;
+            reload = 265f;
+            consumePower(3f);
+            liquidCapacity = 200f;
+            hasPower = true;
+            size = 3;
+            squareSprite = false;
+            pumpEffect = new MultiEffect(
+                    new ParticleEffect(){{
+                        particles = 12;
+                        cone = 25;
+                        length = 30;
+                    }},
+                    new ParticleEffect(){{
+                        particles = 12;
+                        cone = 25;
+                        length = 30;
+                        baseRotation = 90;
+                    }},
+                    new ParticleEffect(){{
+                        particles = 12;
+                        cone = 25;
+                        length = 30;
+                        baseRotation = -90;
+                    }},
+                    new ParticleEffect(){{
+                        particles = 12;
+                        cone = 25;
+                        length = 30;
+                        baseRotation = 180;
+                    }});
+        }};
         soptinTube = new Conduit("soptin-tube"){{
             requirements(Category.liquid, with(soptin, 2));
             health = 50;
+            bridgeReplacement = soptinTunnel;
         }};
         soptinRouter = new LiquidRouter("soptin-router"){{
             requirements(Category.liquid, with(soptin, 5, sporeWood, 2));
@@ -763,6 +799,23 @@ public class IceBlocks {
             size = 3;
 
             unitCapModifier = 15;
+            drawTeamOverlay = false;
+        }
+            @Override
+            public TextureRegion[] icons(){
+                return new TextureRegion[]{region,teamRegions[Team.sharded.id]};
+            }
+        };
+        coreFury = new CoreBlock("core-fury"){{
+            requirements(Category.effect, with(thallium, 3250, sporeWood, 2600, prinute, 1900, silicon, 1300, polonium, 930));
+            unitType = charity;
+            health = 5600;
+            armor = 5;
+            itemCapacity = 7000;
+            squareSprite = false;
+            size = 4;
+
+            unitCapModifier = 30;
             drawTeamOverlay = false;
         }
             @Override

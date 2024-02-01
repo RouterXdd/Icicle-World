@@ -1,7 +1,12 @@
 package ice.classes.blocks.production;
 
+import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.util.Time;
+import ice.IcicleVars;
+import ice.graphics.IcePal;
+import mindustry.content.Fx;
+import mindustry.entities.Effect;
 import mindustry.graphics.Pal;
 import mindustry.ui.Bar;
 import mindustry.world.blocks.production.Pump;
@@ -9,13 +14,15 @@ import mindustry.world.blocks.production.Pump;
 public class BurstPump extends Pump {
     public float reload = 300;
     public int multiplier = 7;
+    public Effect pumpEffect = Fx.none;
+    public Color effectColor = IcePal.methaneLight;
     public BurstPump(String name) {
         super(name);
     }
     @Override
     public void setBars(){
         super.setBars();
-        addBar("escape", (BurstPumpBuild e) -> new Bar("bar.pump", Pal.ammo, e::fraction));
+            addBar("escape", (BurstPumpBuild e) -> new Bar("bar.pump", Pal.ammo, e::fraction));
     }
     public class BurstPumpBuild extends PumpBuild {
         float reloadProgress;
@@ -29,6 +36,7 @@ public class BurstPump extends Pump {
                 float maxPump = Math.min(liquidCapacity - liquids.get(liquidDrop), amount * pumpAmount * edelta());
                 if (reloadProgress > 1) {
                     liquids.add(liquidDrop, maxPump * multiplier);
+                    pumpEffect.at(x,y, effectColor);
                     reloadProgress = 0;
                 }
 

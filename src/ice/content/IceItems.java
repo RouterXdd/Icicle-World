@@ -55,6 +55,7 @@ public class IceItems {
             healthScaling = 1.8f;
             radioactivity = 2.4f;
             charge = 0.75f;
+            buildable = false;
         }};
         denseAlloy = new Item("dense-alloy", Color.valueOf("6c4054")){{
             hardness = 2;
