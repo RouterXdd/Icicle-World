@@ -2,4 +2,4 @@
 
 Java mod, who adds a ice planet with awful secret inside
 # Special
-Trello: https://trello.com/b/Mmpg4hp6/icicle-world-buried-in-ice
+Trello: https://trello.com/invite/b/Mmpg4hp6/ATTI62287b36d5a769ecdfbd3da72886abdf2705666A/icicle-world-buried-in-ice
