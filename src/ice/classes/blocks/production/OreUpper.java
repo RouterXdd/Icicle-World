@@ -17,13 +17,14 @@ import mindustry.gen.Building;
 import mindustry.graphics.Pal;
 import mindustry.type.Item;
 import mindustry.ui.Bar;
+import mindustry.ui.Styles;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.meta.BlockGroup;
+import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatValues;
 
-import static mindustry.Vars.tilesize;
-import static mindustry.Vars.world;
+import static mindustry.Vars.*;
 import static mindustry.content.Blocks.air;
 
 public class OreUpper extends Block {
@@ -45,6 +46,10 @@ public class OreUpper extends Block {
     public void load(){
         super.load();
         indicatorRegion = Core.atlas.find(this.name + "-indicator");
+    }
+    @Override
+    public void setStats(){
+        super.setStats();
     }
         @Override
     public void setBars(){

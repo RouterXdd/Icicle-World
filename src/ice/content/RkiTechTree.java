@@ -92,13 +92,17 @@ public class RkiTechTree {
                     });
                 });
                 node(burstPump, () -> {
+                    node(pulsePump, () -> {
 
+                    });
                 });
             });
             //support
             node(bleak, () -> {
                 node(shine, () -> {
+                    node(repairPylon, () -> {
 
+                    });
                 });
                 node(flameDome, () -> {
 

@@ -10,6 +10,7 @@ import arc.util.*;
 import ice.graphics.IcePal;
 import mindustry.entities.*;
 import mindustry.entities.abilities.*;
+import mindustry.entities.effect.ParticleEffect;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
@@ -204,5 +205,19 @@ public class IceFx {
 
             Lines.endLine();
         }
-    }).followParent(false).rotWithParent(false);
+    }).followParent(false).rotWithParent(false),
+    sporeRegen = new ParticleEffect(){{
+        particles = 8;
+        line = true;
+        colorFrom = IcePal.sporeLightish;
+        colorTo = IcePal.sporeMid;
+        lenTo = 0;
+        lenFrom = 4.5f;
+        cone = 360;
+        lifetime = 25;
+        interp = Interp.pow2Out;
+        sizeFrom = 2.4f;
+        lightColor = IcePal.sporeLightish;
+        lightScl = 3.2f;
+    }};
 }

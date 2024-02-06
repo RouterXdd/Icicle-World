@@ -6,6 +6,7 @@ import arc.math.geom.Rect;
 import arc.util.Tmp;
 import ice.classes.entities.abilities.RepairPillAbility;
 import ice.classes.entities.types.*;
+import ice.classes.pattern.RandomBurstShoot;
 import ice.classes.pattern.RandomShootSpread;
 import ice.graphics.IcePal;
 import mindustry.Vars;
@@ -27,7 +28,7 @@ public class IceUnitTypes {
     public static UnitType
     //core
     malice, charity,
-    //construct W.I.P/ //I NOT GONNA DO THAT
+    //construct //I AM NOT GOING TO DO THAT
     vessel, stem, basis, ewer, xylem, fundament,
         //sub units
     quant, sin, chronon, zen,
@@ -284,7 +285,7 @@ public class IceUnitTypes {
             accel = 0.11f;
             fogRadius = 11f;
             itemCapacity = 25;
-            health = 1760f;
+            health = 1360f;
             hitSize = 17f;
             constructor = LegsUnit::create;
             legLength = 17f;
@@ -303,7 +304,7 @@ public class IceUnitTypes {
                 shootCone = 40;
                 mirror = false;
                 x = 0f;
-                y = -2f;
+                y = 0f;
 
                 inaccuracy = 8f;
                 ejectEffect = Fx.casing2;
@@ -316,8 +317,8 @@ public class IceUnitTypes {
             rotateSpeed = 7f;
             armor = 7;
             itemCapacity = 15;
-            health = 2920f;
-            hitSize = 29f;
+            health = 2420f;
+            hitSize = 14f;
             constructor = MechUnit::create;
             weapons.add(new Weapon("icicle-world-xylem-weapon"){{
                 top = false;
@@ -326,9 +327,9 @@ public class IceUnitTypes {
                 shootCone = 45;
                 mirror = true;
                 shootSound = Sounds.flame2;
-                x = 15.75f;
-                y = 0f;
-                shootY = 4f;
+                x = 10f;
+                y = 1f;
+                shootY = 2f;
 
                 ejectEffect = Fx.none;
 
@@ -340,8 +341,8 @@ public class IceUnitTypes {
             treadPullOffset = 0;
             speed = 0.49f;
             rotateSpeed = 1.95f;
-            health = 3860;
-            armor = 14f;
+            health = 3260;
+            armor = 12f;
             itemCapacity = 0;
             researchCostMultiplier = 0f;
             constructor = TankUnit::create;
@@ -422,6 +423,72 @@ public class IceUnitTypes {
                     weaveMag = 2.8f;
                     weaveScale = 4.2f;
                     recoil = 0.45f;
+                    shootEffect = Fx.sparkShoot;
+                    smokeEffect = Fx.shootBigSmoke;
+                    hitColor = backColor = trailColor = IcePal.methaneLight;
+                    frontColor = Color.white;
+                    trailWidth = 1.5f;
+                    trailLength = 5;
+                    collideTerrain = true;
+                    hitEffect = despawnEffect = Fx.hitBulletColor;
+                }};
+            }});
+        }};
+        chronon = new RkiUnitType("chronon"){{
+            hovering = true;
+            shadowElevation = 0.1f;
+
+            drag = 0.07f;
+            speed = 1.48f;
+            rotateSpeed = 5f;
+            constructor = ElevationMoveUnit::create;
+
+            accel = 0.09f;
+            health = 1140f;
+            armor = 4f;
+            hitSize = 17f;
+            engineOffset = 8f;
+            engineSize = 3.6f;
+            itemCapacity = 0;
+            useEngineElevation = false;
+            researchCostMultiplier = 0f;
+            setEnginesMirror(new UnitEngine(5f, 0, 2.5f, 315f));
+
+            abilities.add(new MoveEffectAbility(0f, -8f, Pal.sapBulletBack, Fx.missileTrail, 4.8f){{
+                teamColor = true;
+            }});
+
+            parts.add(new HoverPart(){{
+                x = 0f;
+                y = 0;
+                mirror = true;
+                radius = 12f;
+                phase = 110f;
+                stroke = 2.5f;
+                layerOffset = -0.001f;
+                sides = 6;
+                color = IcePal.methaneMid;
+            }});
+
+            weapons.add(new Weapon("icicle-world-chronon-weapon"){{
+                shootSound = Sounds.blaster;
+                y = 0f;
+                shootY = 5;
+                shootX = 3.5f;
+                x = 0f;
+                top = true;
+                mirror = true;
+                alternate = false;
+                reload = 70f;
+                shootCone = 70f;
+                recoil = 0;
+                shoot = new RandomBurstShoot(3, 6, 2f, 4f);
+                shoot.shotDelay = 1;
+                bullet = new BasicBulletType(8f, 20){{
+                    width = 8.5f;
+                    height = 16f;
+                    lifetime = 18f;
+                    recoil = 0.2f;
                     shootEffect = Fx.sparkShoot;
                     smokeEffect = Fx.shootBigSmoke;
                     hitColor = backColor = trailColor = IcePal.methaneLight;

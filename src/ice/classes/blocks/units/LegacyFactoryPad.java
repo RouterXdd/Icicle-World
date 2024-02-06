@@ -286,7 +286,7 @@ public class LegacyFactoryPad extends Block {
                     progress %= 1f;
 
                     Unit unit = plan.unit.create(team);
-                    unit.set(x, y);
+                    unit.set(x + Mathf.random(-0.001f,0.001f), y + Mathf.random(-0.001f,0.001f));
                     unit.rotation = 90f;
                     unit.add();
                     if(commandPos != null && unit.isCommandable()){

@@ -5,6 +5,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.struct.*;
+import ice.classes.blocks.defence.Pylon;
 import ice.classes.blocks.defence.RegenWall;
 import ice.classes.blocks.distribution.*;
 import ice.classes.blocks.environment.*;
@@ -14,8 +15,7 @@ import ice.classes.blocks.units.LegacyFactoryPad;
 import ice.graphics.IcePal;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
-import mindustry.entities.effect.MultiEffect;
-import mindustry.entities.effect.ParticleEffect;
+import mindustry.entities.effect.*;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.pattern.*;
 import mindustry.game.Team;
@@ -60,7 +60,7 @@ public class IceBlocks {
      //ores
     oreDust, oreThallium, oreSoptin, orePolonium, orePoloniumUnderground, oreThalliumUnderground,
     //crafting
-    prinuteMerger, prinuteFabricator, siliconDissembler, distiller, metalIncubator, poloniumCrucible,
+    prinuteMerger, prinuteFabricator, siliconDissembler, distiller, metalIncubator, poloniumCrucible, denseStructurer,
     //production
     protoDrill, advancedDrill, engineDrill, nuclearDrill, mechanicalCutter, laserCutter, oreFinder, methaneDigger,
     //distribution
@@ -68,7 +68,7 @@ public class IceBlocks {
     //liquid
     burstPump, pulsePump, soptinTube, soptinRouter, soptinTunnel,
     //defence
-    woodWall, ceramicWall, aliveWall, bleak, shine, flameDome,
+    woodWall, ceramicWall, aliveWall, bleak, shine, repairPylon, flameDome,
     //effect
     lamp,
     //power
@@ -329,6 +329,33 @@ public class IceBlocks {
             consumeLiquid(methanum, 18f / 60f);
             consumePower(8f);
         }};
+        denseStructurer = new GenericCrafter("dense-structurer"){{
+            requirements(Category.crafting, with(thallium, 260, sporeWood, 165, silicon, 140, prinute, 115));
+            scaledHealth = 30;
+            craftEffect = Fx.none;
+            outputItem = new ItemStack(denseAlloy, 1);
+            craftTime = 60f * 2.95f;
+            size = 4;
+            itemCapacity = 20;
+            hasPower = hasItems = true;
+            drawer = new DrawMulti(new DrawDefault(), new DrawCrucibleFlame(){{
+                flameColor = IcePal.wasteMid;
+                midColor = IcePal.wasteLight;
+                flameRad = 4;
+                circleSpace = 5.5f;
+                particleInterp = new Interp.PowIn(2.3f);
+                flameRadiusScl = 15f;
+                particles = 45;
+                particleRad = 10;
+            }},new DrawFlame(IcePal.wasteLightish){{
+                lightRadius = 90f;
+            }});
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.18f;
+
+            consumeItems(with(scrap, 4, sporeWood, 3, prinute, 2, thallium, 4, polonium, 2));
+            consumePower(6.8f);
+        }};
         protoDrill = new BreakDrill("proto-drill"){{
             requirements(Category.production, with(thallium, 20));
             health = 200;
@@ -534,6 +561,7 @@ public class IceBlocks {
             requirements(Category.defense, with(prinute, 2, livesteel, 6));
             health = 155 * 4;
             envDisabled |= Env.scorching;
+            regenEffect = IceFx.sporeRegen;
         }};
         bleak = new PowerTurret("bleak"){{
             requirements(Category.effect, with(thallium, 100, sporeWood, 70));
@@ -608,6 +636,20 @@ public class IceBlocks {
             shootSound = Sounds.spark;
             consumePower(4.5f);
             coolant = consumeCoolant(0.2f);
+        }};
+        repairPylon = new Pylon("repair-pylon"){{
+            requirements(Category.effect, with(thallium, 330, prinute, 145, silicon, 110, polonium, 75));
+            consumePower(5.3f);
+            size = 3;
+            reload = 190f;
+            range = 85f;
+            healAmount = 40f;
+            phaseBoost = 30f;
+            useTime = 900;
+            scaledHealth = 110;
+            squareSprite = false;
+            baseColor = phaseColor = IcePal.thalliumLight;
+            consumeItem(poloniumCharge).boost();
         }};
         flameDome = new PowerTurret("flame-dome"){{
             requirements(Category.effect, with(thallium, 140, sporeWood, 90, prinute, 75, soptin, 55));
