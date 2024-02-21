@@ -444,7 +444,7 @@ public class IceBullets {
             lifetime = 80f;
             width = height = 16f;
             splashDamageRadius = 7f * 8f;
-            splashDamage = 90f;
+            splashDamage = 70f;
             status = IceStatuses.radiation;
             statusDuration = 60f * 15f;
             frontColor = IcePal.poloniumLight;
@@ -463,7 +463,7 @@ public class IceBullets {
             lifetime = 68f;
             width = height = 16f;
             splashDamageRadius = 10f * 8f;
-            splashDamage = 140f;
+            splashDamage = 110f;
             status = IceStatuses.radiation;
             statusDuration = 60f * 28f;
             frontColor = IcePal.poloniumMid;

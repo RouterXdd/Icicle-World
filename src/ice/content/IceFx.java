@@ -206,6 +206,20 @@ public class IceFx {
             Lines.endLine();
         }
     }).followParent(false).rotWithParent(false),
+            regenSuppressSootSeek = new Effect(140f, e -> {
+                e.lifetime = Mathf.randomSeed(e.id, 120f, 200f);
+
+                if(!(e.data instanceof Position to)) return;
+
+                Tmp.v2.set(to).sub(e.x, e.y).nor().rotate90(1).scl(Mathf.randomSeedRange(e.id, 1f) * 50f);
+
+                Tmp.bz2.set(Tmp.v1.set(e.x, e.y), Tmp.v2.add(e.x, e.y), Tmp.v3.set(to));
+
+                Tmp.bz2.valueAt(Tmp.v4, e.fout());
+
+                color(IcePal.sootSuppressParticleColor);
+                Fill.poly(Tmp.v4.x, Tmp.v4.y, 6, e.fslope() * 2f + 0.1f, Time.time * 1.4f);
+            }).followParent(false).rotWithParent(false),
     sporeRegen = new ParticleEffect(){{
         particles = 8;
         line = true;

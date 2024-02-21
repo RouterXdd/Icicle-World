@@ -20,92 +20,62 @@ public class RkiTechTree {
             nodeProduce(thallium, () -> {
                 nodeProduce(scrap, () -> {
                     nodeProduce(prinute, () -> {
-                        nodeProduce(livesteel, () -> {
-
-                        });
+                        nodeProduce(livesteel, () -> {});
                         nodeProduce(soptin, () -> {
                             nodeProduce(polonium, () -> {
-                                nodeProduce(poloniumCharge, () -> {
-
-                                });
+                                nodeProduce(poloniumCharge, () -> {});
                             });
                             nodeProduce(methanum, () -> {
-                                nodeProduce(water, () -> {
-
-                                });
-                                nodeProduce(waste, () -> {
-
-                                });
+                                nodeProduce(water, () -> {});
+                                nodeProduce(waste, () -> {});
                             });
                         });
                     });
                 });
                 nodeProduce(ceramicalDust, () -> {
-                    nodeProduce(silicon, () -> {
-
-                    });
+                    nodeProduce(silicon, () -> {});
                     nodeProduce(ceramic, () -> {
-
+                        nodeProduce(chalkStone, () -> {});
                     });
                 });
-                nodeProduce(sporeWood, () -> {
-
-                });
+                nodeProduce(sporeWood, () -> {});
             });
             //distribution
             node(thalliumConveyor, () -> {
                 node(thalliumJunction, () -> {
-                    node(thalliumTunnel, Seq.with(new SectorComplete(primaryBase)),() -> {
-
-                    });
+                    node(thalliumTunnel, Seq.with(new SectorComplete(primaryBase)),() -> {});
                 });
-                node(splitter, () -> {
-
-                });
+                node(splitter);
                 node(soptinTube, () -> {
-                    node(soptinRouter, () -> {
-
-                    });
-                    node(soptinTunnel, () -> {
-
-                    });
+                    node(soptinRouter);
+                    node(soptinTunnel);
                 });
             });
             //production
             node(protoDrill, () -> {
                 node(mechanicalCutter, () -> {
-                    node(laserCutter, Seq.with(new SectorComplete(primaryBase)),() -> {
-
-                    });
+                    node(laserCutter, Seq.with(new SectorComplete(primaryBase)),() -> {});
                 });
                 node(advancedDrill, Seq.with(new SectorComplete(primaryBase)),() -> {
-                    node(oreFinder, () -> {
-
-                    });
-                    node(methaneDigger, () -> {
-
-                    });
-                    node(engineDrill, () -> {
-                        node(nuclearDrill, () -> {
-
-                        });
+                    node(oreFinder);
+                    node(methaneDigger);
+                    node(engineDrill, Seq.with(new OnSector(trinityCollumn)),() -> {
+                        node(nuclearDrill);
                     });
                 });
                 node(burstPump, () -> {
-                    node(pulsePump, () -> {
+                    node(pulsePump, Seq.with(new OnSector(trinityCollumn)), () -> {
 
                     });
                 });
             });
             //support
             node(bleak, () -> {
-                node(shine, () -> {
-                    node(repairPylon, () -> {
-
-                    });
+                node(shine, Seq.with(new SectorComplete(trinityCollumn)),() -> {
+                    node(repairPylon);
                 });
-                node(flameDome, () -> {
-
+                node(flameDome,Seq.with(new OnSector(methanePurficate)),() -> {
+                    node(forceDome);
                 });
             });
             //walls
@@ -123,7 +93,9 @@ public class RkiTechTree {
                     node(skimmer, () -> {
                         node(shatter, () -> {
                             node(burnout, () -> {
+                                node(calamity, () -> {
 
+                                });
                             });
                         });
                     });
@@ -144,10 +116,10 @@ public class RkiTechTree {
             //power
             node(scrapSolar, () -> {
                 node(oldNode, () -> {
-                    node(armoredNode, () -> {
+                    node(armoredNode, Seq.with(new OnSector(trinityCollumn)),() -> {
 
                     });
-                    node(recallNode, () -> {
+                    node(recallNode, Seq.with(new OnSector(trinityCollumn)),() -> {
 
                     });
                 });
@@ -155,7 +127,7 @@ public class RkiTechTree {
 
                 });
                 node(decomposer, () -> {
-                    node(methaneBurner, () -> {
+                    node(methaneBurner, Seq.with(new OnSector(trinityCollumn)),() -> {
                         node(nuclearReactor, () -> {
 
                         });
@@ -165,18 +137,13 @@ public class RkiTechTree {
             //crafting
             node(prinuteMerger, Seq.with(new OnSector(primaryBase)),() -> {
                 node(siliconDissembler, Seq.with(new OnSector(purpleFortress)),() -> {
+                    node(quarry);
                     node(metalIncubator, () -> {
-
+                        node(poloniumCrucible);
+                        node(denseStructurer);
                     });
-                    node(poloniumCrucible, () -> {
-
-                    });
-                    node(distiller, () -> {
-
-                    });
-                    node(prinuteFabricator, () -> {
-
-                    });
+                    node(distiller);
+                    node(prinuteFabricator);
                 });
             });
             node(lamp, () -> {
@@ -186,7 +153,7 @@ public class RkiTechTree {
             node(simpleConstructor, Seq.with(new OnSector(primaryBase)), () -> {
                 node(vessel, Seq.with(new OnSector(primaryBase)),() -> {
                     node(ewer, Seq.with(new Research(forcedConstructor)),() -> {
-
+                        node(decanter, Seq.with(new Research(coreFury)),() -> {});
                     });
                 });
                 node(stem, Seq.with(new SectorComplete(primaryBase)),() -> {
@@ -211,7 +178,7 @@ public class RkiTechTree {
                     });
                 });
             });
-            node(coreHate, () -> {
+            node(coreHate, Seq.with(new SectorComplete(trinityCollumn)),() -> {
                 node(coreFury, () -> {
                     //node(censure);
                 });
@@ -222,7 +189,8 @@ public class RkiTechTree {
                 node(primaryBase, Seq.with(new SectorComplete(fallPoint)),() -> {
                     node(methanePurficate, Seq.with(new SectorComplete(primaryBase)),() -> {
                         node(purpleFortress, Seq.with(new SectorComplete(methanePurficate), new Research(perfection)),() -> {
-                            node(malis1, Seq.with(new OnSector(purpleFortress)),() -> {
+                            node(malis1, Seq.with(new OnSector(purpleFortress)),() -> {});
+                            node(trinityCollumn, Seq.with(new SectorComplete(purpleFortress)),() -> {
 
                             });
                         });

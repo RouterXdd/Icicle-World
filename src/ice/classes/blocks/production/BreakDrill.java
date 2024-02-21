@@ -22,6 +22,8 @@ public class BreakDrill extends Drill {
     public boolean blockTeam, drawEngine, teamColorLight = false;
     public float engineSize, engineScale;
     public float minHealth = 0.2f;
+    public float efficiencyCut = 2;
+    public float limitRegen = 0.02f;
 
     public BreakDrill(String name) {
         super(name);
@@ -63,7 +65,8 @@ public class BreakDrill extends Drill {
                 reloadTime = reload;
             }
             if (health < maxHealth * minHealth){
-                efficiency = efficiency / 2;
+                efficiency = efficiency / efficiencyCut;
+                heal(limitRegen * Time.delta);
             }
 
             timeDrilled += warmup * delta();

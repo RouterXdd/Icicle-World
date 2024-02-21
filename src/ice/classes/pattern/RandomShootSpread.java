@@ -17,8 +17,7 @@ public class RandomShootSpread extends ShootPattern{
         this.maxSpread = maxSpread;
     }
 
-    public RandomShootSpread() {
-    }
+    public RandomShootSpread(){}
 
     public void shoot(int totalShots, ShootPattern.BulletHandler handler, @Nullable Runnable barrelIncrementer) {
         for(int i = 0; i < Mathf.random(minShots, maxShots); ++i) {

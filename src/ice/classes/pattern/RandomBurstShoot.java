@@ -17,8 +17,7 @@ public class RandomBurstShoot extends ShootPattern {
         this.maxDelay = maxDelay;
     }
 
-    public RandomBurstShoot() {
-    }
+    public RandomBurstShoot(){}
 
     public void shoot(int totalShots, ShootPattern.BulletHandler handler, @Nullable Runnable barrelIncrementer) {
         for(int i = 0; i < Mathf.random(minShots, maxShots); ++i) {

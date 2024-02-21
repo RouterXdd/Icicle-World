@@ -323,6 +323,9 @@ public class RkiTrueGenerator extends PlanetGenerator {
         if(Simplex.noise3d(seed, 2, 0.5, scl, sector.tile.v.x + 1, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.5f*addscl){
             ores.add(oreSoptin);
         }
+        if(Simplex.noise3d(seed, 2, 0.5, scl, sector.tile.v.x + 2, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.65f*addscl){
+            ores.add(oreChalkUnderground);
+        }
 
         if(Simplex.noise3d(seed, 2, 0.5, scl, sector.tile.v.x + 2, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.7f*addscl){
             ores.add(orePoloniumUnderground);
@@ -616,7 +619,7 @@ public class RkiTrueGenerator extends PlanetGenerator {
         state.rules.coreDestroyClear = true;
 
         //spawn air only when spawn is blocked
-        state.rules.spawns = Waves.generate(difficulty, new Rand(sector.id), state.rules.attackMode, state.rules.attackMode && spawner.countGroundSpawns() == 0, false);
+        state.rules.spawns = RkiWaves.generate(difficulty, new Rand(sector.id), state.rules.attackMode);
     }
 
     @Override
@@ -626,7 +629,7 @@ public class RkiTrueGenerator extends PlanetGenerator {
 
             //spawn air enemies
             if(spawner.countGroundSpawns() == 0){
-                state.rules.spawns = Waves.generate(sector.threat, new Rand(sector.id), state.rules.attackMode, true, false);
+                state.rules.spawns = RkiWaves.generate(sector.threat, new Rand(sector.id), state.rules.attackMode);
             }
         }
     }

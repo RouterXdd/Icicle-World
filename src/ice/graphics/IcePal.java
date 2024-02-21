@@ -21,6 +21,8 @@ public class IcePal {
     poloniumLight = Color.valueOf("c7dc67"),
     poloniumLightish = Color.valueOf("dcfb95"),
     sootColor = Color.valueOf("090028ff"),
+    sootSuppressColor = Color.valueOf("200648ff"),
+    sootSuppressParticleColor = Color.valueOf("571fabff"),
     positiveStatusCol = Color.valueOf("c91f1fff"),
     negativeStatusCol = Color.valueOf("285fb7ff"),
     rkiOutline = Color.valueOf("1b121f"),

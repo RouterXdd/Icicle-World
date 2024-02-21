@@ -1,21 +1,13 @@
 package ice.classes.maps.weather;
 
 import arc.Core;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Lines;
-import arc.graphics.g2d.TextureRegion;
-import arc.math.Angles;
-import arc.math.Mathf;
+import arc.graphics.g2d.*;
+import arc.math.*;
 import arc.util.*;
-import ice.content.IceFx;
-import ice.content.IceLiquids;
-import ice.graphics.IcePal;
 import mindustry.entities.Damage;
-import mindustry.entities.bullet.BulletType;
 import mindustry.game.Team;
 import mindustry.gen.WeatherState;
 import mindustry.type.Weather;
-import mindustry.type.weather.ParticleWeather;
 import mindustry.world.Tile;
 
 import static mindustry.Vars.*;
@@ -24,7 +16,6 @@ public class ScrapStorm extends Weather {
     public float yspeed = 3.2f, xspeed = 1.1f, density = 1100f, sizeMin = 8f, sizeMax = 32f, splashTimeScale = 22f;
     public TextureRegion[] breaks = new TextureRegion[5];
     public TextureRegion scrap;
-    public float bulletChance = 0.42f;
     public ScrapStorm(String name) {
         super(name);
     }

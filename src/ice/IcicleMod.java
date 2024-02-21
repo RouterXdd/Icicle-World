@@ -1,6 +1,8 @@
 package ice;
 
 import arc.*;
+import arc.graphics.Texture;
+import arc.math.Mathf;
 import arc.util.*;
 import ice.classes.graphic.IceEmojis;
 import ice.content.*;
@@ -10,6 +12,7 @@ import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
 
 import static arc.Core.*;
+import static mindustry.Vars.mods;
 import static mindustry.Vars.ui;
 
 public class IcicleMod extends Mod{
@@ -23,10 +26,20 @@ public class IcicleMod extends Mod{
     @Override
     public void init(){
         IceEmojis.load();
+        Mods.LoadedMod mod = mods.locateMod("icicle-world");
+        if (IcicleVars.chapter2){
+            mod.meta.displayName = "Buried in Ice: Chapter 2";
+            mod.meta.description = "They are waiting you...";
+            mod.meta.subtitle = bundle.get("subtitle-ch2-" + Mathf.random(0, 2));
+            mod.iconTexture = new Texture(mod.root.child("icon-glitch.png"));
+        } else {
+            mod.meta.subtitle = bundle.get("subtitle-" + Mathf.random(0, 2));
+        }
     }
 
     @Override
     public void loadContent(){
+        IceSFX.load();
         IceAttributes.load();
         IceWeather.load();
         IceLogs.load();

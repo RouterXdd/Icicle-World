@@ -45,7 +45,7 @@ public class IcePlanets {
             itemWhitelist = Seq.with(RkiItems);
             enemyBuildSpeedMultiplier = 0.4f;
 
-            allowLaunchToNumbered = true;
+            allowLaunchToNumbered = false;
 
             updateLighting = false;
 

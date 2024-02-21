@@ -4,38 +4,44 @@ import arc.graphics.*;
 import arc.math.Mathf;
 import arc.math.geom.Rect;
 import arc.util.Tmp;
+import ice.classes.entities.abilities.EditableSuppressionFieldAbility;
 import ice.classes.entities.abilities.RepairPillAbility;
+import ice.classes.entities.abilities.RotatingShieldsAbility;
+import ice.classes.entities.ai.ShielderAI;
 import ice.classes.entities.types.*;
-import ice.classes.pattern.RandomBurstShoot;
-import ice.classes.pattern.RandomShootSpread;
+import ice.classes.pattern.*;
 import ice.graphics.IcePal;
 import mindustry.Vars;
 import mindustry.ai.UnitCommand;
 import mindustry.ai.types.*;
-import mindustry.content.Fx;
-import mindustry.entities.abilities.MoveEffectAbility;
+import mindustry.content.*;
+import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
+import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.*;
+import mindustry.type.ammo.*;
 import mindustry.type.weapons.*;
 import mindustry.world.meta.BlockFlag;
 
 import static ice.content.IceBullets.*;
+import static mindustry.content.Items.*;
+
 public class IceUnitTypes {
     public static UnitType
     //core
     malice, charity,
     //construct //I AM NOT GOING TO DO THAT
-    vessel, stem, basis, ewer, xylem, fundament,
+    vessel, stem, basis, ewer, xylem, fundament, decanter, stalk, groundwork,
         //sub units
     quant, sin, chronon, zen,
-    //wave (presets of construct units)
-    vesselPoint,
         //executioners (Mini bosses)
-        yellow, purple, remnant, red, blue, green,
+        yellow, purple, remnant, red, blue, green, warden,
+    //utility
+    shieldDrone, vesselPoint,
     //funny
     basic, octo, swarmling, reaver, giant;
     public static void load(){
@@ -337,7 +343,7 @@ public class IceUnitTypes {
             }});
         }};
         fundament = new RkiTankUnitType("fundament"){{
-            hitSize = 21f;
+            hitSize = 27f;
             treadPullOffset = 0;
             speed = 0.49f;
             rotateSpeed = 1.95f;
@@ -346,16 +352,17 @@ public class IceUnitTypes {
             itemCapacity = 0;
             researchCostMultiplier = 0f;
             constructor = TankUnit::create;
-            treadRects = new Rect[]{new Rect(17 - 76f, 19 - 76f, 14, 114)};
+            treadRects = new Rect[]{new Rect(15 - 64f, 15 - 64f, 10, 98)};
 
             weapons.add(new Weapon("icicle-world-fundament-weapon"){{
                 layerOffset = 0.0001f;
                 reload = 90f;
-                shootY = 4.5f;
+                shootY = 0f;
                 recoil = 0f;
-                rotate = false;
-                rotateSpeed = 0f;
-                shootCone = 360;
+                rotate = true;
+                rotateSpeed = 0.5f;
+                rotationLimit = 30;
+                shootCone = 340;
                 inaccuracy = 360;
                 mirror = false;
                 x = 0f;
@@ -366,6 +373,254 @@ public class IceUnitTypes {
                 cooldownTime = 40f;
 
                 bullet = fundamentLightningBall;
+            }});
+        }};
+        decanter = new RkiUnitType("decanter"){{
+            drag = 0.1f;
+            speed = 0.54f;
+            hitSize = 44f;
+            health = 16500;
+            armor = 8f;
+            lightRadius = 140f;
+            rotateSpeed = 1.6f;
+            legStraightness = 0.6f;
+            baseLegStraightness = 0.5f;
+            lockLegBase = true;
+            legContinuousMove = true;
+            constructor = LegsUnit::create;
+
+            legCount = 6;
+            legLength = 30f;
+            legForwardScl = 2.1f;
+            legMoveSpace = 1.2f;
+            rippleScale = 1.2f;
+            stepShake = 0.5f;
+            legGroupSize = 3;
+            legExtension = -6f;
+            legBaseOffset = 19f;
+            legStraightLength = 0.9f;
+            legMaxLength = 1.2f;
+
+            ammoType = new ItemAmmoType(scrap, 30);
+
+            legSplashDamage = 32;
+            legSplashRange = 32;
+            drownTimeMultiplier = 2f;
+
+            hovering = true;
+            shadowElevation = 0.4f;
+            groundLayer = Layer.legUnit;
+
+            alwaysShootWhenMoving = true;
+            abilities.add(new EditableSuppressionFieldAbility(){{
+                orbRadius = 9;
+                particleSize = 4;
+                layer = Layer.legUnit - 0.001f;
+                        y = 0f;
+                particles = 14;
+                particleColor = IcePal.sootSuppressColor;
+                color = IcePal.sootColor;
+
+            }});
+            weapons.add(new Weapon("icicle-world-decanter-sub-weapon"){{
+                shootSound = Sounds.pulseBlast;
+                mirror = true;
+                rotationLimit = 30f;
+                rotateSpeed = 0.4f;
+                rotate = true;
+                alternate = false;
+
+                x = 10f;
+                y = -8f;
+                shootY = 9f;
+                recoil = 4f;
+                reload = 210f;
+                cooldownTime = reload * 1.2f;
+                shake = 7f;
+                layerOffset = -0.01f;
+                shadow = 10f;
+
+                shootStatus = StatusEffects.slow;
+                shootStatusDuration = reload + 1f;
+
+                shoot.shots = 40;
+                shoot.firstShotDelay = 30;
+                shoot.shotDelay = 6;
+                heatColor = Color.red;
+
+
+                for(int i = 0; i < 3; i++){
+                    int fi = i;
+                    parts.add(new RegionPart("-blade"){{
+                        under = true;
+                        layerOffset = -0.001f;
+                        heatColor = Pal.techBlue;
+                        heatProgress = PartProgress.heat.add(0.2f).min(PartProgress.warmup);
+                        progress = PartProgress.warmup.blend(PartProgress.reload, 0.1f);
+                        x = 13.5f / 4f;
+                        y = 10f / 4f - fi * 2f;
+                        moveY = 1f - fi * 1f;
+                        moveX = fi * 0.3f;
+                        moveRot = -45f - fi * 12f;
+
+                        moves.add(new PartMove(PartProgress.reload.inv().mul(1.8f).inv().curve(fi / 5f, 0.25f), 0f, 0f, 36f));
+                    }});
+                }
+
+                bullet = ewerBullet;
+            }}, new Weapon("icicle-world-decanter-main-weapon"){{
+                shootSound = Sounds.pulseBlast;
+                mirror = false;
+                rotationLimit = 30f;
+                rotateSpeed = 0.25f;
+                rotate = true;
+                alternate = false;
+
+                x = 0f;
+                y = -17f;
+                shootY = 13f;
+                recoil = 4f;
+                reload = 230f;
+                cooldownTime = reload * 1.2f;
+                shake = 7f;
+                layerOffset = 0.01f;
+                shadow = 10f;
+
+                shootStatus = StatusEffects.slow;
+                shootStatusDuration = reload + 1f;
+
+                shoot.shots = 30;
+                shoot.firstShotDelay = 30;
+                shoot.shotDelay = 8;
+                heatColor = Color.red;
+                bullet = new BasicBulletType(10f, 70){{
+                    width = 18f;
+                    height = 34f;
+                    hitSize = 7f;
+                    shootEffect = new MultiEffect(Fx.shootBigColor, Fx.colorSparkBig);
+                    smokeEffect = Fx.shootBigSmoke;
+                    ammoMultiplier = 1;
+                    reloadMultiplier = 1f;
+                    lifetime = 14.4f;
+                    pierceCap = 6;
+                    pierce = true;
+                    pierceBuilding = true;
+                    hitColor = backColor = trailColor = Pal.darkerMetal;
+                    frontColor = Color.white;
+                    trailWidth = 3f;
+                    trailLength = 12;
+                    hitEffect = despawnEffect = Fx.hitBulletColor;
+                    collideTerrain = true;
+                }};
+                    }});
+        }};
+
+        groundwork = new RkiTankUnitType("groundwork"){{
+            hitSize = 37.5f;
+            treadPullOffset = 3;
+            speed = 0.285f;
+            rotateSpeed = 1.12f;
+            health = 21600;
+            armor = 21f;
+            crushDamage = 0.2f;
+            itemCapacity = 0;
+            drawCell = false;
+            researchCostMultiplier = 0f;
+            constructor = TankUnit::create;
+            treadRects = new Rect[]{new Rect(44 - 150f, 23 - 150f, 36, 253),new Rect(112 - 150f, 12 - 150f, 56, 74)};
+            abilities.add(new RotatingShieldsAbility(){{
+                radius = 47;
+            }});
+            abilities.add(new RotatingShieldsAbility(){{
+                angleOffset = 180;
+                radius = 47;
+            }});
+            weapons.add(new Weapon("icicle-world-groundwork-main-weapon"){{
+                    shootSound = Sounds.largeCannon;
+                    layerOffset = 0.1f;
+                    reload = 210f;
+                    shootY = 29f;
+                    shake = 6f;
+                    recoil = 6f;
+                    rotate = true;
+                    rotateSpeed = 0.5f;
+                    mirror = false;
+                    x = 0f;
+                    y = -11f;
+                    shadow = 22f;
+                    heatColor = IcePal.thalliumLightish;
+                    shootWarmupSpeed = 0.06f;
+                    cooldownTime = 110f;
+                    minWarmup = 0.9f;
+
+                    bullet = new BasicBulletType(10f, 200f) {{
+                        sprite = "missile-large";
+                        width = 10f;
+                        height = 24f;
+                        lifetime = 26f;
+                        hitSize = 7f;
+                        buildingDamageMultiplier = 0.45f;
+
+                        smokeEffect = Fx.shootSmokeTitan;
+                        splashDamage = 340;
+                        splashDamageRadius = 110;
+                        pierceCap = 5;
+                        pierce = true;
+                        pierceBuilding = collideTerrain = true;
+                        hitColor = backColor = trailColor = IcePal.thalliumLight;
+                        frontColor = Color.white;
+                        trailWidth = 3.75f;
+                        trailLength = 12;
+                        hitEffect = despawnEffect = Fx.massiveExplosion;
+
+
+                        shootEffect = new ExplosionEffect() {{
+                            lifetime = 75f;
+                            waveStroke = 5f;
+                            waveColor = sparkColor = trailColor;
+                            waveRad = 15f;
+                            smokeSize = 5f;
+                            smokes = 8;
+                            smokeSizeBase = 0f;
+                            smokeColor = trailColor;
+                            sparks = 8;
+                            sparkRad = 40f;
+                            sparkLen = 6f;
+                            sparkStroke = 3f;
+                        }};
+                    }};
+                }},new Weapon("icicle-world-groundwork-weapon"){{
+                shootSound = Sounds.blaster;
+                y = 14f;
+                shootY = 3;
+                x = 21.5f;
+                top = true;
+                mirror = true;
+                alternate = false;
+                rotate = true;
+                reload = 20f;
+                shootCone = 55f;
+                recoil = 1;
+
+                bullet = new LaserBoltBulletType(6f, 25){{
+                    width = 2f;
+                    height = 5f;
+                    recoil = 0f;
+                    trailWidth = 2f;
+                    trailLength = 7;
+                    collidesAir = false;
+                    collidesGround = true;
+                    collidesTeam = true;
+                    pierce = pierceBuilding = true;
+                    ammoMultiplier = 1f;
+                    lifetime = 13f;
+                    healAmount = 30;
+                    shootEffect = IceFx.lightningThalliumShoot;
+                    heatColor = trailColor = IcePal.thalliumLight;
+                    smokeEffect = hitEffect = despawnEffect = IceFx.hitThalliumLaser;
+                    backColor = frontColor = hitColor = healColor = lightColor = IcePal.thalliumMid;
+                    collideTerrain = true;
+                }};
             }});
         }};
         quant = new RkiUnitType("quant"){{
@@ -770,6 +1025,39 @@ public class IceUnitTypes {
                 }};
             }});
         }};
+        shieldDrone = new RkiUnitType("shield-drone"){{
+            controller = u -> new ShielderAI();
+
+            defaultCommand = UnitCommand.mineCommand;
+            constructor = BuildingTetherPayloadUnit::create;
+
+            flying = true;
+            drag = 0.06f;
+            hitSize = 12;
+            accel = 0.12f;
+            speed = 1.5f;
+            health = 100;
+            engineSize = 2.9f;
+            engineOffset = 6.55f;
+            range = 50f;
+            isEnemy = playerControllable = logicControllable = useUnitCap = false;
+
+            ammoType = new PowerAmmoType(500);
+
+            abilities.add(new ForceFieldAbility(55f, 0.5f, 320f, 55f * 6));
+            weapons.add(new Weapon(){{
+                x = 0f;
+                shootY = 0f;
+                reload = 60;
+                mirror = false;
+                shootCone = 70f;
+                ejectEffect = Fx.none;
+                shootSound = Sounds.lasershoot;
+                shoot.shots = 3;
+                shoot.shotDelay = 5;
+                bullet = pointBullet;
+            }});
+        }};
         basic = new UnitType("basic"){{
             health = 1000;
             speed = 7f;
@@ -1100,6 +1388,7 @@ public class IceUnitTypes {
             hitSize = 9f;
             health = 320;
             constructor = MechUnit::create;
+            bloodAmount = 40;
             weapons.add(new Weapon("icicle-world-reaver-arm"){{
                 reload = Float.MAX_VALUE;
                 x = 0f;

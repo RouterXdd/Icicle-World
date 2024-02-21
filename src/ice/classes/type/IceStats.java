@@ -11,6 +11,11 @@ public class IceStats implements Comparable<Stat>{
 
     public static final Stat
     underOres = new Stat("underores"),
+    droneAmount = new Stat("droneamount",  StatCat.function),
+    inflictChance = new Stat("inflictchance",  StatCat.function),
+    inflictStatus = new Stat("inflictstatus",  StatCat.function),
+    inflictRange = new Stat("inflictrange",  StatCat.function),
+    onlyDamage = new Stat("damagetake"),
     usePercent = new Stat("usePercent"),
     healPercent = new Stat("healPercent"),
     minHealth = new Stat("minhealth");

@@ -7,7 +7,7 @@ import mindustry.type.SectorPreset;
 
 public class IceSectors {
     public static SectorPreset
-    fallPoint, primaryBase, methanePurficate, purpleFortress
+    fallPoint, primaryBase, methanePurficate, purpleFortress, trinityCollumn
             ;
     public static void load(){
         fallPoint = new SectorPreset("fall-point", IcePlanets.rki, 33){{
@@ -36,5 +36,8 @@ public class IceSectors {
                     uiIcon = fullIcon = Core.atlas.find("icicle-world-terrain-story");
                 }
             }};
+        trinityCollumn = new SectorPreset("trinity-collumn", IcePlanets.rki, 238){{
+            difficulty = 6;
+        }};
     }
 }

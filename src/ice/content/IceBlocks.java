@@ -6,13 +6,17 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.struct.*;
 import ice.classes.blocks.defence.Pylon;
-import ice.classes.blocks.defence.RegenWall;
+import ice.classes.blocks.defence.IceWall;
 import ice.classes.blocks.distribution.*;
 import ice.classes.blocks.environment.*;
 import ice.classes.blocks.power.*;
 import ice.classes.blocks.production.*;
+import ice.classes.blocks.units.ForceConstructor;
 import ice.classes.blocks.units.LegacyFactoryPad;
+import ice.classes.entities.bullets.ScaledBasicBulletType;
+import ice.classes.type.StatTypes;
 import ice.graphics.IcePal;
+import ice.graphics.IceShaders;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
@@ -58,25 +62,25 @@ public class IceBlocks {
             //other
             stoneLargeCrater, dustLargeCrater, rkiMetal, rkiMetalWall,
      //ores
-    oreDust, oreThallium, oreSoptin, orePolonium, orePoloniumUnderground, oreThalliumUnderground,
+    oreDust, oreThallium, oreSoptin, orePolonium, oreChalk, orePoloniumUnderground, oreThalliumUnderground, oreChalkUnderground, oreSoptinRoof,
     //crafting
-    prinuteMerger, prinuteFabricator, siliconDissembler, distiller, metalIncubator, poloniumCrucible, denseStructurer,
+    prinuteMerger, prinuteFabricator, siliconDissembler, distiller, quarry, metalIncubator, poloniumCrucible, denseStructurer,
     //production
-    protoDrill, advancedDrill, engineDrill, nuclearDrill, mechanicalCutter, laserCutter, oreFinder, methaneDigger,
+    protoDrill, advancedDrill, engineDrill, nuclearDrill, powerSlider, mechanicalCutter, laserCutter, oreFinder, methaneDigger,
     //distribution
     thalliumConveyor, thalliumJunction, splitter, thalliumTunnel,
     //liquid
     burstPump, pulsePump, soptinTube, soptinRouter, soptinTunnel,
     //defence
-    woodWall, ceramicWall, aliveWall, bleak, shine, repairPylon, flameDome,
+    woodWall, ceramicWall, aliveWall, conductiveWall, bitWall, bleak, shine, repairPylon, flameDome, forceDome,
     //effect
     lamp,
     //power
-    oldNode, armoredNode, recallNode, scrapSolar, siliconSolar, decomposer, methaneBurner, nuclearReactor,
+    oldNode, armoredNode, recallNode, scrapSolar, siliconSolar, poloniumPanel, decomposer, methaneBurner, nuclearReactor, liquidTurbine,
     //storage
     coreAngry, coreHate, coreFury,
     //turrets
-    bail, clockwise, skimmer, perfection, shatter, crypt, demonCore, burnout, discharge,
+    bail, clockwise, skimmer, perfection, shatter, crypt, demonCore, burnout, discharge, calamity,
     //units
     simpleConstructor, forcedConstructor, aquaConstructor, monsterNest
     ;
@@ -106,7 +110,14 @@ public class IceBlocks {
             variants = 2;
             calamiteFloor.asFloor().decoration = this;
         }};
-        dustFloor = new Floor("dust-stone");
+        dustFloor = new Floor("dust-stone", 3)/*{{
+            effect = new ParticleEffect(){{
+                particles = 1;
+                sizeFrom = 3.5f;
+                sizeTo = 0;
+                lifetime = 80;
+            }};
+        }}*/;
         dustWall = new StaticWall("dust-wall"){{
             dustFloor.asFloor().wall = this;
         }};
@@ -123,7 +134,8 @@ public class IceBlocks {
             statusDuration = 120f;
             liquidDrop = methanum;
             isLiquid = true;
-            cacheLayer = CacheLayer.water;
+            cacheLayer = IceShaders.methaneLayer;
+            attributes.set(meth, 1);
         }};
         methaneFloorShallow = new Floor("methanum-floor-shallow"){{
             speedMultiplier = 0.55f;
@@ -134,7 +146,8 @@ public class IceBlocks {
             liquidMultiplier = 0.75f;
             isLiquid = true;
             shallow = true;
-            cacheLayer = CacheLayer.water;
+            cacheLayer = IceShaders.methaneLayer;
+            attributes.set(meth, 0.75f);
         }};
         thermalFloor = new Floor("thermal-floor");
         solidMethane = new StaticWall("solid-methane"){{
@@ -172,9 +185,16 @@ public class IceBlocks {
         oreThallium = new OreBlock(thallium);
         oreSoptin = new OreBlock(soptin);
         orePolonium = new OreBlock(polonium);
+        oreChalk = new OreBlock(chalkStone);
         orePoloniumUnderground = new UndergroundOre("polonium-under");
         oreThalliumUnderground = new UndergroundOre("thallium-under"){{
             outputOre = oreThallium;
+        }};
+        oreChalkUnderground = new UndergroundOre("chalk-under"){{
+            outputOre = oreChalk;
+        }};
+        oreSoptinRoof = new RoofOre("soptin-roof"){{
+            item = soptin;
         }};
         stoneLargeCrater = new LargeCrater("stone-large-crater", 1){{
             attributes.set(sun, 1);
@@ -285,6 +305,27 @@ public class IceBlocks {
             consumePower(190f / 60f);
             consumeLiquid(methanum, 8f / 60f);
         }};
+        quarry = new Separator("quarry"){{
+            requirements(Category.crafting, with(thallium, 85, silicon, 55, ceramic, 70));
+            results = with(
+                    thallium, 2,
+                    soptin, 2,
+                    ceramic, 2
+            );
+            hasPower = true;
+            hasLiquids = false;
+            craftTime = 40f;
+            size = 2;
+
+            consumePower(2.75f);
+            consumeItem(chalkStone);
+
+            drawer = new DrawMulti( new DrawDefault(),new DrawPistons(){{
+                lenOffset = 0f;
+                sinScl = -3;
+                sinMag = -1.75f;
+            }});
+        }};
         metalIncubator = new GenericCrafter("metal-incubator"){{
             requirements(Category.crafting, with(thallium, 260, sporeWood, 165, silicon, 140, prinute, 115));
             craftEffect = Fx.none;
@@ -330,7 +371,7 @@ public class IceBlocks {
             consumePower(8f);
         }};
         denseStructurer = new GenericCrafter("dense-structurer"){{
-            requirements(Category.crafting, with(thallium, 260, sporeWood, 165, silicon, 140, prinute, 115));
+            requirements(Category.crafting, with(thallium, 340, sporeWood, 230, silicon, 185, prinute, 160, ceramic, 146, polonium, 128));
             scaledHealth = 30;
             craftEffect = Fx.none;
             outputItem = new ItemStack(denseAlloy, 1);
@@ -381,6 +422,7 @@ public class IceBlocks {
             lengthLight = 4;
             reload = 160;
             minHealth = 0.32f;
+            efficiencyCut = 1.75f;
 
             consumeLiquid(water, 0.05f).boost();
         }};
@@ -418,6 +460,18 @@ public class IceBlocks {
             minHealth = 0;
 
             consumeLiquid(water, 0.125f).boost();
+        }};
+        powerSlider = new HighDrill("power-slider"){{
+            requirements(Category.production, with(copper, 60, silicon, 25, beryllium, 38));
+            health = 450;
+            tier = 3;
+            drillTime = 400;
+            size = 2;
+            squareSprite = false;
+            engineSize = 1.8f;
+            engineScale = 1.5f;
+            consumePower(1.85f);
+            consumeLiquid(water, 0.05f).boost();
         }};
         mechanicalCutter = new NearMiner("mechanical-cutter"){{
             requirements(Category.production, with(thallium, 40));
@@ -472,6 +526,7 @@ public class IceBlocks {
             requirements(Category.distribution, with(thallium, 14, sporeWood, 4));
             researchCost = with(thallium, 30, sporeWood, 15);
             squareSprite = false;
+            ((RegenConveyor)thalliumConveyor).junctionReplacement = this;
         }};
         splitter = new Splitter("splitter"){{
             requirements(Category.distribution, with(thallium, 10));
@@ -540,12 +595,14 @@ public class IceBlocks {
             requirements(Category.liquid, with(soptin, 5, sporeWood, 2));
             liquidCapacity = 12f;
             solid = true;
+            ((Conduit)soptinTube).junctionReplacement = this;
         }};
         soptinTunnel = new DirectionLiquidBridge("soptin-tunnel"){{
             requirements(Category.liquid, with(soptin, 12, prinute, 5));
             health = 130;
             range = 6;
             researchCostMultiplier = 0.3f;
+            ((Conduit)soptinTube).rotBridgeReplacement = this;
         }};
         woodWall = new Wall("wood-wall"){{
             requirements(Category.defense, with(sporeWood, 6));
@@ -557,11 +614,27 @@ public class IceBlocks {
             health = 140 * 4;
             envDisabled |= Env.scorching;
         }};
-        aliveWall = new RegenWall("alive-wall"){{
+        aliveWall = new IceWall("alive-wall"){{
             requirements(Category.defense, with(prinute, 2, livesteel, 6));
             health = 155 * 4;
             envDisabled |= Env.scorching;
             regenEffect = IceFx.sporeRegen;
+        }};
+        conductiveWall = new IceWall("conductive-wall"){{
+            requirements(Category.defense, with(ceramic, 3, polonium, 7));
+            health = 170 * 4;
+            envDisabled |= Env.scorching;
+            inflictChance = 0.1f;
+            regenerate = suppressable = false;
+            armor = 5;
+        }};
+        bitWall = new IceWall("bit-wall"){{
+            requirements(Category.defense, with(denseAlloy, 6));
+            health = 140;
+            onlyDamage = 1;
+            regenerate = suppressable = false;
+            envDisabled |= Env.scorching;
+            armor = 70;
         }};
         bleak = new PowerTurret("bleak"){{
             requirements(Category.effect, with(thallium, 100, sporeWood, 70));
@@ -690,6 +763,18 @@ public class IceBlocks {
             consumePower(5f);
             coolant = consumeCoolant(0.1f);
         }};
+        forceDome = new ForceConstructor("force-dome"){{
+            requirements(Category.effect, with(thallium, 270, silicon, 140, polonium, 90, livesteel, 65));
+
+            size = 3;
+            buildTime = 60f * 8f;
+
+            consumePower(7f);
+            consumeLiquid(methanum, 8f / 60f);
+            consumeItems(with(thallium, 10, polonium, 6));
+            itemCapacity = 20;
+            researchCost = with(thallium, 3000, silicon, 500, polonium, 300, livesteel, 120);
+        }};
         lamp = new LightBlock("lamp"){{
             requirements(Category.effect, BuildVisibility.lightingOnly, with(thallium, 20, prinute, 5));
             brightness = 0.4f;
@@ -749,13 +834,28 @@ public class IceBlocks {
             requirements(Category.power, with(thallium, 40, prinute, 10, silicon, 10));
             powerProduction = 0.8f;
             generateEffect = Fx.generatespark;
-            effectChance = 0.008f;
+            effectChance = 0.004f;
             radius = 18f;
             size = 2;
             attribute = sun;
             displayEfficiency = false;
             minEfficiency = 4f - 0.00001f;
             displayEfficiencyScale = 1f / 4f;
+            floating = false;
+            ambientSound = Sounds.electricHum;
+            ambientSoundVolume = 0.02f;
+        }};
+        poloniumPanel = new UndergroundPanels("polonium-solar"){{
+            requirements(Category.power, with(thallium, 75, ceramic, 25, silicon, 42, polonium, 30));
+            powerProduction = 1f;
+            generateEffect = Fx.generatespark;
+            effectChance = 0;
+            radius = 24.5f;
+            size = 3;
+            attribute = sun;
+            displayEfficiency = false;
+            minEfficiency = 9f - 0.00001f;
+            displayEfficiencyScale = 1f / 9f;
             floating = false;
             ambientSound = Sounds.electricHum;
             ambientSoundVolume = 0.02f;
@@ -811,6 +911,19 @@ public class IceBlocks {
             explodeEffect = IceFx.nuclearReactorExplosion;
             consumeItem(poloniumCharge, 1);
             consumeLiquid(water, heating / coolantPower).update(false);
+        }};
+        liquidTurbine = new UndergroundPanels("liquid-turbine"){{
+            requirements(Category.power, with(thallium, 40, prinute, 10, silicon, 10));
+            powerProduction = 0.4f;
+            radius = 0f;
+            size = 2;
+            attribute = meth;
+            floating = true;
+            ambientSound = Sounds.hum;
+            ambientSoundVolume = 0.012f;
+            drawer = new DrawMulti(new DrawRegion("-vint", 3, true){{
+                layer = 1;
+            }}, new DrawDefault(), new DrawRegion("-top"));
         }};
         coreAngry = new CoreBlock("core-angry"){{
             requirements(Category.effect, with(thallium, 860, sporeWood, 600));
@@ -1006,7 +1119,7 @@ public class IceBlocks {
             drawer = new DrawTurret("rik-"){{
                 parts.addAll(
                         new RegionPart("-side"){{
-                            heatProgress = PartProgress.reload;
+                            heatProgress = PartProgress.recoil;
                             mirror = under = true;
                             moveX = 1f;
                             moveY = -1.5f;
@@ -1063,7 +1176,7 @@ public class IceBlocks {
             outlineColor = IcePal.rkiOutline;
             heatColor = IcePal.poloniumLight;
             scaledHealth = 190;
-            shootSound = Sounds.mediumCannon;
+            shootSound = IceSFX.blowUp;
             coolant = consumeCoolant(0.4f);
             minRange = 30f;
             limitRange(0f);
@@ -1085,7 +1198,7 @@ public class IceBlocks {
 
             inaccuracy = 8f;
             outlineColor = IcePal.rkiOutline;
-            shootSound = Sounds.missileTrail;
+            shootSound = IceSFX.shock;
             heatColor = IcePal.thalliumLight;
             shoot.shots = 4;
             shoot.shotDelay = 15;
@@ -1101,6 +1214,118 @@ public class IceBlocks {
             drawer = new DrawTurret("rik-");
             coolant = consumeCoolant(0.4f);
         }};
+        calamity = new ItemTurret("calamity"){{
+            requirements(Category.turret, with(thallium, 365, scrap, 390, prinute, 340, ceramic, 430, polonium, 240, denseAlloy, 155));
+            squareSprite = false;
+            outlineColor = IcePal.rkiOutline;
+            ammo(
+                    poloniumCharge, new ScaledBasicBulletType(5, 260, 5f){{
+                shootEffect = new MultiEffect(Fx.shootTitan, new WaveEffect(){{
+                    colorTo = IcePal.poloniumLight;
+                    sizeTo = 28f;
+                    lifetime = 16f;
+                    strokeFrom = 4f;
+                }});
+                smokeEffect = Fx.shootSmokeTitan;
+                hitColor = IcePal.poloniumLight;
+                collideTerrain = true;
+
+                sprite = "large-orb";
+                trailEffect = Fx.missileTrail;
+                trailInterval = 3f;
+                trailParam = 4f;
+                pierceCap = 2;
+                fragOnHit = false;
+                lifetime = 35f;
+                width = height = 25f;
+                backColor = IcePal.poloniumLight;
+                frontColor = Color.white;
+                shrinkX = shrinkY = 0f;
+                trailColor = IcePal.poloniumLight;
+                trailLength = 16;
+                trailWidth = 3.6f;
+                despawnEffect = hitEffect = new ExplosionEffect(){{
+                    waveColor = IcePal.poloniumLight;
+                    smokeColor = Color.gray;
+                    sparkColor = IcePal.poloniumDark;
+                    waveStroke = 5f;
+                    waveRad = 55f;
+                }};
+                despawnSound = Sounds.dullExplosion;
+                shootSound = Sounds.cannon;
+
+                fragBullet = intervalBullet = new BasicBulletType(2.5f, 50){{
+                    width = 12f;
+                    hitSize = 5f;
+                    height = 22f;
+                    pierce = true;
+                    lifetime = 40f;
+                    pierceBuilding = collideTerrain = true;
+                    sprite = "missile-large";
+                    hitColor = backColor = trailColor = IcePal.poloniumLight;
+                    frontColor = Color.white;
+                    trailWidth = 2.1f;
+                    trailLength = 5;
+                    splashDamage = 10;
+                    splashDamageRadius = 15;
+                    hitEffect = despawnEffect = new WaveEffect(){{
+                        colorFrom = colorTo = IcePal.poloniumLight;
+                        sizeTo = 8f;
+                        strokeFrom = 4f;
+                        lifetime = 10f;
+                    }};
+                }};
+
+                bulletInterval = 8f;
+                intervalRandomSpread = 360f;
+                intervalBullets = 2;
+                intervalAngle = 180f;
+                intervalSpread = 0f;
+
+                fragBullets = 8;
+                fragVelocityMin = 0.4f;
+                fragVelocityMax = 1f;
+                fragLifeMin = 0.5f;
+            }});
+            drawer = new DrawTurret("rik-"){{
+                for(int j = 0; j < 3; j++){
+                    int i = j;
+                    parts.add(new RegionPart("-blade"){{
+                        layerOffset = -0.02f;
+                        heatLayerOffset = -0.021f;
+                        x = 2f;
+                        moveX = 6f + i * 1.9f;
+                        moveY = 8f + -7f * i;
+                        moveRot = 20f - i * 50f;
+                        rotation = 145;
+                        mirror = true;
+                        progress = PartProgress.warmup.delay(i * 0.2f);
+                        heatProgress = PartProgress.warmup;
+
+                        heatColor = IcePal.poloniumLightish;
+                    }});
+                }
+            }};
+            reload = 260f;
+            shootCone = 75f;
+            rotateSpeed = 5.5f;
+            range = 190f;
+            heatColor = IcePal.poloniumLight;
+            recoil = 3f;
+            size = 4;
+            scaledHealth = 190;
+            shootSound = Sounds.spark;
+            consumePower(2.2f);
+            coolant = consumeCoolant(0.4f);
+        }
+            @Override
+            public void setStats(){
+                super.setStats();
+
+                stats.remove(Stat.ammo);
+                stats.add(Stat.ammo, StatTypes.ammo(ammoTypes));
+            }
+        };
         simpleConstructor = new LegacyFactoryPad("simple-constructor"){{
             requirements(Category.units, with(thallium, 120, sporeWood, 75, prinute, 50));
             plans = Seq.with(
@@ -1115,9 +1340,9 @@ public class IceBlocks {
         forcedConstructor = new LegacyFactoryPad("force-constructor"){{
             requirements(Category.units, with(thallium, 270, livesteel, 80, prinute, 120, silicon, 140));
             plans = Seq.with(
-                    new UnitLeagcyPlan(ewer, 60f * 37, with(thallium, 145, prinute, 75, silicon, 90)),
+                    new UnitLeagcyPlan(ewer, 60f * 37, with(thallium, 145, prinute, 75, silicon, 90, ceramic, 35)),
                     new UnitLeagcyPlan(xylem, 60f * 54, with(thallium, 110, prinute, 60, livesteel, 70, silicon, 75)),
-                    new UnitLeagcyPlan(fundament, 60f * 60, with(thallium, 190, ceramic, 60, prinute, 90, silicon, 110))
+                    new UnitLeagcyPlan(fundament, 60f * 60, with(thallium, 190, ceramic, 60, prinute, 90, silicon, 110, livesteel, 80))
             );
             size = 5;
             consumeLiquid(methanum, 5f/ 60);
