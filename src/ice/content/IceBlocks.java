@@ -51,6 +51,8 @@ public class IceBlocks {
     //environment
      //main
     dustCrusher, dustSpreader, undergroundTree, destroyedMonsterNest, ruinBlock,
+            //stone (new)
+            deepStone, deepStoneWall, deepBoulder,
             //calamite pikes
             calamiteFloor, calamiteWall, calamiteBoulder,
             //dust valley
@@ -60,7 +62,7 @@ public class IceBlocks {
             //magnet cavern
             magnetRock, magnetChunk, magnetPositiveRock, magnetNegativeRock, positiveCrystal, negativeCrystal, magnetBoulder,
             //other
-            stoneLargeCrater, dustLargeCrater, rkiMetal, rkiMetalWall,
+            stoneLargeCrater, dustLargeCrater, rkiMetal, rkiMetal2, rkiMetal3, rkiMetalWall,
      //ores
     oreDust, oreThallium, oreSoptin, orePolonium, oreChalk, orePoloniumUnderground, oreThalliumUnderground, oreChalkUnderground, oreSoptinRoof,
     //crafting
@@ -82,7 +84,7 @@ public class IceBlocks {
     //turrets
     bail, clockwise, skimmer, perfection, shatter, crypt, demonCore, burnout, discharge, calamity,
     //units
-    simpleConstructor, forcedConstructor, aquaConstructor, monsterNest
+    simpleConstructor, forcedConstructor, omegaConstructor, aquaConstructor, atlanticConstructor, lustrousConstructor, monsterNest
     ;
     public static void load(){
         undergroundTree = new TreeBlock("underground-tree"){{
@@ -100,6 +102,15 @@ public class IceBlocks {
             drawCracks = false;
             solid = true;
             forceDark = true;
+        }};
+        deepStone = new Floor("deep-stone", 3);
+        deepStoneWall = new StaticWall("deep-stone-wall"){{
+            variants = 2;
+            deepStone.asFloor().wall = this;
+        }};
+        deepBoulder = new Prop("deep-boulder"){{
+            variants = 1;
+            deepStone.asFloor().decoration = this;
         }};
         calamiteFloor = new Floor("calamite-floor", 2);
         calamiteWall = new StaticWall("calamite-wall"){{
@@ -135,7 +146,7 @@ public class IceBlocks {
             liquidDrop = methanum;
             isLiquid = true;
             cacheLayer = IceShaders.methaneLayer;
-            attributes.set(meth, 1);
+            attributes.set(meth, 0.25f);
         }};
         methaneFloorShallow = new Floor("methanum-floor-shallow"){{
             speedMultiplier = 0.55f;
@@ -147,7 +158,7 @@ public class IceBlocks {
             isLiquid = true;
             shallow = true;
             cacheLayer = IceShaders.methaneLayer;
-            attributes.set(meth, 0.75f);
+            attributes.set(meth, 0.1f);
         }};
         thermalFloor = new Floor("thermal-floor");
         solidMethane = new StaticWall("solid-methane"){{
@@ -200,7 +211,7 @@ public class IceBlocks {
             attributes.set(sun, 1);
             emitLight = true;
             lightRadius = 26f;
-            blendGroup = parent = Blocks.stone;
+            blendGroup = parent = deepStone;
         }};
         dustLargeCrater = new LargeCrater("dust-large-crater", 1){{
             attributes.set(sun, 1);
@@ -209,6 +220,12 @@ public class IceBlocks {
             blendGroup = parent = dustFloor;
         }};
         rkiMetal = new Floor("rki-metal", 0);
+        rkiMetal2 = new Floor("rki-metal2", 0){{
+            blendGroup = rkiMetal;
+        }};
+        rkiMetal3 = new Floor("rki-metal3", 0){{
+            blendGroup = rkiMetal;
+        }};;
         rkiMetalWall = new StaticWall("rki-metal-wall"){{
             variants = 2;
             rkiMetal.asFloor().wall = this;
@@ -236,7 +253,7 @@ public class IceBlocks {
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.07f;
 
-            consumeItems(with(thallium, 2, scrap, 2));
+            consumeItems(with(thallium, 1, scrap, 1));
             consumePower(1.5f);
         }};
         prinuteFabricator = new GenericCrafter("prinute-fabricator"){{
@@ -247,11 +264,13 @@ public class IceBlocks {
             size = 3;
             hasPower = true;
             hasLiquids = false;
-            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(IcePal.thalliumLightish));
+            drawer = new DrawMulti(new DrawDefault(), new DrawFlame(IcePal.thalliumLightish){{
+                flameRadius = 5f;
+            }});
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.12f;
 
-            consumeItems(with(thallium, 4, scrap, 4, ceramic, 1));
+            consumeItems(with(thallium, 2, scrap, 2, ceramic, 2));
             consumePower(4.75f);
         }};
         siliconDissembler = new GenericCrafter("silicon-dissembler"){{
@@ -412,7 +431,7 @@ public class IceBlocks {
             researchCost = with(thallium, 25);
         }};
         advancedDrill = new BreakDrill("advanced-drill"){{
-            requirements(Category.production, with(thallium, 45, prinute, 15));
+            requirements(Category.production, with(thallium, 28, prinute, 15));
             health = 450;
             tier = 3;
             drillTime = 500;
@@ -514,7 +533,7 @@ public class IceBlocks {
             consumeLiquid(methanum, 0.2f);
         }};
         thalliumConveyor = new RegenConveyor("thallium-conveyor"){{
-            requirements(Category.distribution, with(thallium, 2));
+            requirements(Category.distribution, with(thallium, 1));
             health = 90;
             speed = 0.04f;
             displayedSpeed = 5.6f;
@@ -622,7 +641,7 @@ public class IceBlocks {
         }};
         conductiveWall = new IceWall("conductive-wall"){{
             requirements(Category.defense, with(ceramic, 3, polonium, 7));
-            health = 170 * 4;
+            health = 182 * 4;
             envDisabled |= Env.scorching;
             inflictChance = 0.1f;
             regenerate = suppressable = false;
@@ -637,7 +656,7 @@ public class IceBlocks {
             armor = 70;
         }};
         bleak = new PowerTurret("bleak"){{
-            requirements(Category.effect, with(thallium, 100, sporeWood, 70));
+            requirements(Category.effect, with(thallium, 50, sporeWood, 35));
             shootType = new LaserBoltBulletType(){{
                 lightningLength = 10;
                 collidesAir = false;
@@ -913,9 +932,9 @@ public class IceBlocks {
             consumeLiquid(water, heating / coolantPower).update(false);
         }};
         liquidTurbine = new UndergroundPanels("liquid-turbine"){{
-            requirements(Category.power, with(thallium, 40, prinute, 10, silicon, 10));
-            powerProduction = 0.4f;
-            radius = 0f;
+            requirements(Category.power, with(thallium, 95, prinute, 42, soptin, 60));
+            powerProduction = 0.78f;
+            radius = -5.5f;
             size = 2;
             attribute = meth;
             floating = true;
@@ -1341,12 +1360,23 @@ public class IceBlocks {
             requirements(Category.units, with(thallium, 270, livesteel, 80, prinute, 120, silicon, 140));
             plans = Seq.with(
                     new UnitLeagcyPlan(ewer, 60f * 37, with(thallium, 145, prinute, 75, silicon, 90, ceramic, 35)),
-                    new UnitLeagcyPlan(xylem, 60f * 54, with(thallium, 110, prinute, 60, livesteel, 70, silicon, 75)),
-                    new UnitLeagcyPlan(fundament, 60f * 60, with(thallium, 190, ceramic, 60, prinute, 90, silicon, 110, livesteel, 80))
+                    new UnitLeagcyPlan(xylem, 60f * 49, with(thallium, 110, prinute, 60, livesteel, 70, silicon, 75)),
+                    new UnitLeagcyPlan(fundament, 60f * 66, with(thallium, 190, ceramic, 60, prinute, 90, silicon, 110, livesteel, 80))
             );
             size = 5;
-            consumeLiquid(methanum, 5f/ 60);
-            consumePower(4.2f);
+            consumeLiquid(methanum, 6f/ 60);
+            consumePower(6.45f);
+        }};
+        omegaConstructor = new LegacyFactoryPad("omega-constructor"){{
+            requirements(Category.units, with(thallium, 970, livesteel, 460, prinute, 755, silicon, 600, ceramic, 720, polonium, 820, denseAlloy, 285));
+            plans = Seq.with(
+                    new UnitLeagcyPlan(decanter, 60f * 400, with(prinute, 180, silicon, 150, ceramic, 175, livesteel, 110, denseAlloy, 70)),
+                    new UnitLeagcyPlan(stalk, 60f * 400, with(prinute, 220, silicon, 120, polonium, 190, livesteel, 135, denseAlloy, 80)),
+                    new UnitLeagcyPlan(groundwork, 60f * 400, with(thallium, 355, prinute, 240, silicon, 190, polonium, 115, ceramic, 135, livesteel, 160, denseAlloy, 100))
+            );
+            size = 10;
+            consumeLiquid(methanum, 30f/ 60);
+            consumePower(15f);
         }};
         aquaConstructor = new LegacyFactoryPad("aqua-constructor"){{
             requirements(Category.units, with(thallium, 165, sporeWood, 90, prinute, 55, soptin, 70));
@@ -1359,6 +1389,16 @@ public class IceBlocks {
             drawTop = false;
             consumePower(2.3f);
             researchCost = with(thallium, 600, sporeWood, 300, prinute, 250, soptin, 350);
+        }};
+        lustrousConstructor = new LegacyFactoryPad("lustrous-constructor"){{
+            requirements(Category.units, with(thallium, 120, prinute, 90, ceramic, 70));
+            plans = Seq.with(
+                    new UnitLeagcyPlan(blaze, 60f * 24, with(thallium, 40, prinute, 30))
+                    //new UnitLeagcyPlan(sunLight, 60f * 40, with(thallium, 75, silicon, 50, ceramic, 60, chalkStone, 35))
+            );
+            size = 3;
+            consumePower(2.85f);
+            researchCost = with(thallium, 550, prinute, 200, ceramic, 140);
         }};
         monsterNest = new EnemyNest("monster-nest"){{
             requirements(Category.effect, BuildVisibility.sandboxOnly, with(thallium, 1000, scrap, 650));

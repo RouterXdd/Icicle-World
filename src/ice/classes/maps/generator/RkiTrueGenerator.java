@@ -34,10 +34,10 @@ public class RkiTrueGenerator extends PlanetGenerator {
 
     Block[][] arr =
             {
-                    {dustFloor, dustFloor, stone, stone, stone, dustFloor, magnetRock, magnetRock, magnetPositiveRock, magnetRock, magnetNegativeRock, stone, dustFloor},
-                    {thermalFloor, thermalFloor, calamiteFloor, thermalFloor, calamiteFloor, dustFloor, dustFloor, dustFloor, calamiteFloor, magnetRock, magnetRock, stone, stone},
-                    {magnetRock, magnetPositiveRock, magnetRock, stone, thermalFloor, thermalFloor, thermalFloor, stone, magnetRock, magnetNegativeRock, magnetRock, stone, stone, thermalFloor},
-                    {calamiteFloor, calamiteFloor, calamiteFloor, dustFloor, dustFloor, calamiteFloor, stone, calamiteFloor, stone, stone, stone, dustFloor, dustFloor}
+                    {dustFloor, dustFloor, deepStone, deepStone, deepStone, dustFloor, magnetRock, magnetRock, magnetPositiveRock, magnetRock, magnetNegativeRock, deepStone, dustFloor},
+                    {thermalFloor, thermalFloor, calamiteFloor, thermalFloor, calamiteFloor, dustFloor, dustFloor, dustFloor, calamiteFloor, magnetRock, magnetRock, deepStone, deepStone},
+                    {magnetRock, magnetPositiveRock, magnetRock, deepStone, thermalFloor, thermalFloor, thermalFloor, deepStone, magnetRock, magnetNegativeRock, magnetRock, deepStone, stone, thermalFloor},
+                    {calamiteFloor, calamiteFloor, calamiteFloor, dustFloor, dustFloor, calamiteFloor, deepStone, calamiteFloor, deepStone, deepStone, deepStone, dustFloor, dustFloor}
             };
 
     ObjectMap<Block, Block> dec = ObjectMap.of(
@@ -277,7 +277,7 @@ public class RkiTrueGenerator extends PlanetGenerator {
                 boolean deep = value > 0.17f + 0.1f && !Mathf.within(x, y, fspawn.x, fspawn.y, 15 + rrscl);
                 boolean spore = floor != IceBlocks.magnetRock && floor != IceBlocks.calamiteFloor;
                 //ignore pre-existing liquids
-                if(!(floor == dustFloor || floor == IceBlocks.magnetRock || floor == IceBlocks.calamiteFloor || floor == stone || floor.asFloor().isLiquid)){
+                if(!(floor == dustFloor || floor == IceBlocks.magnetRock || floor == IceBlocks.calamiteFloor || floor == deepStone || floor.asFloor().isLiquid)){
                     floor = spore ?
                             (IceBlocks.methaneFloor) :
                             (deep ? IceBlocks.methaneFloor :
@@ -406,20 +406,28 @@ public class RkiTrueGenerator extends PlanetGenerator {
                     Block
                             floor = dustFloor,
                             secondFloor = dustFloor,
-                            vent = Blocks.rhyoliteVent;
+                            vent = dustLargeCrater;
 
                     int xDir = 1;
                     //set target material depending on what's encountered
-                    if (tile.floor() == stone ) {
-                        floor = secondFloor = stone;
-                        vent = IceBlocks.stoneLargeCrater;
+                    if (tile.floor() == deepStone ) {
+                        floor = secondFloor = deepStone;
+                        vent = stoneLargeCrater;
                     }
 
 
                     ventCount++;
                     for (var pos : LargeCrater.offsets) {
-                        Tile other = tiles.get(pos.x + tile.x + 2, pos.y + tile.y + 1);
+                        Tile other = tiles.get(pos.x + tile.x + 2, pos.y + tile.y + 2);
                         other.setFloor(vent.asFloor());
+                        Tile other1 = tiles.get(tile.x + 2, tile.y + 2);
+                        other1.setFloor(vent.asFloor());
+                        Tile other2 = tiles.get(tile.x - 2, tile.y - 2);
+                        other2.setFloor(vent.asFloor());
+                        Tile other3 = tiles.get(tile.x - 2, tile.y + 2);
+                        other3.setFloor(vent.asFloor());
+                        Tile other4 = tiles.get(tile.x + 2, tile.y - 2);
+                        other4.setFloor(vent.asFloor());
                     }
 
                     //"circle" for blending
@@ -451,11 +459,11 @@ public class RkiTrueGenerator extends PlanetGenerator {
 
         inverseFloodFill(tiles.getn(spawn.x, spawn.y));
 
-        tech(rkiMetal, rkiMetal, rkiMetalWall);
+        tech(rkiMetal, Mathf.chance(0.5) ? rkiMetal2 : rkiMetal3, rkiMetalWall);
 
         pass((x, y) -> {
 
-            if(genLakes && floor != stone && floor != IceBlocks.magnetRock && floor.asFloor().hasSurface()){
+            if(genLakes && floor != deepStone && floor != IceBlocks.magnetRock && floor.asFloor().hasSurface()){
                 float noise = noise(x + 782, y, 5, 0.75f, 260f, 1f);
                 if(noise > 0.67f && !roomseq.contains(e -> Mathf.within(x, y, e.x, e.y, 14))){
                     if(noise > 0.72f){
@@ -478,7 +486,7 @@ public class RkiTrueGenerator extends PlanetGenerator {
                         all = false;
                     }
                 }
-                if(any && ((block == stone || block == dustFloor) || (all && block == Blocks.air && floor == stone && rand.chance(0.012)))){
+                if(any && ((block == deepStone || block == dustFloor) || (all && block == Blocks.air && floor == deepStone && rand.chance(0.012)))){
                     block = IceBlocks.undergroundTree;
                 }
                 if(any && ((block == dustFloor || block == thermalFloor) || (all && block == Blocks.air && floor == dustFloor && rand.chance(0.01)))){

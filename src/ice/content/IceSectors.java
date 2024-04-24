@@ -1,13 +1,12 @@
 package ice.content;
 
 import arc.Core;
-import arc.graphics.g2d.TextureRegion;
 import mindustry.gen.Icon;
 import mindustry.type.SectorPreset;
 
 public class IceSectors {
     public static SectorPreset
-    fallPoint, primaryBase, methanePurficate, purpleFortress, trinityCollumn
+    fallPoint, primaryBase, methanePurficate, purpleFortress, trinityCollumn, resurgent, river, familiarComplex, flameOcean, aggressiveTactic, execution, theHive
             ;
     public static void load(){
         fallPoint = new SectorPreset("fall-point", IcePlanets.rki, 33){{

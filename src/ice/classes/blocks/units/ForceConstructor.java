@@ -4,6 +4,8 @@ import arc.*;
 import arc.graphics.*;
 import arc.graphics.g2d.*;
 import arc.math.*;
+import arc.struct.IntSeq;
+import arc.struct.Seq;
 import arc.util.*;
 import arc.util.io.*;
 import ice.classes.blocks.production.BurstPump;
@@ -108,32 +110,41 @@ public class ForceConstructor extends Block{
     public class UnitTransportSourceBuild extends Building implements UnitTetherBlock{
         //needs to be "unboxed" after reading, since units are read after buildings.
         public int readUnitId = -1;
+        protected IntSeq readUnits = new IntSeq();
         public float buildProgress, totalProgress;
         public float warmup, readyness;
-        public @Nullable Unit unit;
+        public Seq<Unit> units = new Seq<>();
+        public @Nullable Unit unitT, unit;
 
         @Override
         public void updateTile(){
+            if(!readUnits.isEmpty()){
+                units.clear();
+                readUnits.each(i -> {
+                    var unit = Groups.unit.getByID(i);
+                    if(unit != null){
+                        units.add(unit);
+                    }
+                });
+                readUnits.clear();
+            }
+
+            units.removeAll(u -> !u.isAdded() || u.dead);
             //unit was lost/destroyed
-            if(unit != null && (unit.dead || !unit.isAdded())){
-                unit = null;
+            if(unitT != null && (unitT.dead || !unitT.isAdded())){
+                unitT = null;
             }
 
-            if(readUnitId != -1){
-                unit = Groups.unit.getByID(readUnitId);
-                if(unit != null || !net.client()){
-                    readUnitId = -1;
-                }
+            if(readUnitId != 0){
+                unitT = Groups.unit.getByID(readUnitId);
+                    readUnitId = 0;
             }
+            totalProgress += warmup;
 
-            warmup = Mathf.approachDelta(warmup, efficiency, 1f / 60f);
-            readyness = Mathf.approachDelta(readyness, unit != null ? 1f : 0f, 1f / 60f);
+            warmup = Mathf.approachDelta(warmup, units.size < amount ? efficiency : 0f, 1f / 60f);
+            readyness = Mathf.approachDelta(readyness, unitT != null ? 1f : 0f, 1f / 60f);
 
-            if(unit == null){
-                buildProgress += edelta() / buildTime;
-                totalProgress += edelta();
-
-                if(buildProgress >= 1f ){
+            if(units.size == 0 && (buildProgress += edelta() / buildTime) >= 1f){
                     for(int i = 0; i < amount; i++) {
                     if(!net.client()) {
                         unit = unitType.create(team);
@@ -143,11 +154,12 @@ public class ForceConstructor extends Block{
                         unit.set(x, y);
                         unit.rotation = 90f * i;
                         unit.add();
+                        units.add(unit);
                         Call.unitTetherBlockSpawned(tile, unit.id);
                     }
                     }
+
                     consume();
-                }
             }
         }
 
@@ -161,7 +173,7 @@ public class ForceConstructor extends Block{
 
         @Override
         public boolean shouldConsume(){
-            return unit == null;
+            return unitT == null;
         }
 
         @Override
@@ -172,7 +184,7 @@ public class ForceConstructor extends Block{
         @Override
         public void draw(){
             Draw.rect(block.region, x, y);
-            if(unit == null){
+            if(units.size == 0){
                 Draw.draw(Layer.blockOver, () -> {
                     Drawf.construct(this, unitType.fullIcon, 0f, buildProgress, warmup, totalProgress);
                 });
@@ -200,7 +212,11 @@ public class ForceConstructor extends Block{
         public void write(Writes write){
             super.write(write);
 
-            write.i(unit == null ? -1 : unit.id);
+            write.i(unitT == null ? -1 : unitT.id);
+            write.s(units.size);
+            for(var unit : units){
+                write.i(unit.id);
+            }
         }
 
         @Override
@@ -208,6 +224,11 @@ public class ForceConstructor extends Block{
             super.read(read, revision);
 
             readUnitId = read.i();
+            int count = read.s();
+            readUnits.clear();
+            for(int i = 0; i < count; i++){
+                readUnits.add(read.i());
+            }
         }
     }
 }

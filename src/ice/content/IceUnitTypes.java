@@ -7,6 +7,7 @@ import arc.util.Tmp;
 import ice.classes.entities.abilities.EditableSuppressionFieldAbility;
 import ice.classes.entities.abilities.RepairPillAbility;
 import ice.classes.entities.abilities.RotatingShieldsAbility;
+import ice.classes.entities.abilities.WraithAbility;
 import ice.classes.entities.ai.ShielderAI;
 import ice.classes.entities.types.*;
 import ice.classes.pattern.*;
@@ -19,6 +20,7 @@ import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
+import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -33,11 +35,11 @@ import static mindustry.content.Items.*;
 public class IceUnitTypes {
     public static UnitType
     //core
-    malice, charity,
+    malice, charity, censure,
     //construct //I AM NOT GOING TO DO THAT
     vessel, stem, basis, ewer, xylem, fundament, decanter, stalk, groundwork,
         //sub units
-    quant, sin, chronon, zen,
+    quant, sin, chronon, zen, blaze, sunLight,
         //executioners (Mini bosses)
         yellow, purple, remnant, red, blue, green, warden,
     //utility
@@ -396,8 +398,8 @@ public class IceUnitTypes {
             rippleScale = 1.2f;
             stepShake = 0.5f;
             legGroupSize = 3;
-            legExtension = -6f;
-            legBaseOffset = 19f;
+            legExtension = -7f;
+            legBaseOffset = 18f;
             legStraightLength = 0.9f;
             legMaxLength = 1.2f;
 
@@ -431,7 +433,7 @@ public class IceUnitTypes {
                 alternate = false;
 
                 x = 10f;
-                y = -8f;
+                y = -13f;
                 shootY = 9f;
                 recoil = 4f;
                 reload = 210f;
@@ -477,7 +479,7 @@ public class IceUnitTypes {
                 alternate = false;
 
                 x = 0f;
-                y = -17f;
+                y = -22f;
                 shootY = 13f;
                 recoil = 4f;
                 reload = 230f;
@@ -514,10 +516,69 @@ public class IceUnitTypes {
                 }};
                     }});
         }};
+        stalk = new RkiUnitType("stalk"){{
+            speed = 0.42f;
+            rotateSpeed = 3.6f;
+            armor = 14;
+            itemCapacity = 30;
+            health = 19650f;
+            hitSize = 26f;
+            constructor = MechUnit::create;
+            weapons.add(new Weapon("icicle-world-stalk-weapon"){{
+                top = false;
+                reload = 70f;
+                rotate = false;
+                shootCone = 50;
+                mirror = true;
+                shootSound = Sounds.cannon;
+                x = 25f;
+                y = 0f;
+                shootY = 13.5f;
+
+                ejectEffect = Fx.none;
+                shoot = new ShootSpread(){{
+                    shots = 3;
+                    spread = 5;
+                }};
+
+                bullet = new BasicBulletType(9, 100){{
+                    lifetime = 35;
+                    width = 12f;
+                    height = 21f;
+                    splashDamage = 25;
+                    splashDamageRadius = 2.5f * 8;
+                    splashDamagePierce = true;
+                    hitColor = backColor = IcePal.sporeMid;
+                    frontColor = trailColor = IcePal.sporeLight;
+                    incendChance = 1;
+                    incendSpread = 11;
+                    incendAmount = 8;
+                    collideTerrain = true;
+                    trailLength = 11;
+                    trailWidth = 2.75f;
+                    parentizeEffects = false;
+                    shootEffect = new MultiEffect(new ParticleEffect(){{
+                        line = true;
+                        particles = 5;
+                        colorFrom = IcePal.sporeLight;
+                        colorTo = Color.black;
+                        sizeFrom = 5;
+                        sizeTo = 0;
+                        lenFrom = 7;
+                        lenTo = 0;
+                        length = 75;
+                        speed = 3.5f;
+                        cone = 55;
+                        lifetime = 75;
+                    }});
+                }};
+            }});
+        }};
 
         groundwork = new RkiTankUnitType("groundwork"){{
             hitSize = 37.5f;
-            treadPullOffset = 3;
+            treadPullOffset = 6;
+            treadFrames = 50;
             speed = 0.285f;
             rotateSpeed = 1.12f;
             health = 21600;
@@ -527,7 +588,7 @@ public class IceUnitTypes {
             drawCell = false;
             researchCostMultiplier = 0f;
             constructor = TankUnit::create;
-            treadRects = new Rect[]{new Rect(44 - 150f, 23 - 150f, 36, 253),new Rect(112 - 150f, 12 - 150f, 56, 74)};
+            treadRects = new Rect[]{new Rect(44 - 150f, 23 - 150f, 36, 253),new Rect(94 - 150f, 90f, 56, 44)};
             abilities.add(new RotatingShieldsAbility(){{
                 radius = 47;
             }});
@@ -562,8 +623,8 @@ public class IceUnitTypes {
                         buildingDamageMultiplier = 0.45f;
 
                         smokeEffect = Fx.shootSmokeTitan;
-                        splashDamage = 340;
-                        splashDamageRadius = 110;
+                        splashDamage = 270;
+                        splashDamageRadius = 170;
                         pierceCap = 5;
                         pierce = true;
                         pierceBuilding = collideTerrain = true;
@@ -828,6 +889,46 @@ public class IceUnitTypes {
                 }};
             }});
         }};
+        blaze = new RkiUnitType("blaze"){{
+
+            speed = 0.85f;
+            hitSize = 9f;
+            health = 290;
+            mechSideSway = 0.25f;
+            range = 30f;
+            constructor = LegsUnit::create;
+            legCount = 3;
+            legLength = 8.5f;
+            lightRadius = 130f;
+            groundLayer = Layer.legUnit;
+            weapons.add(new Weapon(){{
+                shootOnDeath = true;
+                reload = 30f;
+                noAttack = true;
+                shootCone = 180f;
+                controllable = false;
+                alwaysShooting = false;
+                ejectEffect = Fx.none;
+                shootSound = Sounds.explosion;
+                x = shootY = 0f;
+                mirror = false;
+                bullet = new BulletType(){{
+                    collidesTiles = false;
+                    collides = false;
+                    hitSound = Sounds.explosion;
+
+                    rangeOverride = 35f;
+                    hitEffect = Fx.pulverize;
+                    speed = 0f;
+                    splashDamageRadius = 70f;
+                    instantDisappear = true;
+                    splashDamage = 40f;
+                    killShooter = true;
+                    hittable = false;
+                    collidesAir = true;
+                }};
+            }});
+        }};
         vesselPoint = new RkiUnitType("vessel-point"){{
             hidden = true;
             drag = 0.08f;
@@ -1022,6 +1123,99 @@ public class IceUnitTypes {
                     sideLength = 80f;
                     length = 170f;
                     colors = new Color[]{Color.white.cpy().a(0.4f), Color.white, Color.white};
+                }};
+            }});
+        }};
+        blue = new RkiUnitType("blue"){{
+            hovering = true;
+            shadowElevation = 0.15f;
+
+            drag = 0.07f;
+            speed = 1.3f;
+            rotateSpeed = 4f;
+            constructor = ElevationMoveUnit::create;
+
+            accel = 0.09f;
+            health = 19000f;
+            armor = 5f;
+            hitSize = 19f;
+            engineOffset = 10f;
+            engineSize = 2.5f;
+            itemCapacity = 0;
+            useEngineElevation = false;
+            researchCostMultiplier = 0f;
+
+            abilities.add(new MoveEffectAbility(0f, -10f, Pal.techBlue, Fx.missileTrailShort, 5.5f){{
+                teamColor = true;
+            }});
+            abilities.add(new WraithAbility(55, 20, 180){{
+                shockBullet = new MissileBulletType(6f, 20){{
+                    width = 8f;
+                    height = 15f;
+                    lifetime = 25f;
+                    splashDamage = 35;
+                    splashDamageRadius = 21;
+
+                    smokeEffect = Fx.shootBigSmoke;
+                    hitColor = backColor = trailColor = Pal.techBlue;
+                    frontColor = Color.white;
+                    trailWidth = 2f;
+                    trailLength = 7;
+                    collideTerrain = true;
+                    hitEffect = despawnEffect = Fx.hitBulletColor;
+                }};
+                activeEffect = new WaveEffect(){{
+                    sides = 8;
+                    sizeFrom = 0;
+                    sizeTo = 6;
+                    lifetime = 30;
+                    colorFrom = Pal.techBlue;
+                }};
+            }});
+
+            parts.add(new HoverPart(){{
+                x = 8.5f;
+                y = -6.5f;
+                mirror = true;
+                radius = 7f;
+                phase = 90f;
+                stroke = 1.5f;
+                layerOffset = -0.001f;
+                color = Pal.techBlue;
+            }});
+
+            weapons.add(new Weapon("icicle-world-blue-weapon"){{
+                shootSound = Sounds.blaster;
+                y = 10.5f;
+                shootY = 0;
+                x = 5f;
+                top = true;
+                mirror = true;
+                reload = 58f;
+                shootCone = 50f;
+                recoil = 0;
+                shoot.shots = 3;
+                shoot.shotDelay = 6;
+
+                bullet = new MissileBulletType(6f, 20){{
+                    width = 8f;
+                    height = 15f;
+                    lifetime = 25f;
+                    splashDamage = 20;
+                    splashDamageRadius = 21;
+                    shootEffect = new WaveEffect(){{
+                        sides = 4;
+                        sizeFrom = 0;
+                        sizeTo = 5;
+                        colorFrom = Pal.techBlue;
+                    }};
+                    smokeEffect = Fx.shootBigSmoke;
+                    hitColor = backColor = trailColor = Pal.techBlue;
+                    frontColor = Color.white;
+                    trailWidth = 2f;
+                    trailLength = 7;
+                    collideTerrain = true;
+                    hitEffect = despawnEffect = Fx.hitBulletColor;
                 }};
             }});
         }};

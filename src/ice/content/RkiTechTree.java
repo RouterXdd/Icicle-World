@@ -81,9 +81,9 @@ public class RkiTechTree {
             //walls
             node(woodWall, () -> {
                 node(ceramicWall, () -> {
-                    node(aliveWall, () -> {
-
-                    });
+                    node(aliveWall);
+                    node(conductiveWall);
+                    node(bitWall);
                 });
             });
             //turrets
@@ -124,13 +124,16 @@ public class RkiTechTree {
                     });
                 });
                 node(siliconSolar, () -> {
-
+                    node(poloniumPanel);
                 });
                 node(decomposer, () -> {
                     node(methaneBurner, Seq.with(new OnSector(trinityCollumn)),() -> {
                         node(nuclearReactor, () -> {
 
                         });
+                    });
+                    node(liquidTurbine, () -> {
+
                     });
                 });
             });
@@ -153,21 +156,28 @@ public class RkiTechTree {
             node(simpleConstructor, Seq.with(new OnSector(primaryBase)), () -> {
                 node(vessel, Seq.with(new OnSector(primaryBase)),() -> {
                     node(ewer, Seq.with(new Research(forcedConstructor)),() -> {
-                        node(decanter, Seq.with(new Research(coreFury)),() -> {});
+                        node(decanter, Seq.with(new Research(omegaConstructor)),() -> {});
                     });
                 });
                 node(stem, Seq.with(new SectorComplete(primaryBase)),() -> {
                     node(xylem, Seq.with(new Research(forcedConstructor)),() -> {
-
+                        node(stalk, Seq.with(new Research(omegaConstructor)),() -> {});
                     });
                 });
                 node(basis, Seq.with(new SectorComplete(primaryBase)),() -> {
                     node(fundament, Seq.with(new Research(forcedConstructor)),() -> {
-
+                        node(groundwork, Seq.with(new Research(omegaConstructor)),() -> {});
                     });
                 });
                 node(forcedConstructor, () -> {
+                    node(omegaConstructor, () -> {
 
+                    });
+                });
+                node(lustrousConstructor, () -> {
+                    node(blaze, () -> {
+
+                    });
                 });
                 node(aquaConstructor, Seq.with(new OnSector(methanePurficate)), () -> {
                     node(quant, Seq.with(new OnSector(methanePurficate)),() -> {

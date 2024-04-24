@@ -15,8 +15,8 @@ public class RkiWaves {
     public static Seq<SpawnGroup> generate(float difficulty, Rand rand, boolean attack){
         UnitType[][] species = {
                 {vessel, ewer, decanter},
-                {stem, xylem, xylem /*stalk*/},
-                {basis, fundament, fundament /*groundwork*/},
+                {stem, xylem, stalk},
+                {basis, fundament, groundwork},
                 {quant, chronon /*hovers doesnt have T3*/},
         };
 
