@@ -1065,7 +1065,7 @@ public class IceBlocks {
             ammo(
                     methanum, methaneSpike
             );
-
+            ammoPerShot = 5;
             outlineColor = IcePal.rkiOutline;
             squareSprite = false;
             reload = 80f;
