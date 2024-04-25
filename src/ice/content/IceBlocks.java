@@ -225,7 +225,7 @@ public class IceBlocks {
         }};
         rkiMetal3 = new Floor("rki-metal3", 0){{
             blendGroup = rkiMetal;
-        }};;
+        }};
         rkiMetalWall = new StaticWall("rki-metal-wall"){{
             variants = 2;
             rkiMetal.asFloor().wall = this;
@@ -922,14 +922,13 @@ public class IceBlocks {
             size = 4;
             health = 700;
             itemDuration = 380f;
-            powerProduction = 16f;
-            heating = 0.04f;
+            powerProduction = 22f;
             fuelItem = poloniumCharge;
             lightColor = IcePal.poloniumLightish;
             hotColor = IcePal.poloniumLight;
             explodeEffect = IceFx.nuclearReactorExplosion;
             consumeItem(poloniumCharge, 1);
-            consumeLiquid(water, heating / coolantPower).update(false);
+            consumeLiquid(water, 4f / 60).update(false);
         }};
         liquidTurbine = new UndergroundPanels("liquid-turbine"){{
             requirements(Category.power, with(thallium, 95, prinute, 42, soptin, 60));
