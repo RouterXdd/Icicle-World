@@ -66,7 +66,7 @@ public class IceBlocks {
      //ores
     oreDust, oreThallium, oreSoptin, orePolonium, oreChalk, orePoloniumUnderground, oreThalliumUnderground, oreChalkUnderground, oreSoptinRoof,
     //crafting
-    prinuteMerger, prinuteFabricator, siliconDissembler, distiller, quarry, metalIncubator, poloniumCrucible, denseStructurer,
+    prinuteMerger, prinuteFabricator, siliconDissembler, ceramicSmelter, distiller, quarry, metalIncubator, poloniumCrucible, denseStructurer,
     //production
     protoDrill, advancedDrill, engineDrill, nuclearDrill, powerSlider, mechanicalCutter, laserCutter, oreFinder, methaneDigger,
     //distribution
@@ -296,6 +296,48 @@ public class IceBlocks {
             consumeItems(with(ceramicalDust, 6));
             consumeLiquid(methanum, 4f / 60f);
             consumePower(5f);
+        }};
+        ceramicSmelter = new GenericCrafter("ceramic-smelter"){{
+            requirements(Category.crafting, with(thallium, 260, silicon, 150, ceramic, 135, prinute, 170));
+            craftEffect = new MultiEffect(new ParticleEffect(){{
+                particles = 3;
+                cone = 0;
+                sizeFrom = 3;
+                baseRotation = 90;
+                sizeTo = 0;
+                baseLength = 6;
+                length = 20;
+                lifetime = 36;
+                colorTo = Color.valueOf("00000000");
+                colorFrom = IcePal.sootColor;
+            }}, new ParticleEffect(){{
+                line = true;
+                particles = 8;
+                colorFrom = IcePal.sootColor;
+                colorTo = Color.black;
+                sizeFrom = 2;
+                sizeTo = 0;
+                lenFrom = 5;
+                lenTo = 0;
+                length = 40;
+                cone = 55;
+                lifetime = 50;
+            }});
+            outputItems = with(ceramic, 2);
+            craftTime = 65f;
+            size = 3;
+            hasPower = true;
+            itemCapacity = 30;
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawDefault(), new DrawWarmupRegion(){{
+                color = IcePal.methaneLightish;
+            }});
+            fogRadius = 3;
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.16f;
+            researchCostMultiplier = 3f;
+
+            consumeItems(with(ceramicalDust, 3, sporeWood, 1));
+            consumePower(8f);
         }};
         distiller = new GenericCrafter("distiller"){{
             requirements(Category.crafting, with(thallium, 140, soptin, 85, silicon, 105));

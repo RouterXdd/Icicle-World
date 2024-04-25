@@ -567,7 +567,6 @@ public class IceUnitTypes {
                         lenFrom = 7;
                         lenTo = 0;
                         length = 75;
-                        speed = 3.5f;
                         cone = 55;
                         lifetime = 75;
                     }});
