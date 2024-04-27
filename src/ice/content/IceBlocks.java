@@ -300,9 +300,9 @@ public class IceBlocks {
         ceramicSmelter = new GenericCrafter("ceramic-smelter"){{
             requirements(Category.crafting, with(thallium, 260, silicon, 150, ceramic, 135, prinute, 170));
             craftEffect = new MultiEffect(new ParticleEffect(){{
-                particles = 3;
+                particles = 5;
                 cone = 0;
-                sizeFrom = 3;
+                sizeFrom = 4;
                 baseRotation = 90;
                 sizeTo = 0;
                 baseLength = 6;
@@ -320,7 +320,7 @@ public class IceBlocks {
                 lenFrom = 5;
                 lenTo = 0;
                 length = 40;
-                cone = 55;
+                cone = 360;
                 lifetime = 50;
             }});
             outputItems = with(ceramic, 2);
@@ -614,7 +614,7 @@ public class IceBlocks {
         }};
         //TODO effects
         pulsePump = new BurstPump("pulse-pump"){{
-            requirements(Category.liquid, with(silicon, 85, ceramic, 68, soptin, 40));
+            requirements(Category.liquid, with(silicon, 85, ceramic, 68, soptin, 50, scrap, 60));
             pumpAmount = 1f;
             reload = 265f;
             consumePower(3f);

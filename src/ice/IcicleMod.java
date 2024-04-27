@@ -18,8 +18,8 @@ import static mindustry.Vars.ui;
 public class IcicleMod extends Mod{
 
     public IcicleMod(){
-        Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
         Events.on(ClientLoadEvent.class, e -> {
+            Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
             loadSettings();
         });
     }
