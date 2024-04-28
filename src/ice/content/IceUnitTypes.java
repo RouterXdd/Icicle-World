@@ -28,6 +28,7 @@ import mindustry.type.*;
 import mindustry.type.ammo.*;
 import mindustry.type.weapons.*;
 import mindustry.world.meta.BlockFlag;
+import mindustry.world.meta.Stat;
 
 import static ice.content.IceBullets.*;
 import static mindustry.content.Items.*;
@@ -45,7 +46,7 @@ public class IceUnitTypes {
     //utility
     shieldDrone, vesselPoint,
     //funny
-    basic, octo, swarmling, reaver, giant;
+    basic, octo, swarmling, reaver, giant, unknown;
     public static void load(){
         malice = new RkiUnitType("malice"){{
             aiController = BuilderAI::new;
@@ -1640,5 +1641,20 @@ public class IceUnitTypes {
                     }})
             );
         }};
+        unknown = new UnitType("unknown"){{
+            outlines = false;
+            constructor = UnitEntity::create;
+        }
+        @Override
+        public void setStats(){
+            stats.remove(Stat.health);
+            stats.remove(Stat.range);
+            stats.remove(Stat.speed);
+            stats.remove(Stat.flying);
+            stats.remove(Stat.armor);
+            stats.remove(Stat.itemCapacity);
+            stats.remove(Stat.canBoost);
+        }
+        };
     }
 }

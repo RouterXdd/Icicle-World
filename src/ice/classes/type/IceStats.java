@@ -10,7 +10,9 @@ public class IceStats implements Comparable<Stat>{
     public static final Seq<IceStats> allStats = new Seq<>();
 
     public static final Stat
-    underOres = new Stat("underores"),
+    waves = new Stat("completewaves"),
+    enemies = new Stat("waveenemies"),
+    guardians = new Stat("waveguardians"),
     droneAmount = new Stat("droneamount",  StatCat.function),
     inflictChance = new Stat("inflictchance",  StatCat.function),
     inflictStatus = new Stat("inflictstatus",  StatCat.function),

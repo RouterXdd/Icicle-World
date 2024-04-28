@@ -57,8 +57,8 @@ public class RkiTechTree {
                     node(laserCutter, Seq.with(new SectorComplete(primaryBase)),() -> {});
                 });
                 node(advancedDrill, Seq.with(new SectorComplete(primaryBase)),() -> {
-                    node(oreFinder);
-                    node(methaneDigger);
+                    node(oreFinder, Seq.with(new OnSector(resurgent)),() -> {});
+                    node(methaneDigger, Seq.with(new OnSector(resurgent)),() -> {});
                     node(engineDrill, Seq.with(new OnSector(trinityCollumn)),() -> {
                         node(nuclearDrill);
                     });
@@ -140,13 +140,14 @@ public class RkiTechTree {
             //crafting
             node(prinuteMerger, Seq.with(new OnSector(primaryBase)),() -> {
                 node(siliconDissembler, Seq.with(new OnSector(purpleFortress)),() -> {
-                    node(quarry);
+                    node(prinuteMerger, Seq.with(new OnSector(resurgent)),() -> {});
                     node(metalIncubator, () -> {
                         node(poloniumCrucible);
                         node(denseStructurer);
                     });
                     node(distiller);
                     node(prinuteFabricator);
+                    node(ceramicSmelter, Seq.with(new SectorComplete(resurgent)),() -> {});
                 });
             });
             node(lamp, () -> {
@@ -201,7 +202,9 @@ public class RkiTechTree {
                         node(purpleFortress, Seq.with(new SectorComplete(methanePurficate), new Research(perfection)),() -> {
                             node(malis1, Seq.with(new OnSector(purpleFortress)),() -> {});
                             node(trinityCollumn, Seq.with(new SectorComplete(purpleFortress)),() -> {
+                                node(resurgent, Seq.with(new SectorComplete(trinityCollumn)),() -> {
 
+                                });
                             });
                         });
                     });

@@ -189,4 +189,8 @@ public class StatTypes {
     private static TextureRegion icon(UnlockableContent t){
         return t.uiIcon;
     }
+
+    public static StatValue unitTypes(Seq<UnitType> list) {
+        return StatValues.content(list.as());
+    }
 }
