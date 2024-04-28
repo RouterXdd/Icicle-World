@@ -5,6 +5,7 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.*;
 import arc.util.*;
+import ice.IcicleVars;
 import ice.classes.type.IceStats;
 import ice.graphics.IcePal;
 import mindustry.entities.*;
@@ -32,7 +33,7 @@ public class BreakDrill extends Drill {
     @Override
     public void setStats() {
         super.setStats();
-        if (minHealth > 0) {
+        if (minHealth > 0 && !IcicleVars.hardMode) {
             stats.add(IceStats.minHealth, health * minHealth);
         }
     }
@@ -57,14 +58,14 @@ public class BreakDrill extends Drill {
                     }
                 } else {
                     if (blockTeam) {
-                            Lightning.create(this.team, colorLight, damageLight, this.x, this.y, Mathf.random(0, 360), lengthLight);
+                        Lightning.create(this.team, colorLight, damageLight, this.x, this.y, Mathf.random(0, 360), lengthLight);
                     } else {
                         Lightning.create(Team.derelict, colorLight, damageLight, this.x, this.y, Mathf.random(0, 360), lengthLight);
                     }
                 }
                 reloadTime = reload;
             }
-            if (health < maxHealth * minHealth){
+            if (health < maxHealth * minHealth && !IcicleVars.hardMode){
                 efficiency = efficiency / efficiencyCut;
                 heal(limitRegen * Time.delta);
             }

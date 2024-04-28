@@ -1,6 +1,10 @@
 package ice.content;
 
+import arc.math.Mathf;
+import ice.IcicleVars;
 import ice.graphics.IcePal;
+import mindustry.entities.Lightning;
+import mindustry.game.Team;
 import mindustry.graphics.Pal;
 import mindustry.type.StatusEffect;
 
@@ -9,8 +13,13 @@ public class IceStatuses {
     public static void load(){
         inSoot = new StatusEffect("in-soot"){{
             color = IcePal.sootColor;
-            speedMultiplier = 0.9f;
-            healthMultiplier = 0.9f;
+            if (IcicleVars.hardMode) {
+                speedMultiplier = 0.65f;
+                healthMultiplier = 0.65f;
+            } else {
+                speedMultiplier = 0.9f;
+                healthMultiplier = 0.9f;
+            }
         }};
         positiveCharge = new StatusEffect("positive-charge"){{
             color = IcePal.positiveStatusCol;

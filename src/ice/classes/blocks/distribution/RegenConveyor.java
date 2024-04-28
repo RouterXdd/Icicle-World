@@ -6,6 +6,7 @@ import arc.math.geom.Geometry;
 import arc.math.geom.Point2;
 import arc.struct.Seq;
 import arc.util.Time;
+import ice.IcicleVars;
 import ice.classes.type.meta.IcePlacement;
 import ice.content.IceBlocks;
 import mindustry.content.Blocks;
@@ -39,7 +40,7 @@ public class RegenConveyor extends Conveyor {
         @Override
         public void updateTile(){
             super.updateTile();
-            if (damaged()){
+            if (damaged() && !IcicleVars.hardMode){
                 heal(regenAmount * Time.delta);
             }
         }

@@ -1,5 +1,8 @@
 package ice.classes.entities.ai;
 
+import arc.math.Mathf;
+import arc.util.Time;
+import ice.IcicleVars;
 import mindustry.entities.units.AIController;
 import mindustry.gen.BuildingTetherc;
 

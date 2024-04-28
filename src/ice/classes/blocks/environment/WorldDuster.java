@@ -5,6 +5,7 @@ import arc.util.Time;
 import ice.content.IceBlocks;
 import mindustry.Vars;
 import mindustry.content.*;
+import mindustry.entities.Damage;
 import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
 import mindustry.world.*;

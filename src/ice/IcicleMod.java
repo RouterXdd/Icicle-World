@@ -58,6 +58,7 @@ public class IcicleMod extends Mod{
     void loadSettings(){
         ui.settings.addCategory(bundle.get("setting.icicle-world-title"), "icicle-world-settings-ui", t -> {
             t.checkPref("icicle-world-debug", false);
+            t.checkPref("icicle-world-hard-mode", false);
         });
     }
 }
