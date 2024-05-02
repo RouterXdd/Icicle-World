@@ -20,7 +20,9 @@ public class RkiTechTree {
             nodeProduce(thallium, () -> {
                 nodeProduce(scrap, () -> {
                     nodeProduce(prinute, () -> {
-                        nodeProduce(livesteel, () -> {});
+                        nodeProduce(livesteel, () -> {
+                            nodeProduce(denseAlloy, () -> {});
+                        });
                         nodeProduce(soptin, () -> {
                             nodeProduce(polonium, () -> {
                                 nodeProduce(poloniumCharge, () -> {});
@@ -141,6 +143,7 @@ public class RkiTechTree {
             node(prinuteMerger, Seq.with(new OnSector(primaryBase)),() -> {
                 node(siliconDissembler, Seq.with(new OnSector(purpleFortress)),() -> {
                     node(prinuteMerger, Seq.with(new OnSector(resurgent)),() -> {});
+                    node(quarry, Seq.with(new OnSector(resurgent)),() -> {});
                     node(metalIncubator, () -> {
                         node(poloniumCrucible);
                         node(denseStructurer);

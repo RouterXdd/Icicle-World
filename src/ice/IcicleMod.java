@@ -18,7 +18,9 @@ import static mindustry.Vars.ui;
 public class IcicleMod extends Mod{
 
     public IcicleMod(){
-        Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
+        if (IcicleVars.modShaders) {
+            Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
+        }
         Events.on(ClientLoadEvent.class, e -> {
             loadSettings();
         });
@@ -59,6 +61,7 @@ public class IcicleMod extends Mod{
         ui.settings.addCategory(bundle.get("setting.icicle-world-title"), "icicle-world-settings-ui", t -> {
             t.checkPref("icicle-world-debug", false);
             t.checkPref("icicle-world-hard-mode", false);
+            t.checkPref("icicle-world-mod-shaders", false);
         });
     }
 }

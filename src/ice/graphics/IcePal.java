@@ -25,6 +25,8 @@ public class IcePal {
     sootSuppressParticleColor = Color.valueOf("571fabff"),
     positiveStatusCol = Color.valueOf("c91f1fff"),
     negativeStatusCol = Color.valueOf("285fb7ff"),
+    cruxMid = Color.valueOf("f15454"),
+    cruxDark = Color.valueOf("a04553"),
     rkiOutline = Color.valueOf("1b121f"),
     monsterOutline = Color.valueOf("011a00");
 }

@@ -1,15 +1,17 @@
 package ice.content;
 
 import arc.graphics.Color;
+import ice.graphics.IcePal;
 import mindustry.game.Team;
 import mindustry.graphics.Pal;
 
 public class IceTeams {
-    public static Team genesis, origin;
+    public static Team genesis, origin, methanite;
 
     public static void load() {
         genesis = newTeam(21, "genesis", Pal.logicControl);
         origin = newTeam(22, "origin-team", Pal.darkerMetal);
+        methanite = newTeam(23, "origin-team", IcePal.methaneLightish);
     }
 
     //modify any of 256 teams' properties

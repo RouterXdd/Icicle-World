@@ -1,34 +1,30 @@
 package ice.classes.entities.types;
 
 import arc.graphics.Color;
-import ice.content.IceItems;
 import ice.content.IceLiquids;
-import ice.graphics.IcePal;
 import mindustry.entities.abilities.LiquidExplodeAbility;
-import mindustry.type.Liquid;
 import mindustry.type.UnitType;
-import mindustry.type.ammo.ItemAmmoType;
-import static mindustry.content.StatusEffects.*;
-import static ice.content.IceStatuses.*;
 
-public class MonsterUnitType extends UnitType {
+import static ice.content.IceStatuses.radiation;
+import static ice.content.IceStatuses.rusting;
+import static mindustry.content.StatusEffects.*;
+
+public class MethaniteUnitType extends UnitType {
     public float bloodAmount;
-    public Liquid bloodType;
-    public MonsterUnitType(String name){
+    public MethaniteUnitType(String name) {
         super(name);
-        outlineColor = IcePal.monsterOutline;
         bloodAmount = 40f;
-        bloodType = IceLiquids.blood;
+        drawCell = false;
         createScorch = false;
         immunities.add(corroded);
         immunities.add(disarmed);
         immunities.add(radiation);
         immunities.add(rusting);
+        immunities.add(burning);
         abilities.add(new LiquidExplodeAbility(){{
-            liquid = bloodType;
+            liquid = IceLiquids.methanum;
             amount = bloodAmount;
         }});
-        drawCell = false;
-        mechLegColor = Color.valueOf("041600");
+        outlineColor = Color.valueOf("03000d");
     }
 }

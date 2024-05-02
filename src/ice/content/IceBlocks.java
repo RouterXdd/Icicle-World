@@ -5,6 +5,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.struct.*;
+import ice.IcicleVars;
 import ice.classes.blocks.defence.Pylon;
 import ice.classes.blocks.defence.IceWall;
 import ice.classes.blocks.distribution.*;
@@ -145,7 +146,11 @@ public class IceBlocks {
             statusDuration = 120f;
             liquidDrop = methanum;
             isLiquid = true;
-            cacheLayer = IceShaders.methaneLayer;
+            if (IcicleVars.modShaders) {
+                cacheLayer = IceShaders.methaneLayer;
+            } else {
+                cacheLayer = CacheLayer.water;
+            }
             attributes.set(meth, 0.25f);
         }};
         methaneFloorShallow = new Floor("methanum-floor-shallow"){{
@@ -157,7 +162,11 @@ public class IceBlocks {
             liquidMultiplier = 0.75f;
             isLiquid = true;
             shallow = true;
-            cacheLayer = IceShaders.methaneLayer;
+            if (IcicleVars.modShaders) {
+                cacheLayer = IceShaders.methaneLayer;
+            } else {
+                cacheLayer = CacheLayer.water;
+            }
             attributes.set(meth, 0.1f);
         }};
         thermalFloor = new Floor("thermal-floor");
@@ -566,6 +575,7 @@ public class IceBlocks {
             size = 3;
             range = 10 * 8;
             consumePower(1.6f);
+            fogRadius = 10;
         }};
         methaneDigger = new OreUpper("methane-digger"){{
             requirements(Category.production, with(thallium, 220, soptin, 160, prinute, 110, silicon, 120, ceramic, 90));
@@ -822,6 +832,7 @@ public class IceBlocks {
             flags = EnumSet.of(BlockFlag.extinguisher);
             shootSound = Sounds.spark;
             consumePower(5f);
+            fogRadiusMultiplier = 0.1f;
             coolant = consumeCoolant(0.1f);
         }};
         forceDome = new ForceConstructor("force-dome"){{
@@ -994,6 +1005,7 @@ public class IceBlocks {
             health = 700;
             itemCapacity = 1600;
             squareSprite = false;
+            incinerateNonBuildable = true;
             size = 2;
 
             unitCapModifier = 5;
@@ -1011,6 +1023,7 @@ public class IceBlocks {
             health = 2600;
             itemCapacity = 3400;
             squareSprite = false;
+            incinerateNonBuildable = true;
             size = 3;
 
             unitCapModifier = 15;
@@ -1028,6 +1041,7 @@ public class IceBlocks {
             armor = 5;
             itemCapacity = 7000;
             squareSprite = false;
+            incinerateNonBuildable = true;
             size = 4;
 
             unitCapModifier = 30;
@@ -1106,7 +1120,7 @@ public class IceBlocks {
             ammo(
                     methanum, methaneSpike
             );
-            ammoPerShot = 5;
+            ammoPerShot = 100;
             outlineColor = IcePal.rkiOutline;
             squareSprite = false;
             reload = 80f;

@@ -1,18 +1,13 @@
 package ice.content;
 
 import arc.graphics.*;
-import arc.math.Mathf;
 import arc.math.geom.Rect;
 import arc.util.Tmp;
-import ice.classes.entities.abilities.EditableSuppressionFieldAbility;
-import ice.classes.entities.abilities.RepairPillAbility;
-import ice.classes.entities.abilities.RotatingShieldsAbility;
-import ice.classes.entities.abilities.WraithAbility;
+import ice.classes.entities.abilities.*;
 import ice.classes.entities.ai.ShielderAI;
 import ice.classes.entities.types.*;
 import ice.classes.pattern.*;
 import ice.graphics.IcePal;
-import mindustry.Vars;
 import mindustry.ai.UnitCommand;
 import mindustry.ai.types.*;
 import mindustry.content.*;
@@ -45,6 +40,8 @@ public class IceUnitTypes {
         yellow, purple, remnant, red, blue, green, warden,
     //utility
     shieldDrone, vesselPoint,
+    //methanite
+    born, haste, angle, moto, queen, emperor, collector,
     //funny
     basic, octo, swarmling, reaver, giant, unknown;
     public static void load(){
@@ -166,7 +163,7 @@ public class IceUnitTypes {
                             mirror = true;
                             alternate = false;
                             x = 3f;
-                            y = 5f;
+                            y = 4.5f;
 
                             inaccuracy = 5f;
                             ejectEffect = IceFx.pointEject;
@@ -176,8 +173,8 @@ public class IceUnitTypes {
                     new RepairBeamWeapon("icicle-world-malice-repair-gun"){{
                         widthSinMag = 0.07f;
                         reload = 20f;
-                        x = 4.5f;
-                        y = -3f;
+                        x = 6f;
+                        y = -6.5f;
                         rotate = true;
                         shootY = 2f;
                         beamWidth = 0.535f;
@@ -889,6 +886,79 @@ public class IceUnitTypes {
                 }};
             }});
         }};
+        zen = new RkiUnitType("zen"){{
+            speed = 0.65f;
+            drag = 0.2f;
+            hitSize = 17f;
+            health = 2740;
+            accel = 0.55f;
+            range = 70;
+            rotateSpeed = 1.95f;
+            faceTarget = false;
+            constructor = UnitWaterMove::create;
+
+            armor = 7f;
+
+            weapons.add(new Weapon("icicle-world-sin-weapon"){{
+                reload = 20f;
+                x = 3.5f;
+                shootY = 2f;
+                y = -1f;
+                rotate = true;
+                ejectEffect = Fx.casing1;
+                bullet = new MissileBulletType(2.5f, 20){{
+                    keepVelocity = true;
+                    width = 5.5f;
+                    height = 9f;
+                    shrinkY = 0f;
+                    drag = -0.004f;
+                    homingRange = 55f;
+                    splashDamageRadius = 20f;
+                    splashDamage = 8f;
+                    lifetime = 50f;
+                    trailColor = Color.gray;
+                    backColor = Pal.bulletYellowBack;
+                    frontColor = Pal.bulletYellow;
+                    hitEffect = Fx.blastExplosion;
+                    despawnEffect = Fx.blastExplosion;
+                    weaveScale = 9f;
+                    weaveMag = 1.85f;
+                    collideTerrain = true;
+                }};
+            }});
+
+            weapons.add(new Weapon("icicle-world-sin-launcher"){{
+                mirror = false;
+                reload = 40f;
+                x = 0f;
+                y = -4.5f;
+                rotate = true;
+                ejectEffect = Fx.casing1;
+                shootSound = Sounds.missile;
+                bullet = new BasicBulletType(3.5f, 30, "circle-bullet"){{
+                    width = 8f;
+                    height = 8f;
+                    shrinkY = 0f;
+                    lifetime = 65f;
+                    trailColor = Color.gray;
+                    backColor = IcePal.methaneLight;
+                    frontColor = IcePal.methaneMid;
+                    hitEffect = Fx.colorSpark;
+                    despawnEffect = Fx.colorSpark;
+                    weaveScale = 8f;
+                    weaveMag = 2f;
+                    fragBullets = 3;
+                    collideTerrain = true;
+                    fragBullet = new ShrapnelBulletType(){{
+                        length = 20;
+                        damage = 10f;
+                        width = 8f;
+                        toColor = IcePal.methaneLight;
+                        shootEffect = smokeEffect = Fx.shootBigColor;
+                    }};
+                }};
+            }});
+        }};
         blaze = new RkiUnitType("blaze"){{
 
             speed = 0.85f;
@@ -929,6 +999,7 @@ public class IceUnitTypes {
                 }};
             }});
         }};
+
         vesselPoint = new RkiUnitType("vessel-point"){{
             hidden = true;
             drag = 0.08f;
@@ -1126,6 +1197,166 @@ public class IceUnitTypes {
                 }};
             }});
         }};
+        red = new RkiUnitType("red"){{
+            speed = 0.56f;
+            hitSize = 22f;
+            rotateSpeed = 1.75f;
+            health = 21050;
+            armor = 8f;
+            mechFrontSway = 1f;
+            ammoType = new ItemAmmoType(IceItems.prinute);
+            constructor = MechUnit::create;
+
+            mechStepParticles = true;
+            stepShake = 0.15f;
+            singleTarget = true;
+            drownTimeMultiplier = 3.2f;
+            abilities.add(new DeathExplosionAbility(1200, 15 * 8){{
+                exploEffect = new MultiEffect(
+                        new WaveEffect(){{
+                            sizeFrom = 0;
+                            sizeTo = exploRange;
+                            strokeFrom = 0;
+                            strokeTo = 9f;
+                            lifetime = 150;
+                            colorFrom = IcePal.cruxDark;
+                            colorTo = Color.valueOf("00000000");
+                        }},
+                        new WaveEffect(){{
+                            startDelay = 9;
+                            sizeFrom = 0;
+                            sizeTo = exploRange;
+                            strokeFrom = 0;
+                            strokeTo = 9f;
+                            lifetime = 150;
+                            colorFrom = IcePal.cruxDark;
+                            colorTo = Color.valueOf("00000000");
+                        }},
+                        new WaveEffect(){{
+                            startDelay = 18;
+                            sizeFrom = 0;
+                            sizeTo = exploRange;
+                            strokeFrom = 0;
+                            strokeTo = 9f;
+                            lifetime = 150;
+                            colorFrom = IcePal.cruxDark;
+                            colorTo = Color.valueOf("00000000");
+                        }},
+                        new ParticleEffect(){{
+                            particles = 10;
+                            cone = 360;
+                            baseLength = 5;
+                            length = exploRange;
+                            lifetime = 230;
+                            sizeFrom = 0;
+                            sizeTo = 25;
+                            colorFrom = IcePal.cruxMid;
+                            colorTo = Color.valueOf("00000000");
+                        }});
+                exploBullets = 5;
+                exploBullet = new BasicBulletType(4f, 0, "circle-bullet"){{
+                        width = 32f;
+                        height = 32f;
+                        lifetime = 200f;
+                        drag = 0.05f;
+                        shootEffect = Fx.shootBig;
+                        frontColor = IcePal.cruxMid;
+                        backColor = IcePal.cruxDark;
+                        collides = collidesGround = collidesAir = false;
+                        intervalBullets = 2;
+                        intervalRandomSpread = 360;
+                        intervalAngle = 0;
+                        bulletInterval = 12;
+                        intervalBullet = new BasicBulletType(1.5f, 30) {{
+                            width = 11f;
+                            height = 20f;
+                            lifetime = 70f;
+                            shootEffect = Fx.shootBig;
+                            collideTerrain = true;
+                            frontColor = Pal.redDust;
+                            backColor = Pal.redderDust;
+                            splashDamage = 10;
+                            splashDamageRadius = 10;
+                            pierceCap = 2;
+                            pierceBuilding = true;
+                            intervalBullets = 2;
+                            intervalRandomSpread = 30;
+                            intervalAngle = 0;
+                            bulletInterval = 5;
+                            intervalBullet = new LightningBulletType() {{
+                                damage = 4;
+                                lightningLength = 8;
+                                collidesAir = false;
+                                ammoMultiplier = 1f;
+                                lightningColor = Pal.redderDust;
+
+                                lightningType = new BulletType(0.0001f, 0f) {{
+                                    lifetime = Fx.lightning.lifetime;
+                                    hitEffect = Fx.hitLancer;
+                                    despawnEffect = Fx.none;
+                                    status = StatusEffects.shocked;
+                                    statusDuration = 15f;
+                                    hittable = false;
+                                    lightColor = Pal.redderDust;
+                                    collidesAir = false;
+                                }};
+                            }};
+                        }};
+                    }};
+            }});
+
+            weapons.add(
+                    new Weapon("icicle-world-red-weapon"){{
+                        top = false;
+                        y = 0;
+                        x = 13.5f;
+                        shootY = 8.75f;
+                        reload = 65f;
+                        recoil = 3f;
+                        shake = 1f;
+                        ejectEffect = Fx.casing3;
+                        shootSound = Sounds.bang;
+                        inaccuracy = 3f;
+
+                        bullet = new BasicBulletType(8f, 130){{
+                            width = 11f;
+                            height = 20f;
+                            lifetime = 20f;
+                            shootEffect = Fx.shootBig;
+                            collideTerrain = true;
+                            frontColor = Pal.redDust;
+                            backColor = Pal.redderDust;
+                            splashDamage = 45;
+                            splashDamageRadius = 25;
+                            pierceCap = 2;
+                            pierceBuilding = true;
+                            intervalBullets = 1;
+                            intervalRandomSpread = 0;
+                            intervalAngle = 0;
+                            bulletInterval = 4;
+                            intervalBullet = new LightningBulletType(){{
+                                damage = 10;
+                                lightningLength = 8;
+                                collidesAir = false;
+                                ammoMultiplier = 1f;
+                                lightningColor = Pal.redderDust;
+
+
+                                lightningType = new BulletType(0.0001f, 0f){{
+                                    lifetime = Fx.lightning.lifetime;
+                                    hitEffect = Fx.hitLancer;
+                                    despawnEffect = Fx.none;
+                                    status = StatusEffects.shocked;
+                                    statusDuration = 15f;
+                                    hittable = false;
+                                    lightColor = Pal.redderDust;
+                                    collidesAir = false;
+                                }};
+                            }};
+                        }};
+                    }}
+            );
+        }};
         blue = new RkiUnitType("blue"){{
             hovering = true;
             shadowElevation = 0.15f;
@@ -1149,7 +1380,7 @@ public class IceUnitTypes {
                 teamColor = true;
             }});
             abilities.add(new WraithAbility(55, 20, 180){{
-                shockBullet = new MissileBulletType(6f, 20){{
+                shockBullet = new MissileBulletType(6f, 50){{
                     width = 8f;
                     height = 15f;
                     lifetime = 25f;
@@ -1197,7 +1428,7 @@ public class IceUnitTypes {
                 shoot.shots = 3;
                 shoot.shotDelay = 6;
 
-                bullet = new MissileBulletType(6f, 20){{
+                bullet = new MissileBulletType(6f, 45){{
                     width = 8f;
                     height = 15f;
                     lifetime = 25f;
@@ -1251,6 +1482,100 @@ public class IceUnitTypes {
                 shoot.shotDelay = 5;
                 bullet = pointBullet;
             }});
+        }};
+        born = new MethaniteUnitType("born"){{
+            drag = 0.1f;
+            speed = 2.1f;
+            rotateSpeed = 20f;
+            accel = 0.15f;
+            fogRadius = 8f;
+            itemCapacity = 0;
+            health = 320f;
+            armor = 1;
+            hitSize = 11f;
+            constructor = LegsUnit::create;
+            mineWalls = true;
+            hovering = true;
+            lockLegBase = true;
+            legContinuousMove = false;
+            legCount = 4;
+            legExtension = -7f;
+            legBaseOffset = 4f;
+            legMaxLength = 0.85f;
+            legLength = 14f;
+            legMinLength = 0.32f;
+            legLengthScl = 1f;
+            legForwardScl = 0.7f;
+
+            legMoveSpace = 2f;
+            groundLayer = Layer.legUnit;
+
+            weapons.add(new Weapon("icicle-world-born-attack"){{
+                top = false;
+                reload = 15f;
+                rotate = false;
+                shootCone = 50;
+                mirror = false;
+                x = 0f;
+                y = 6.75f;
+
+                ejectEffect = Fx.none;
+
+                bullet = new BasicBulletType(4f, 5){{
+                    width = 0.2f;
+                    height = 0.2f;
+                    lifetime = 5f;
+                    recoil = -1;
+                    hitEffect = despawnEffect = shootEffect = smokeEffect = Fx.none;
+                }};
+            }});
+        }};
+        haste = new MethaniteUnitType("haste"){{
+            drag = 0.1f;
+            speed = 2.55f;
+            rotateSpeed = 20f;
+            accel = 0.15f;
+            fogRadius = 8f;
+            itemCapacity = 0;
+            health = 760f;
+            armor = 3;
+            hitSize = 17f;
+            constructor = LegsUnit::create;
+            mineWalls = true;
+            hovering = true;
+            lockLegBase = true;
+            legContinuousMove = false;
+            legCount = 6;
+            legExtension = -7f;
+            legBaseOffset = 5f;
+            legMaxLength = 1f;
+            legLength = 22f;
+            legMinLength = 0.64f;
+            legLengthScl = 1f;
+            legForwardScl = 0.75f;
+
+            legMoveSpace = 2f;
+            groundLayer = Layer.legUnit;
+
+            weapons.add(new Weapon("icicle-world-haste-attack"){{
+                            top = false;
+                            reload = 20f;
+                            rotate = false;
+                            shootCone = 50;
+                            mirror = false;
+                            x = 0f;
+                            y = 9f;
+
+                            ejectEffect = Fx.none;
+
+                            bullet = new BasicBulletType(6f, 15){{
+                                width = 0.2f;
+                                height = 0.2f;
+                                lifetime = 6f;
+                                recoil = -3;
+                                hitEffect = despawnEffect = shootEffect = smokeEffect = Fx.none;
+                            }};
+                        }});
         }};
         basic = new UnitType("basic"){{
             health = 1000;
