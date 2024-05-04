@@ -11,7 +11,7 @@ public class IceTeams {
     public static void load() {
         genesis = newTeam(21, "genesis", Pal.logicControl);
         origin = newTeam(22, "origin-team", Pal.darkerMetal);
-        methanite = newTeam(23, "origin-team", IcePal.methaneLightish);
+        methanite = newTeam(23, "methanite", IcePal.methaneLightish);
     }
 
     //modify any of 256 teams' properties

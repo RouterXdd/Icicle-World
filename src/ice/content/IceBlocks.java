@@ -6,14 +6,12 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
 import arc.struct.*;
 import ice.IcicleVars;
-import ice.classes.blocks.defence.Pylon;
-import ice.classes.blocks.defence.IceWall;
+import ice.classes.blocks.defence.*;
 import ice.classes.blocks.distribution.*;
 import ice.classes.blocks.environment.*;
 import ice.classes.blocks.power.*;
 import ice.classes.blocks.production.*;
-import ice.classes.blocks.units.ForceConstructor;
-import ice.classes.blocks.units.LegacyFactoryPad;
+import ice.classes.blocks.units.*;
 import ice.classes.entities.bullets.ScaledBasicBulletType;
 import ice.classes.type.StatTypes;
 import ice.graphics.IcePal;
@@ -1094,8 +1092,63 @@ public class IceBlocks {
 
             ammo(
                     sporeWood, sporeSkimmerBullet,
-                    silicon, siliconSkimmerBullet
-            );
+                    silicon, siliconSkimmerBullet,
+                    ceramic, new BasicBulletType(4, 40){{
+                        shootEffect = new MultiEffect(Fx.shootTitan, new WaveEffect(){{
+                            colorTo = Pal.lightTrail;
+                            sizeTo = 26f;
+                            lifetime = 14f;
+                            strokeFrom = 4f;
+                        }});
+                        collideTerrain = true;
+                        smokeEffect = Fx.shootSmokeTitan;
+                        hitColor = Pal.lightTrail;
+
+                        trailEffect = Fx.missileTrail;
+                        trailInterval = 3f;
+                        trailParam = 6f;
+                        pierceCap = 5;
+                        lifetime = 32.5f;
+                        width = 7f;
+                        height = 14f;
+                        backColor = Pal.lightTrail;
+                        frontColor = Color.white;
+                        shrinkX = shrinkY = 0f;
+                        trailColor = Pal.lightTrail;
+                        trailLength = 7;
+                        trailWidth = 2.2f;
+                        despawnEffect = hitEffect = new ExplosionEffect(){{
+                            waveColor = Pal.lightTrail;
+                            smokeColor = Color.white;
+                            sparkColor = Pal.darkerGray;
+                            waveStroke = 5f;
+                            waveRad = 20f;
+                        }};
+                        despawnSound = Sounds.dullExplosion;
+
+                        intervalBullet = new BasicBulletType(1f, 5){{
+                            width = 4f;
+                            hitSize = 5f;
+                            height = 8f;
+                            lifetime = 18f;
+                            hitColor = trailColor = Pal.lightTrail;
+                            frontColor = Color.white;
+                            trailWidth = 1.5f;
+                            trailLength = 3;
+                            collideTerrain = true;
+                            hitEffect = despawnEffect = new WaveEffect(){{
+                                colorFrom = colorTo = Pal.lightTrail;
+                                sizeTo = 4f;
+                                strokeFrom = 4f;
+                                lifetime = 10f;
+                            }};
+                        }};
+
+                        bulletInterval = 3f;
+                        intervalBullets = 4;
+                        intervalRandomSpread = 180f;
+                        intervalSpread = 360f;
+                    }});
 
             drawer = new DrawTurret("rik-");
 
@@ -1293,7 +1346,7 @@ public class IceBlocks {
             squareSprite = false;
             outlineColor = IcePal.rkiOutline;
             ammo(
-                    poloniumCharge, new ScaledBasicBulletType(5, 260, 5f){{
+                    poloniumCharge, new ScaledBasicBulletType(5, 100, 5f){{
                 shootEffect = new MultiEffect(Fx.shootTitan, new WaveEffect(){{
                     colorTo = IcePal.poloniumLight;
                     sizeTo = 28f;
@@ -1303,13 +1356,10 @@ public class IceBlocks {
                 smokeEffect = Fx.shootSmokeTitan;
                 hitColor = IcePal.poloniumLight;
                 collideTerrain = true;
-
                 sprite = "large-orb";
                 trailEffect = Fx.missileTrail;
                 trailInterval = 3f;
                 trailParam = 4f;
-                pierceCap = 2;
-                fragOnHit = false;
                 lifetime = 35f;
                 width = height = 25f;
                 backColor = IcePal.poloniumLight;
@@ -1328,38 +1378,55 @@ public class IceBlocks {
                 despawnSound = Sounds.dullExplosion;
                 shootSound = Sounds.cannon;
 
-                fragBullet = intervalBullet = new BasicBulletType(2.5f, 50){{
-                    width = 12f;
-                    hitSize = 5f;
-                    height = 22f;
+                fragBullet = new BasicBulletType(2f, 20){{
+                    width = 15f;
+                    hitSize = 7f;
+                    height = 15f;
+                    drag = 0.02f;
                     pierce = true;
-                    lifetime = 40f;
-                    pierceBuilding = collideTerrain = true;
-                    sprite = "missile-large";
+                    lifetime = 110f;
+                    sprite = "large-orb";
                     hitColor = backColor = trailColor = IcePal.poloniumLight;
                     frontColor = Color.white;
-                    trailWidth = 2.1f;
-                    trailLength = 5;
-                    splashDamage = 10;
-                    splashDamageRadius = 15;
+                    trailWidth = 3f;
+                    trailLength = 7;
                     hitEffect = despawnEffect = new WaveEffect(){{
                         colorFrom = colorTo = IcePal.poloniumLight;
-                        sizeTo = 8f;
+                        sizeTo = 15f;
+                        sides = 6;
+                        spin = 0.4f;
                         strokeFrom = 4f;
-                        lifetime = 10f;
+                        lifetime = 60f;
                     }};
+                    fragBullet = new ScaledBasicBulletType(2.5f, 10, 1){{
+                        width = 5f;
+                        hitSize = 5f;
+                        height = 12f;
+                        pierce = true;
+                        lifetime = 25f;
+                        sprite = "missile-large";
+                        hitColor = backColor = trailColor = IcePal.poloniumLight;
+                        frontColor = Color.white;
+                        trailWidth = 2.1f;
+                        trailLength = 5;
+                        splashDamage = 35;
+                        splashDamageRadius = 20;
+                        hitEffect = despawnEffect = new WaveEffect(){{
+                            colorFrom = colorTo = IcePal.poloniumLight;
+                            sizeTo = 8f;
+                            strokeFrom = 4f;
+                            lifetime = 10f;
+                        }};
+                    }};
+                    fragBullets = 4;
                 }};
-
-                bulletInterval = 8f;
-                intervalRandomSpread = 360f;
-                intervalBullets = 2;
-                intervalAngle = 180f;
-                intervalSpread = 0f;
-
-                fragBullets = 8;
-                fragVelocityMin = 0.4f;
+                fragRandomSpread = 0;
+                fragSpread = 360 / 14f;
+                fragBullets = 14;
+                fragVelocityMin = 1f;
                 fragVelocityMax = 1f;
-                fragLifeMin = 0.5f;
+                fragLifeMin = 1f;
+                fragLifeMax = 1f;
             }});
             drawer = new DrawTurret("rik-"){{
                 for(int j = 0; j < 3; j++){
@@ -1458,6 +1525,9 @@ public class IceBlocks {
         monsterNest = new EnemyNest("monster-nest"){{
             requirements(Category.effect, BuildVisibility.sandboxOnly, with(thallium, 1000, scrap, 650));
             size = 5;
+            destroyEffect = new MultiEffect(
+
+            );
         }};
     }
 }

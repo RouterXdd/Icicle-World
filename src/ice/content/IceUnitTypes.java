@@ -32,7 +32,7 @@ public class IceUnitTypes {
     public static UnitType
     //core
     malice, charity, censure,
-    //construct //I AM NOT GOING TO DO THAT
+    //main
     vessel, stem, basis, ewer, xylem, fundament, decanter, stalk, groundwork,
         //sub units
     quant, sin, chronon, zen, blaze, sunLight,

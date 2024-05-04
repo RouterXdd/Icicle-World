@@ -93,16 +93,19 @@ public class ForceConstructor extends Block{
 
     @Override
     public boolean canPlaceOn(Tile tile, Team team, int rotation){
-        boolean tooClose = indexer.eachBlock(team, tile.worldx(), tile.worldy(), noBuildRange, b -> b.block() instanceof ForceConstructor, b -> {
-            Drawf.dashLine(Pal.remove, tile.worldx(), tile.worldy(), b.x, b.y);
-        });
+        boolean tooClose = false;
+        if (tile != null) {
+        tooClose = indexer.eachBlock(team, tile.worldx(), tile.worldy(), noBuildRange, b -> b.block() instanceof ForceConstructor, b -> {
+                Drawf.dashLine(Pal.remove, tile.worldx(), tile.worldy(), b.x, b.y);
+            });
+        }
         return super.canPlaceOn(tile, team, rotation) && !tooClose;
     }
 
     @Override
     public void drawPlace(int x, int y, int rotation, boolean valid){
         super.drawPlace(x, y, rotation, valid);
-        if(!canPlaceOn(world.tile(x, y), player.team(), rotation)){
+        if(!canPlaceOn(world.tile(x, y), player.team(), rotation)  ){
             drawPlaceText(Core.bundle.get("message.nobuild"), x, y, valid);
         }
     }

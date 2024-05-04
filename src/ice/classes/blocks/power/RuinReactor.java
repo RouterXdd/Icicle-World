@@ -28,7 +28,7 @@ public class RuinReactor extends NuclearReactor {
                     int posY = Mathf.random(minPos, maxPos);
                     Tile tile = world.tileWorld(x + posX * 8, y + posY * 8);
 
-                    if (tile.block() == Blocks.air && tile != null) tile.setBlock(IceBlocks.ruinBlock, Team.neoplastic);
+                    if (tile != null && tile.block() == Blocks.air) tile.setBlock(IceBlocks.ruinBlock, Team.neoplastic);
                 }
         }
     }

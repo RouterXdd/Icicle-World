@@ -14,7 +14,7 @@ main: "ice.IcicleMod"
 description: "A mod who adds a new planet, where we will play in underground"
 
 #the mod version
-version: alpha 0.6
+version: alpha 0.7
 #the minimum game build required to run this mod
 minGameVersion: 146
 
