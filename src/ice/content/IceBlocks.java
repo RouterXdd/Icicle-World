@@ -63,11 +63,11 @@ public class IceBlocks {
             //other
             stoneLargeCrater, dustLargeCrater, rkiMetal, rkiMetal2, rkiMetal3, rkiMetalWall,
      //ores
-    oreDust, oreThallium, oreSoptin, orePolonium, oreChalk, orePoloniumUnderground, oreThalliumUnderground, oreChalkUnderground, oreSoptinRoof,
+    oreDust, oreThallium, oreSoptin, orePolonium, oreChalk, orePoloniumUnderground, oreThalliumUnderground, oreChalkUnderground,
     //crafting
-    prinuteMerger, prinuteFabricator, siliconDissembler, ceramicSmelter, distiller, quarry, metalIncubator, poloniumCrucible, denseStructurer,
+    prinuteMerger, prinuteFabricator, siliconDissembler, ceramicalAssembler, ceramicSmelter, distiller, quarry, metalIncubator, poloniumCrucible, denseStructurer,
     //production
-    protoDrill, advancedDrill, engineDrill, nuclearDrill, powerSlider, mechanicalCutter, laserCutter, oreFinder, methaneDigger,
+    protoDrill, advancedDrill, engineDrill, nuclearDrill, mechanicalCutter, laserCutter, oreFinder, methaneDigger, electricCrusher,
     //distribution
     thalliumConveyor, thalliumJunction, splitter, thalliumTunnel,
     //liquid
@@ -144,11 +144,7 @@ public class IceBlocks {
             statusDuration = 120f;
             liquidDrop = methanum;
             isLiquid = true;
-            if (IcicleVars.modShaders) {
-                cacheLayer = IceShaders.methaneLayer;
-            } else {
-                cacheLayer = CacheLayer.water;
-            }
+            cacheLayer = IcicleVars.modShaders ? IceShaders.methaneLayer : CacheLayer.water;
             attributes.set(meth, 0.25f);
         }};
         methaneFloorShallow = new Floor("methanum-floor-shallow"){{
@@ -160,11 +156,7 @@ public class IceBlocks {
             liquidMultiplier = 0.75f;
             isLiquid = true;
             shallow = true;
-            if (IcicleVars.modShaders) {
-                cacheLayer = IceShaders.methaneLayer;
-            } else {
-                cacheLayer = CacheLayer.water;
-            }
+            cacheLayer = IcicleVars.modShaders ? IceShaders.methaneLayer : CacheLayer.water;
             attributes.set(meth, 0.1f);
         }};
         thermalFloor = new Floor("thermal-floor");
@@ -211,9 +203,6 @@ public class IceBlocks {
         oreChalkUnderground = new UndergroundOre("chalk-under"){{
             outputOre = oreChalk;
         }};
-        oreSoptinRoof = new RoofOre("soptin-roof"){{
-            item = soptin;
-        }};
         stoneLargeCrater = new LargeCrater("stone-large-crater", 1){{
             attributes.set(sun, 1);
             emitLight = true;
@@ -242,9 +231,7 @@ public class IceBlocks {
         }};
         dustSpreader = new WorldDuster("dust-spreader"){{
             requirements(Category.effect, BuildVisibility.sandboxOnly, with(thallium, 30));
-            maxPos = 3;
-            minPos = -maxPos;
-            displayRange = 24;
+            range = 3;
             amount = 3;
             reload = 600;
         }};
@@ -303,6 +290,32 @@ public class IceBlocks {
             consumeItems(with(ceramicalDust, 6));
             consumeLiquid(methanum, 4f / 60f);
             consumePower(5f);
+        }};
+        ceramicalAssembler = new GenericCrafter("ceramical-assembler"){{
+            requirements(Category.crafting, with(thallium, 195, sporeWood, 150, silicon, 170, ceramic, 95, prinute, 120));
+            craftEffect = new MultiEffect( new ParticleEffect(){{
+                particles = 6;
+                colorFrom = Color.valueOf("e1d8a5");
+                colorTo = Color.valueOf("00000000");
+                sizeFrom = 3;
+                region = "icicle-world-square";
+                length = 35;
+                cone = 360;
+                lifetime = 60;
+            }});
+            outputItems = with(cerymec, 2);
+            craftTime = 110f;
+            size = 3;
+            hasPower = true;
+            itemCapacity = 30;
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawDefault());
+            fogRadius = 3;
+            ambientSound = Sounds.smelter;
+            ambientSoundVolume = 0.16f;
+            researchCostMultiplier = 3f;
+
+            consumeItems(with(chalkStone, 2, ceramic, 2));
+            consumePower(6.5f);
         }};
         ceramicSmelter = new GenericCrafter("ceramic-smelter"){{
             requirements(Category.crafting, with(thallium, 260, silicon, 150, ceramic, 135, prinute, 170));
@@ -529,20 +542,8 @@ public class IceBlocks {
 
             consumeLiquid(water, 0.125f).boost();
         }};
-        powerSlider = new HighDrill("power-slider"){{
-            requirements(Category.production, with(copper, 60, silicon, 25, beryllium, 38));
-            health = 450;
-            tier = 3;
-            drillTime = 400;
-            size = 2;
-            squareSprite = false;
-            engineSize = 1.8f;
-            engineScale = 1.5f;
-            consumePower(1.85f);
-            consumeLiquid(water, 0.05f).boost();
-        }};
         mechanicalCutter = new NearMiner("mechanical-cutter"){{
-            requirements(Category.production, with(thallium, 40));
+            requirements(Category.production, with(thallium, 30));
 
             drillTime = 280f;
             scaledHealth = 10f;
@@ -574,6 +575,7 @@ public class IceBlocks {
             range = 10 * 8;
             consumePower(1.6f);
             fogRadius = 10;
+            researchCostMultiplier = 3f;
         }};
         methaneDigger = new OreUpper("methane-digger"){{
             requirements(Category.production, with(thallium, 220, soptin, 160, prinute, 110, silicon, 120, ceramic, 90));
@@ -581,6 +583,18 @@ public class IceBlocks {
             size = 3;
             consumePower(8f);
             consumeLiquid(methanum, 0.2f);
+            researchCostMultiplier = 3f;
+        }};
+        electricCrusher = new WorldDuster("electric-crusher"){{
+            requirements(Category.effect,  with(ceramic, 140, cerymec, 95, silicon, 120));
+
+            removable = true;
+            range = 2;
+            amount = 4;
+            size = 3;
+            reload = 500;
+            consumePower(3.5f);
+            consumeItem(cerymec, 2);
         }};
         thalliumConveyor = new RegenConveyor("thallium-conveyor"){{
             requirements(Category.distribution, with(thallium, 1));
@@ -1516,7 +1530,7 @@ public class IceBlocks {
             requirements(Category.units, with(thallium, 120, prinute, 90, ceramic, 70));
             plans = Seq.with(
                     new UnitLeagcyPlan(blaze, 60f * 24, with(thallium, 40, prinute, 30))
-                    //new UnitLeagcyPlan(sunLight, 60f * 40, with(thallium, 75, silicon, 50, ceramic, 60, chalkStone, 35))
+                    //new UnitLeagcyPlan(sunLight, 60f * 40, with(thallium, 75, silicon, 50, ceramic, 60, cerymec, 35))
             );
             size = 3;
             consumePower(2.85f);

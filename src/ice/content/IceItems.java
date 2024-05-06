@@ -9,7 +9,7 @@ import static mindustry.content.Items.*;
 
 public class IceItems {
     public static Item
-        thallium, prinute, ceramicalDust, sporeWood, soptin, ceramic, chalkStone, livesteel, polonium, poloniumCharge, denseAlloy;
+        thallium, prinute, cerymec, ceramicalDust, sporeWood, soptin, ceramic, chalkStone, livesteel, polonium, poloniumCharge, denseAlloy;
     public static final Seq<Item> RkiItems = new Seq<>();
     public static void load(){
         Items.scrap.buildable = true;
@@ -28,6 +28,9 @@ public class IceItems {
         soptin = new Item("soptin", Color.valueOf("151a59")){{
             hardness = 3;
             cost = 1.8f;
+        }};
+        cerymec = new Item("cerymec", Color.valueOf("af9c78")){{
+            cost = 2f;
         }};
         ceramicalDust = new Item("ceramical-dust", Color.valueOf("827d5a")){{
             hardness = 2;
@@ -68,7 +71,7 @@ public class IceItems {
             healthScaling = 2.6f;
         }};
         RkiItems.addAll(
-                scrap, silicon, thallium, sporeWood, prinute, soptin, ceramicalDust, ceramic, livesteel, polonium, poloniumCharge, denseAlloy
+                scrap, silicon, thallium, sporeWood, prinute, soptin, ceramicalDust, ceramic, livesteel, polonium, poloniumCharge, denseAlloy, chalkStone, cerymec
         );
     }
 }

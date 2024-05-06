@@ -14,6 +14,7 @@ import mindustry.content.Blocks;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.gen.Building;
+import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.type.Item;
 import mindustry.ui.Bar;
@@ -34,7 +35,6 @@ public class OreUpper extends Block {
     public Color workColor = Color.white;
     public Color endColor = Pal.remove;
     public Effect drillEffect = Fx.mineBig;
-    public ObjectFloatMap<Item> drillMultipliers = new ObjectFloatMap<>();
     TextureRegion indicatorRegion;
     public OreUpper(String name) {
         super(name);
@@ -50,6 +50,13 @@ public class OreUpper extends Block {
     @Override
     public void setStats(){
         super.setStats();
+    }
+    @Override
+    public void drawPlace(int x, int y, int rotation, boolean valid) {
+        super.drawPlace(x, y, rotation, valid);
+        if (range > 18) {
+            Drawf.dashCircle(x * 8, y * 8, range, Vars.player.team().color);
+        }
     }
         @Override
     public void setBars(){

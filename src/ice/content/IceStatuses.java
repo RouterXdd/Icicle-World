@@ -13,13 +13,8 @@ public class IceStatuses {
     public static void load(){
         inSoot = new StatusEffect("in-soot"){{
             color = IcePal.sootColor;
-            if (IcicleVars.hardMode) {
-                speedMultiplier = 0.65f;
-                healthMultiplier = 0.65f;
-            } else {
-                speedMultiplier = 0.9f;
-                healthMultiplier = 0.9f;
-            }
+            speedMultiplier = IcicleVars.hardMode ? 0.65f : 0.9f;
+            healthMultiplier = IcicleVars.hardMode ? 0.65f : 0.9f;
         }};
         positiveCharge = new StatusEffect("positive-charge"){{
             color = IcePal.positiveStatusCol;

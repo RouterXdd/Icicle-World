@@ -7,6 +7,7 @@ import mindustry.world.meta.BuildVisibility;
 import static mindustry.Vars.state;
 
 public class EditorBlock extends Block {
+    public boolean removable = false;
     public EditorBlock(String name) {
         super(name);
         health = 100000000;
@@ -21,6 +22,6 @@ public class EditorBlock extends Block {
     }
     @Override
     public boolean canBreak(Tile tile){
-        return state.rules.editor || state.rules.infiniteResources;
+        return state.rules.editor || state.rules.infiniteResources || removable;
     }
 }

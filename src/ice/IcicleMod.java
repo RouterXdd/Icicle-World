@@ -18,9 +18,7 @@ import static mindustry.Vars.ui;
 public class IcicleMod extends Mod{
 
     public IcicleMod(){
-        if (IcicleVars.modShaders) {
-            Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
-        }
+        Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
         Events.on(ClientLoadEvent.class, e -> {
             loadSettings();
         });
