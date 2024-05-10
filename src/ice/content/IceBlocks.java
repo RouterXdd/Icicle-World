@@ -312,7 +312,7 @@ public class IceBlocks {
             fogRadius = 3;
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.16f;
-            researchCostMultiplier = 3f;
+            researchCostMultiplier = 1.5f;
 
             consumeItems(with(chalkStone, 2, ceramic, 2));
             consumePower(6.5f);
@@ -354,7 +354,7 @@ public class IceBlocks {
             fogRadius = 3;
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.16f;
-            researchCostMultiplier = 3f;
+            researchCostMultiplier = 2f;
 
             consumeItems(with(ceramicalDust, 3, sporeWood, 1));
             consumePower(8f);
@@ -572,10 +572,10 @@ public class IceBlocks {
             requirements(Category.production, with(thallium, 140, prinute, 90, silicon, 75, ceramic, 40));
             scaledHealth = 10;
             size = 3;
-            range = 10 * 8;
+            range = 14 * 8;
             consumePower(1.6f);
-            fogRadius = 10;
-            researchCostMultiplier = 3f;
+            fogRadius = 14;
+            researchCostMultiplier = 0.7f;
         }};
         methaneDigger = new OreUpper("methane-digger"){{
             requirements(Category.production, with(thallium, 220, soptin, 160, prinute, 110, silicon, 120, ceramic, 90));
@@ -583,11 +583,11 @@ public class IceBlocks {
             size = 3;
             consumePower(8f);
             consumeLiquid(methanum, 0.2f);
-            researchCostMultiplier = 3f;
+            researchCostMultiplier = 0.7f;
         }};
         electricCrusher = new WorldDuster("electric-crusher"){{
-            requirements(Category.effect,  with(ceramic, 140, cerymec, 95, silicon, 120));
-
+            requirements(Category.production,  with(ceramic, 140, cerymec, 95, silicon, 120));
+            health = 800;
             removable = true;
             range = 2;
             amount = 4;
@@ -1040,6 +1040,7 @@ public class IceBlocks {
 
             unitCapModifier = 15;
             drawTeamOverlay = false;
+            researchCostMultiplier = 0.3f;
         }
             @Override
             public TextureRegion[] icons(){
@@ -1058,6 +1059,7 @@ public class IceBlocks {
 
             unitCapModifier = 30;
             drawTeamOverlay = false;
+            researchCostMultiplier = 0.3f;
         }
             @Override
             public TextureRegion[] icons(){
@@ -1508,7 +1510,7 @@ public class IceBlocks {
             plans = Seq.with(
                     new UnitLeagcyPlan(decanter, 60f * 400, with(prinute, 180, silicon, 150, ceramic, 175, livesteel, 110, denseAlloy, 70)),
                     new UnitLeagcyPlan(stalk, 60f * 400, with(prinute, 220, silicon, 120, polonium, 190, livesteel, 135, denseAlloy, 80)),
-                    new UnitLeagcyPlan(groundwork, 60f * 400, with(thallium, 355, prinute, 240, silicon, 190, polonium, 115, ceramic, 135, livesteel, 160, denseAlloy, 100))
+                    new UnitLeagcyPlan(groundwork, 60f * 400, with(prinute, 240, silicon, 190, cerymec, 115, livesteel, 150, denseAlloy, 100))
             );
             size = 10;
             consumeLiquid(methanum, 30f/ 60);

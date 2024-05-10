@@ -27,7 +27,7 @@ public class IceBullets {
     //funny bullets
     basicBullet;
     public static void load(){
-        pointBullet = new BasicBulletType(20f, 6){{
+        pointBullet = new BasicBulletType(20f, 8){{
             width = 8f;
             hitSize = 8f;
             height = 16f;
@@ -196,7 +196,7 @@ public class IceBullets {
                 Drawf.light(e.x, e.y, rad * 1.6f, IcePal.thalliumLightish, e.fout());
             });
         }};
-        scrapMissile = new MissileBulletType(5f, 10){{
+        scrapMissile = new MissileBulletType(5f, 20){{
             smokeEffect = Fx.shootBigSmoke;
             shootEffect = Fx.shootBigColor;
             width = 6.5f;
@@ -213,8 +213,8 @@ public class IceBullets {
             collideTerrain = true;
             fragBullet = new ArtilleryBulletType(){{
                 damage = 0;
-                splashDamage = 5;
-                splashDamageRadius = 12;
+                splashDamage = 8;
+                splashDamageRadius = 17;
                 speed = 3;
                 lifetime = 10;
                 width = 9f;
@@ -365,14 +365,14 @@ public class IceBullets {
 
             hitEffect = despawnEffect = IceFx.hitSplashBulletColor;
         }};
-        ceramicChunk = new BasicBulletType(8f, 30){{
+        ceramicChunk = new BasicBulletType(8f, 55){{
             ammoMultiplier = 2f;
             shootEffect = Fx.shootSmall;
             lifetime = 18.75f;
             width = 8f;
             height = 11f;
             hitEffect = Fx.flakExplosion;
-            fragBullet = new BasicBulletType(4f, 8, "shell"){{
+            fragBullet = new BasicBulletType(4f, 10, "shell"){{
                 width = 6f;
                 height = 8f;
                 lifetime = 15f;

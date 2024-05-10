@@ -8,6 +8,7 @@ import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.entities.Damage;
 import mindustry.entities.Effect;
+import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
@@ -50,12 +51,16 @@ public class WorldDuster extends EditorBlock {
         }
         @Override
         public void updateTile() {
-            if (reloadTime > 1 && canConsume()) {
+            if (team == Team.derelict && !removable) enabled = true;
+            if (reloadTime >= 1 && canConsume() && team != Team.derelict) {
                 place();
                 consume();
                 reloadTime = 0;
+            } else if (reloadTime >= 1){
+                place();
+                reloadTime = 0;
             }
-            reloadTime += edelta() / reload;
+            reloadTime += Time.delta / reload;
         }
         public void place() {
             for(int i = 0; i < amount; i++) {

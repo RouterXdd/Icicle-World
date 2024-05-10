@@ -1,7 +1,10 @@
 package ice.content;
 
 import arc.graphics.*;
+import arc.math.Interp;
+import arc.math.Mathf;
 import arc.math.geom.Rect;
+import arc.util.Time;
 import arc.util.Tmp;
 import ice.classes.entities.abilities.*;
 import ice.classes.entities.ai.ShielderAI;
@@ -1506,6 +1509,7 @@ public class IceUnitTypes {
             legMinLength = 0.32f;
             legLengthScl = 1f;
             legForwardScl = 0.7f;
+            bloodAmount = 15;
 
             legMoveSpace = 2f;
             groundLayer = Layer.legUnit;
@@ -1520,6 +1524,14 @@ public class IceUnitTypes {
                 y = 6.75f;
 
                 ejectEffect = Fx.none;
+                parts.add(new RegionPart("-mouth"){{
+                    y = -6.75f;
+                    under = mirror = true;
+                    layerOffset = -0.00001f;
+                    heatColor = Pal.techBlue;
+                    progress = PartProgress.reload;
+                    moveRot = 8f;
+                }});
 
                 bullet = new BasicBulletType(4f, 5){{
                     width = 0.2f;
@@ -1564,9 +1576,24 @@ public class IceUnitTypes {
                             shootCone = 50;
                             mirror = false;
                             x = 0f;
-                            y = 9f;
+                            y = 9.25f;
 
                             ejectEffect = Fx.none;
+                            parts.add(new RegionPart("-mouth"){{
+                                y = -6.25f;
+                                under = mirror = true;
+                                layerOffset = -0.000001f;
+                                heatColor = Pal.techBlue;
+                                progress = PartProgress.reload;
+                                moveRot = 20f;
+                            }});
+                            parts.add(new RegionPart("-back"){{
+                                y = -14.75f;
+                                under = mirror = true;
+                                heatColor = Pal.techBlue;
+                                progress = p -> Interp.pow2.apply(Mathf.sinDeg(Time.time * 4f)) * 0.6f;
+                                moveRot = 12f;
+                            }});
 
                             bullet = new BasicBulletType(6f, 15){{
                                 width = 0.2f;

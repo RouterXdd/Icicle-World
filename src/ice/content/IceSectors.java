@@ -7,7 +7,7 @@ import static ice.content.IceUnitTypes.*;
 
 public class IceSectors {
     public static SectorPreset
-    fallPoint, primaryBase, methanePurficate, purpleFortress, trinityCollumn, resurgent, river, familiarComplex, flameOcean, aggressiveTactic, execution, theHive
+    fallPoint, primaryBase, methanePurficate, purpleFortress, trinityCollumn, resurgent, paths, familiarComplex, flameOcean, aggressiveTactic, execution, theHive
             ;
     public static void load(){
         fallPoint = new IcicleSectorPreset("fall-point", IcePlanets.rki, 33){{
@@ -41,6 +41,14 @@ public class IceSectors {
             captureWave = 35;
             difficulty = 6;
             enemies.addAll(vessel, stem, quant, basis, xylem, fundament);
+        }};
+        paths = new IcicleSectorPreset("paths", IcePlanets.rki, 108){{
+            captureWave = 50;
+            difficulty = 7;
+            startWaveTimeMultiplier = 2.5f;
+            story = true;
+            enemies.addAll(vessel, stem, basis, quant, ewer, xylem, fundament, chronon);
+            guardians.addAll(unknown);
         }};
     }
 }

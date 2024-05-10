@@ -38,6 +38,7 @@ public class RkiTechTree {
                     nodeProduce(silicon, () -> {});
                     nodeProduce(ceramic, () -> {
                         nodeProduce(chalkStone, () -> {});
+                        nodeProduce(cerymec, () -> {});
                     });
                 });
                 nodeProduce(sporeWood, () -> {});
@@ -64,6 +65,8 @@ public class RkiTechTree {
                     node(engineDrill, Seq.with(new OnSector(trinityCollumn)),() -> {
                         node(nuclearDrill);
                     });
+                });
+                node(electricCrusher, Seq.with(new SectorComplete(paths)), () -> {
                 });
                 node(burstPump, () -> {
                     node(pulsePump, Seq.with(new OnSector(trinityCollumn)), () -> {
@@ -151,6 +154,7 @@ public class RkiTechTree {
                     node(distiller);
                     node(prinuteFabricator);
                     node(ceramicSmelter, Seq.with(new SectorComplete(resurgent)),() -> {});
+                    node(ceramicalAssembler, Seq.with(new OnSector(paths)),() -> {});
                 });
             });
             node(lamp, () -> {
@@ -185,10 +189,14 @@ public class RkiTechTree {
                 });
                 node(aquaConstructor, Seq.with(new OnSector(methanePurficate)), () -> {
                     node(quant, Seq.with(new OnSector(methanePurficate)),() -> {
+                        node(chronon, Seq.with(new OnSector(methanePurficate)),() -> {
 
+                        });
                     });
                     node(sin, Seq.with(new OnSector(methanePurficate)),() -> {
+                        node(zen, Seq.with(new OnSector(methanePurficate)),() -> {
 
+                        });
                     });
                 });
             });
@@ -206,7 +214,9 @@ public class RkiTechTree {
                             node(malis1, Seq.with(new OnSector(purpleFortress)),() -> {});
                             node(trinityCollumn, Seq.with(new SectorComplete(purpleFortress)),() -> {
                                 node(resurgent, Seq.with(new SectorComplete(trinityCollumn)),() -> {
+                                    node(paths, Seq.with(new SectorComplete(resurgent), new Research(coreHate)),() -> {
 
+                                    });
                                 });
                             });
                         });
