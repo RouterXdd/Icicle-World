@@ -28,6 +28,12 @@ public class IceFx {
     public static final Vec2 v = new Vec2();
 
     public static final Effect
+    methaneCloud = new Effect(80f, e -> {
+        color(IcePal.methaneLightish);
+        randLenVectors(e.id, e.fin(), 7, 9f, (x, y, fin, fout) -> {
+            Fill.circle(e.x + x, e.y + y, 5f * fout);
+        });
+    }),
             lightningThalliumShoot = new Effect(10f, e -> {
         color(Color.white, IcePal.thalliumMid, e.fin());
         stroke(e.fout() * 1.2f + 0.5f);

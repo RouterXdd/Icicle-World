@@ -3,11 +3,14 @@ package ice.content;
 
 import arc.graphics.Color;
 import arc.struct.Seq;
+import ice.IcicleVars;
 import ice.classes.maps.generator.RkiSurfaceGenerator;
 import ice.classes.maps.generator.RkiTrueGenerator;
 import ice.graphics.IcePal;
+import mindustry.content.Items;
 import mindustry.content.Planets;
 import mindustry.game.Team;
+import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.*;
 import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.type.ItemStack;
@@ -64,9 +67,23 @@ public class IcePlanets {
 
             unlockedOnLand.add(IceBlocks.coreAngry);
         }};
-        rkiFake = new Planet("fake", Planets.sun, 1f, 2) {{
+        rkiFake = new Planet("fake", rki, 1f, 2) {{
             generator = new RkiSurfaceGenerator();
-            visible = accessible = alwaysUnlocked = false;
+            visible = accessible = alwaysUnlocked = IcicleVars.debug;
+            landCloudColor = Color.valueOf("ed654200");
+            atmosphereColor = Pal.slagOrange;
+            atmosphereRadIn = 0.02f;
+            atmosphereRadOut = 0.3f;
+            tidalLock = true;
+            orbitSpacing = 2f;
+            totalRadius += 2.6f;
+            lightSrcTo = 0.5f;
+            lightDstFrom = 0.2f;
+            clearSectorOnLose = true;
+            ruleSetter = r -> {
+                r.waveTeam = IceTeams.origin;
+                r.loadout = ItemStack.list(Items.beryllium, 300, Items.graphite, 180, Items.silicon, 200);
+            };
 
             meshLoader = () -> new HexMesh(this, 5);
         }};

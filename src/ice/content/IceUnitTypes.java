@@ -18,6 +18,7 @@ import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
+import mindustry.entities.pattern.ShootAlternate;
 import mindustry.entities.pattern.ShootSpread;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
@@ -845,7 +846,7 @@ public class IceUnitTypes {
                     homingRange = 55f;
                     splashDamageRadius = 20f;
                     splashDamage = 8f;
-                    lifetime = 50f;
+                    lifetime = 40f;
                     trailColor = Color.gray;
                     backColor = Pal.bulletYellowBack;
                     frontColor = Pal.bulletYellow;
@@ -865,11 +866,11 @@ public class IceUnitTypes {
                 rotate = true;
                 ejectEffect = Fx.casing1;
                 shootSound = Sounds.missile;
-                bullet = new BasicBulletType(3.5f, 30, "circle-bullet"){{
+                bullet = new BasicBulletType(3f, 30, "circle-bullet"){{
                     width = 8f;
                     height = 8f;
                     shrinkY = 0f;
-                    lifetime = 65f;
+                    lifetime = 45f;
                     trailColor = Color.gray;
                     backColor = IcePal.methaneLight;
                     frontColor = IcePal.methaneMid;
@@ -902,60 +903,83 @@ public class IceUnitTypes {
 
             armor = 7f;
 
-            weapons.add(new Weapon("icicle-world-sin-weapon"){{
-                reload = 20f;
-                x = 3.5f;
-                shootY = 2f;
-                y = -1f;
+            weapons.add(new Weapon("icicle-world-zen-weapon"){{
+                reload = 30f;
+                x = 4f;
+                y = 9.75f;
                 rotate = true;
                 ejectEffect = Fx.casing1;
-                bullet = new MissileBulletType(2.5f, 20){{
-                    keepVelocity = true;
-                    width = 5.5f;
-                    height = 9f;
-                    shrinkY = 0f;
-                    drag = -0.004f;
-                    homingRange = 55f;
-                    splashDamageRadius = 20f;
-                    splashDamage = 8f;
-                    lifetime = 50f;
-                    trailColor = Color.gray;
-                    backColor = Pal.bulletYellowBack;
-                    frontColor = Pal.bulletYellow;
-                    hitEffect = Fx.blastExplosion;
-                    despawnEffect = Fx.blastExplosion;
-                    weaveScale = 9f;
-                    weaveMag = 1.85f;
-                    collideTerrain = true;
+                bullet = new MissileBulletType(2.5f, 30){{
+                    sprite = "mine-bullet";
+                    width = height = 8f;
+                    layer = Layer.scorch;
+                    shootEffect = smokeEffect = Fx.none;
+
+                    maxRange = 50f;
+                    ignoreRotation = true;
+
+                    backColor = IcePal.methaneLight;
+                    frontColor = Color.white;
+                    mixColorTo = Color.white;
+
+                    hitSound = Sounds.plasmaboom;
+
+                    ejectEffect = Fx.none;
+                    hitSize = 22f;
+
+                    collidesAir = false;
+
+                    lifetime = 70f;
+
+                    hitEffect = new MultiEffect(Fx.blastExplosion, IceFx.methaneCloud);
+                    keepVelocity = false;
+
+                    shrinkX = shrinkY = 0f;
+
+                    weaveMag = 7f;
+                    weaveScale = 3f;
+                    speed = 0.7f;
+                    drag = -0.017f;
+                    homingPower = 0.05f;
+                    collideFloor = collideTerrain = true;
+                    trailColor = IcePal.methaneLight;
+                    trailWidth = 3f;
+                    trailLength = 8;
+
+                    splashDamage = 30f;
+                    splashDamageRadius = 45f;
                 }};
             }});
 
-            weapons.add(new Weapon("icicle-world-sin-launcher"){{
+            weapons.add(new Weapon("icicle-world-zen-launcher"){{
                 mirror = false;
-                reload = 40f;
+                reload = 20f;
                 x = 0f;
-                y = -4.5f;
+                y = -3f;
+                shootY = 3;
                 rotate = true;
                 ejectEffect = Fx.casing1;
-                shootSound = Sounds.missile;
-                bullet = new BasicBulletType(3.5f, 30, "circle-bullet"){{
+                shootSound = Sounds.blaster;
+                shoot = new ShootAlternate(9.5f);
+                bullet = new BasicBulletType(5f, 20, "circle-bullet"){{
                     width = 8f;
                     height = 8f;
                     shrinkY = 0f;
-                    lifetime = 65f;
-                    trailColor = Color.gray;
+                    lifetime = 25f;
+                    trailColor = IcePal.methaneLight;
                     backColor = IcePal.methaneLight;
                     frontColor = IcePal.methaneMid;
                     hitEffect = Fx.colorSpark;
                     despawnEffect = Fx.colorSpark;
-                    weaveScale = 8f;
-                    weaveMag = 2f;
-                    fragBullets = 3;
+                    trailWidth = 3f;
+                    trailLength = 5;
+                    fragBullets = 1;
+                    fragRandomSpread = 0;
                     collideTerrain = true;
                     fragBullet = new ShrapnelBulletType(){{
-                        length = 20;
-                        damage = 10f;
-                        width = 8f;
+                        length = 32;
+                        damage = 15f;
+                        width = 10f;
                         toColor = IcePal.methaneLight;
                         shootEffect = smokeEffect = Fx.shootBigColor;
                     }};
@@ -963,6 +987,46 @@ public class IceUnitTypes {
             }});
         }};
         blaze = new RkiUnitType("blaze"){{
+
+            speed = 0.85f;
+            hitSize = 9f;
+            health = 290;
+            mechSideSway = 0.25f;
+            range = 30f;
+            constructor = LegsUnit::create;
+            legCount = 3;
+            legLength = 8.5f;
+            lightRadius = 130f;
+            groundLayer = Layer.legUnit;
+            weapons.add(new Weapon(){{
+                shootOnDeath = true;
+                reload = 30f;
+                noAttack = true;
+                shootCone = 180f;
+                controllable = false;
+                alwaysShooting = false;
+                ejectEffect = Fx.none;
+                shootSound = Sounds.explosion;
+                x = shootY = 0f;
+                mirror = false;
+                bullet = new BulletType(){{
+                    collidesTiles = false;
+                    collides = false;
+                    hitSound = Sounds.explosion;
+
+                    rangeOverride = 35f;
+                    hitEffect = Fx.pulverize;
+                    speed = 0f;
+                    splashDamageRadius = 70f;
+                    instantDisappear = true;
+                    splashDamage = 40f;
+                    killShooter = true;
+                    hittable = false;
+                    collidesAir = true;
+                }};
+            }});
+        }};
+        sunLight = new RkiUnitType("sun-light"){{
 
             speed = 0.85f;
             hitSize = 9f;

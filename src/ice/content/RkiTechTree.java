@@ -105,11 +105,14 @@ public class RkiTechTree {
                         });
                     });
                     //power
-                    node(demonCore, () -> {
-                        node(discharge, () -> {
+                    node(cremator, Seq.with(new SectorComplete(purpleFortress)), () -> {
+                        node(demonCore, () -> {
+                            node(discharge, () -> {
 
+                            });
                         });
                     });
+
                 });
                 //liquid
                 node(perfection, Seq.with(new SectorComplete(methanePurficate)),() -> {
@@ -158,7 +161,9 @@ public class RkiTechTree {
                 });
             });
             node(lamp, () -> {
+                node(largeLamp, () -> {
 
+                });
             });
             //units
             node(simpleConstructor, Seq.with(new OnSector(primaryBase)), () -> {
@@ -189,14 +194,17 @@ public class RkiTechTree {
                 });
                 node(aquaConstructor, Seq.with(new OnSector(methanePurficate)), () -> {
                     node(quant, Seq.with(new OnSector(methanePurficate)),() -> {
-                        node(chronon, Seq.with(new OnSector(methanePurficate)),() -> {
+                        node(chronon, Seq.with(new Research(atlanticConstructor)),() -> {
 
                         });
                     });
                     node(sin, Seq.with(new OnSector(methanePurficate)),() -> {
-                        node(zen, Seq.with(new OnSector(methanePurficate)),() -> {
+                        node(zen, Seq.with(new Research(atlanticConstructor)),() -> {
 
                         });
+                    });
+                    node(atlanticConstructor, () -> {
+
                     });
                 });
             });

@@ -10,7 +10,7 @@ public class IceTeams {
 
     public static void load() {
         genesis = newTeam(21, "genesis", Pal.logicControl);
-        origin = newTeam(22, "origin-team", Pal.darkerMetal);
+        origin = newTeam(22, "origin", Pal.darkerMetal);
         methanite = newTeam(23, "methanite", IcePal.methaneLightish);
     }
 

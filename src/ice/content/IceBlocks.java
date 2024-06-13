@@ -14,8 +14,7 @@ import ice.classes.blocks.production.*;
 import ice.classes.blocks.units.*;
 import ice.classes.entities.bullets.ScaledBasicBulletType;
 import ice.classes.type.StatTypes;
-import ice.graphics.IcePal;
-import ice.graphics.IceShaders;
+import ice.graphics.*;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
@@ -49,7 +48,7 @@ public class IceBlocks {
     public static Block
     //environment
      //main
-    dustCrusher, dustSpreader, undergroundTree, destroyedMonsterNest, ruinBlock,
+    dustCrusher, dustSpreader, undergroundTree, destroyedMonsterNest, ruinBlock, creeperBlock,
             //stone (new)
             deepStone, deepStoneWall, deepBoulder,
             //calamite pikes
@@ -61,7 +60,7 @@ public class IceBlocks {
             //magnet cavern
             magnetRock, magnetChunk, magnetPositiveRock, magnetNegativeRock, positiveCrystal, negativeCrystal, magnetBoulder,
             //other
-            stoneLargeCrater, dustLargeCrater, rkiMetal, rkiMetal2, rkiMetal3, rkiMetalWall,
+            stoneLargeCrater, dustLargeCrater, rkiMetal, rkiMetal2, rkiMetal3, rkiMetalWall, floor,
      //ores
     oreDust, oreThallium, oreSoptin, orePolonium, oreChalk, orePoloniumUnderground, oreThalliumUnderground, oreChalkUnderground,
     //crafting
@@ -75,13 +74,13 @@ public class IceBlocks {
     //defence
     woodWall, ceramicWall, aliveWall, conductiveWall, bitWall, bleak, shine, repairPylon, flameDome, forceDome,
     //effect
-    lamp,
+    lamp, largeLamp,
     //power
     oldNode, armoredNode, recallNode, scrapSolar, siliconSolar, poloniumPanel, decomposer, methaneBurner, nuclearReactor, liquidTurbine,
     //storage
     coreAngry, coreHate, coreFury,
     //turrets
-    bail, clockwise, skimmer, perfection, shatter, crypt, demonCore, burnout, discharge, calamity,
+    bail, clockwise, skimmer, cremator, perfection, shatter, crypt, demonCore, burnout, discharge, calamity,
     //units
     simpleConstructor, forcedConstructor, omegaConstructor, aquaConstructor, atlanticConstructor, lustrousConstructor, monsterNest
     ;
@@ -226,6 +225,7 @@ public class IceBlocks {
             variants = 2;
             rkiMetal.asFloor().wall = this;
         }};
+        floor = new Floor("-floor", 0);
         dustCrusher = new WorldDuster("dust-crusher"){{
             requirements(Category.effect, BuildVisibility.sandboxOnly, with(thallium, 5));
         }};
@@ -865,6 +865,13 @@ public class IceBlocks {
             radius = 70f;
             consumePower(0.2f);
         }};
+        largeLamp = new LightBlock("large-lamp"){{
+            requirements(Category.effect, BuildVisibility.lightingOnly, with(thallium, 60, prinute, 15, silicon, 6));
+            size = 2;
+            brightness = 0.65f;
+            radius = 200f;
+            consumePower(1.35f);
+        }};
         oldNode = new PowerNode("old-node"){{
             requirements(Category.power, with(thallium, 4, sporeWood, 6));
             consumesPower = outputsPower = true;
@@ -1178,11 +1185,49 @@ public class IceBlocks {
             recoil = 3f;
             range = 130;
             shootCone = 30f;
-            scaledHealth = 230;
+            scaledHealth = 260;
             rotateSpeed = 2.8f;
 
             minRange = 20f;
             coolant = consumeCoolant(0.3f);
+        }};
+        cremator = new PowerTurret("cremator"){{
+            requirements(Category.turret, with(thallium, 110, scrap, 85, prinute, 70));
+
+            shootType = new RailBulletType(){{
+                length = 100f;
+                damage = 5f;
+                status = StatusEffects.melting;
+                pierceArmor = true;
+                pierce = false;
+                pointEffectSpace = 1;
+                pointEffect = new MultiEffect(
+                        new ParticleEffect(){{
+                            particles = 1;
+                            length = 0;
+                            sizeFrom = 1.5f;
+                            colorFrom = colorTo = IcePal.thalliumLight;
+                        }});
+                hitEffect = Fx.explosion;
+                collideTerrain = true;
+                shootEffect = Fx.none;
+            }};
+            consumePower(2.5f);
+
+            inaccuracy = 2f;
+            outlineColor = IcePal.rkiOutline;
+            shootSound = IceSFX.shock;
+            heatColor = IcePal.thalliumLight;
+            size = 2;
+            envEnabled |= Env.space;
+            reload = 10f;
+            recoil = 1.25f;
+            range = 100;
+            shootCone = 55f;
+            scaledHealth = 220;
+            rotateSpeed = 4f;
+            drawer = new DrawTurret("rik-");
+            coolant = consumeCoolant(0.2f);
         }};
         perfection = new LiquidTurret("perfection"){{
             requirements(Category.turret, with(thallium, 140, sporeWood, 80, prinute, 65, soptin, 40));
@@ -1527,6 +1572,17 @@ public class IceBlocks {
             drawTop = false;
             consumePower(2.3f);
             researchCost = with(thallium, 600, sporeWood, 300, prinute, 250, soptin, 350);
+        }};
+        atlanticConstructor = new LegacyFactoryPad("atlantic-constructor"){{
+            requirements(Category.units, with(thallium, 230, prinute, 130, soptin, 170, silicon, 155));
+            plans = Seq.with(
+                    new UnitLeagcyPlan(chronon, 60f * 66f, with(thallium, 170, prinute, 80, silicon, 115, soptin, 80)),
+                    new UnitLeagcyPlan(zen, 60f * 80f, with(thallium, 150, soptin, 90, silicon, 110))
+            );
+            size = 4;
+            floating = true;
+            drawTop = false;
+            consumePower(6.45f);
         }};
         lustrousConstructor = new LegacyFactoryPad("lustrous-constructor"){{
             requirements(Category.units, with(thallium, 120, prinute, 90, ceramic, 70));

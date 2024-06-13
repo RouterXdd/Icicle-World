@@ -1,6 +1,7 @@
 package ice;
 
 import arc.*;
+import arc.graphics.Color;
 import arc.graphics.Texture;
 import arc.math.Mathf;
 import arc.util.*;
@@ -12,15 +13,21 @@ import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
 
 import static arc.Core.*;
-import static mindustry.Vars.mods;
-import static mindustry.Vars.ui;
+import static mindustry.Vars.*;
 
 public class IcicleMod extends Mod{
 
     public IcicleMod(){
-        Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
+        if (failedToLaunch) {
+            Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
+        }
         Events.on(ClientLoadEvent.class, e -> {
             loadSettings();
+            if (!failedToLaunch){
+                IcicleVars.modShaders = Core.settings.getBool("icicle-world-mod-shaders");
+            } else {
+                IcicleVars.modShaders = false;
+            }
         });
     }
     @Override

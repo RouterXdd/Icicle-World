@@ -12,6 +12,7 @@ import ice.content.*;
 import mindustry.*;
 import mindustry.content.*;
 import mindustry.ctype.*;
+import mindustry.game.Team;
 import mindustry.mod.Mods.*;
 import mindustry.ui.*;
 import mindustry.world.blocks.*;
@@ -70,6 +71,9 @@ public class IceEmojis {
                 ).removeAll(u -> u.minfo.mod != mod)
                 .map(c -> new GenData(c.uiIcon.texture == pure, c.name, c.uiIcon))
                 .add(new GenData(true, "genesis", Core.atlas.find("icicle-world-genesis")))
+                .add(new GenData(true, "origin", Core.atlas.find("icicle-world-origin")))
+                .add(new GenData(true, "green", Core.atlas.find("icicle-world-green-t")))
+                .add(new GenData(true, "blue", Core.atlas.find("icicle-world-blue-t")))
                 .each(data -> {
                     TextureRegion region = data.glyphRegion;
                     id--;
@@ -102,6 +106,8 @@ public class IceEmojis {
 
         IceTeams.genesis.emoji = Reflect.<ObjectMap<String, String>>get(Fonts.class, "stringIcons").get(IceTeams.genesis.name, "");
         IceTeams.origin.emoji = Reflect.<ObjectMap<String, String>>get(Fonts.class, "stringIcons").get(IceTeams.origin.name, "");
+        Team.green.emoji = Reflect.<ObjectMap<String, String>>get(Fonts.class, "stringIcons").get(Team.green.name, "");
+        Team.blue.emoji = Reflect.<ObjectMap<String, String>>get(Fonts.class, "stringIcons").get(Team.blue.name, "");
     }
 
     public static class GenData {
