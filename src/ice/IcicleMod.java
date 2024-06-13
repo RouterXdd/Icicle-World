@@ -18,7 +18,7 @@ import static mindustry.Vars.*;
 public class IcicleMod extends Mod{
 
     public IcicleMod(){
-        if (failedToLaunch) {
+        if (!failedToLaunch) {
             Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
         }
         Events.on(ClientLoadEvent.class, e -> {
