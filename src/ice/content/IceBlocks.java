@@ -15,6 +15,7 @@ import ice.classes.blocks.units.*;
 import ice.classes.entities.bullets.ScaledBasicBulletType;
 import ice.classes.type.StatTypes;
 import ice.graphics.*;
+import mindustry.Vars;
 import mindustry.content.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
@@ -143,7 +144,7 @@ public class IceBlocks {
             statusDuration = 120f;
             liquidDrop = methanum;
             isLiquid = true;
-            cacheLayer = IcicleVars.modShaders ? IceShaders.methaneLayer : CacheLayer.water;
+            cacheLayer = !Vars.android ? IceShaders.methaneLayer : CacheLayer.water;
             attributes.set(meth, 0.25f);
         }};
         methaneFloorShallow = new Floor("methanum-floor-shallow"){{
@@ -155,7 +156,7 @@ public class IceBlocks {
             liquidMultiplier = 0.75f;
             isLiquid = true;
             shallow = true;
-            cacheLayer = IcicleVars.modShaders ? IceShaders.methaneLayer : CacheLayer.water;
+            cacheLayer = !Vars.android ? IceShaders.methaneLayer : CacheLayer.water;
             attributes.set(meth, 0.1f);
         }};
         thermalFloor = new Floor("thermal-floor");

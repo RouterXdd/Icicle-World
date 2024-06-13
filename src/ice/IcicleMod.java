@@ -18,7 +18,9 @@ import static mindustry.Vars.*;
 public class IcicleMod extends Mod{
 
     public IcicleMod(){
+        if (!android) {
             Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
+        }
         Events.on(ClientLoadEvent.class, e -> {
             loadSettings();
         });
@@ -34,9 +36,6 @@ public class IcicleMod extends Mod{
             mod.iconTexture = new Texture(mod.root.child("icon-glitch.png"));
         } else {
             mod.meta.subtitle = bundle.get("subtitle-" + Mathf.random(0, 2));
-        }
-        if (android) {
-            IcicleVars.modShaders = false;
         }
     }
 
@@ -62,7 +61,6 @@ public class IcicleMod extends Mod{
         ui.settings.addCategory(bundle.get("setting.icicle-world-title"), "icicle-world-settings-ui", t -> {
             t.checkPref("icicle-world-debug", false);
             t.checkPref("icicle-world-hard-mode", false);
-            if (!android) t.checkPref("icicle-world-mod-shaders", false);
         });
     }
 }
