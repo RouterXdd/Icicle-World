@@ -79,6 +79,23 @@ public class IceFx {
                 Draw.reset();
     }),
     hitSplashBulletColor = new Effect(14.0F, (e) -> {
+        float size = 24;
+        Draw.color(Color.white, e.color, e.fin());
+        e.scaled(20.0F, (s) -> {
+            Lines.stroke(0.5F + s.fout());
+            Lines.circle(e.x, e.y,  size);
+            Draw.color(e.color);
+            Draw.alpha(0.6f);
+            Fill.circle(e.x, e.y,size * e.fout());
+        });
+        Lines.stroke(0.6F + e.fout());
+        Angles.randLenVectors((long)e.id, 8, e.fin() * 15.0F, (x, y) -> {
+            float ang = Mathf.angle(x, y);
+            Lines.lineAngle(e.x + x, e.y + y, ang, e.fout() * size + 1.5F);
+        });
+        Drawf.light(e.x, e.y, size, e.color, 0.6F * e.fout());
+    }),
+    hitLargeSplashBulletColor = new Effect(14.0F, (e) -> {
         float size = 36;
         Draw.color(Color.white, e.color, e.fin());
         e.scaled(20.0F, (s) -> {
@@ -95,13 +112,20 @@ public class IceFx {
         });
         Drawf.light(e.x, e.y, size, e.color, 0.6F * e.fout());
     }),
-            shootWoodFlame = new Effect(33f, 80f, e -> {
-                color(IcePal.sporeLightish, IcePal.sporeLight, Color.gray, e.fin());
+    radLaserShoot = new Effect(21f, e -> {
+        color(IcePal.poloniumLight);
 
-                randLenVectors(e.id, 20, e.finpow() * 85f, e.rotation, 15f, (x, y) -> {
-                    Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f);
-                });
-            }),
+        for(int i : Mathf.signs){
+            Drawf.tri(e.x, e.y, 4f * e.fout(), 29f, e.rotation + 90f * i);
+        }
+    }),
+    shootWoodFlame = new Effect(33f, 80f, e -> {
+        color(IcePal.sporeLightish, IcePal.sporeLight, Color.gray, e.fin());
+
+        randLenVectors(e.id, 20, e.finpow() * 85f, e.rotation, 15f, (x, y) -> {
+            Fill.circle(e.x + x, e.y + y, 0.65f + e.fout() * 1.6f);
+        });
+    }),
     thalliumBlastExplosion = new Effect(30, e -> {
         color(e.color, IcePal.poloniumDark, e.fin());
 
@@ -125,19 +149,19 @@ public class IceFx {
 
         Drawf.light(e.x, e.y, 60f, IcePal.poloniumMid, 0.8f * e.fout());
     }),
-            poloniumSteam = new Effect(140f, e -> {
-                color(IcePal.poloniumLightish, IcePal.poloniumMid, e.fin());
+    poloniumSteam = new Effect(140f, e -> {
+        color(IcePal.poloniumLightish, IcePal.poloniumMid, e.fin());
 
-                alpha(e.fslope() * 0.78f);
+        alpha(e.fslope() * 0.78f);
 
-                float length = 2.4f + e.finpow() * 10f;
-                rand.setSeed(e.id);
-                for(int i = 0; i < rand.random(3, 5); i++){
-                    v.trns(rand.random(360f), rand.random(length));
-                    Fill.circle(e.x + v.x, e.y + v.y, rand.random(1.2f, 2.7f) + e.fslope() * 1.1f);
-                    Drawf.light(e.x, e.y, 10f, IcePal.poloniumLight, 1f * e.fout());
-                }
-            }),
+        float length = 2.4f + e.finpow() * 10f;
+        rand.setSeed(e.id);
+        for(int i = 0; i < rand.random(3, 5); i++){
+            v.trns(rand.random(360f), rand.random(length));
+            Fill.circle(e.x + v.x, e.y + v.y, rand.random(1.2f, 2.7f) + e.fslope() * 1.1f);
+            Drawf.light(e.x, e.y, 10f, IcePal.poloniumLight, 1f * e.fout());
+        }
+    }),
     nuclearReactorExplosion = new Effect(30.0F, 500.0F, (b) -> {
         float intensity = 7.5F;
         float baseLifetime = 25.0F + intensity * 11.0F;

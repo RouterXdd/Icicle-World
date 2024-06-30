@@ -141,7 +141,7 @@ public class IceBullets {
             unitDamageScl = 0.8f;
             timeIncrease = 1.88f;
             timeDuration = 60f * 8f;
-            powerDamageScl = 1.8f;
+            powerDamageScl = 0.75f;
             damage = 50;
             hitColor = lightColor = IcePal.thalliumLightish;
             lightRadius = 50f;
@@ -340,9 +340,9 @@ public class IceBullets {
             intervalSpread = 300f;
         }};
         methaneSpike = new BasicBulletType(){{
-            damage = 70;
-            splashDamage = 50;
-            splashDamageRadius = 48;
+            damage = 30;
+            splashDamage = 20;
+            splashDamageRadius = 24;
             splashDamagePierce = true;
             speed = 9f;
             width = height = 18;
@@ -365,17 +365,17 @@ public class IceBullets {
 
             hitEffect = despawnEffect = IceFx.hitSplashBulletColor;
         }};
-        ceramicChunk = new BasicBulletType(8f, 55){{
+        ceramicChunk = new BasicBulletType(8f, 70){{
             ammoMultiplier = 2f;
             shootEffect = Fx.shootSmall;
             lifetime = 18.75f;
             width = 8f;
             height = 11f;
             hitEffect = Fx.flakExplosion;
-            fragBullet = new BasicBulletType(4f, 10, "shell"){{
+            fragBullet = new BasicBulletType(4f, 20, "shell"){{
                 width = 6f;
                 height = 8f;
-                lifetime = 15f;
+                lifetime = 25f;
                 homingPower = 0.3f;
                 backColor = Pal.gray;
                 frontColor = Color.white;
@@ -392,7 +392,7 @@ public class IceBullets {
             height = 18f;
 
             hitSize = 7f;
-            shootEffect = Fx.lancerLaserShoot;
+            shootEffect = IceFx.radLaserShoot;
             smokeEffect = Fx.none;
             ammoMultiplier = 1;
             hitColor = backColor = trailColor = lightningColor;

@@ -86,10 +86,18 @@ public class RkiTechTree {
             //walls
             node(woodWall, () -> {
                 node(ceramicWall, () -> {
-                    node(aliveWall);
-                    node(conductiveWall);
-                    node(bitWall);
+                    node(aliveWall, () -> {
+                        node(aliveWallLarge);
+                    });
+                    node(conductiveWall, () -> {
+                        node(conductiveWallLarge);
+                    });
+                    node(bitWall, () -> {
+                        node(bitWallLarge);
+                    });
+                    node(ceramicWallLarge);
                 });
+                node(woodWallLarge);
             });
             //turrets
             node(bail, () -> {

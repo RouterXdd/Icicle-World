@@ -17,7 +17,7 @@ public class IceItems {
             hardness = 2;
             cost = 1.1f;
         }};
-        sporeWood = new Item("spore-wood", Color.valueOf("822d8b")){{
+        sporeWood = new Item("spore-wood", Color.valueOf("925197")){{
             hardness = 2;
             cost = 1.3f;
             flammability = 1.5f;

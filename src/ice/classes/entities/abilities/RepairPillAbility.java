@@ -3,6 +3,8 @@ package ice.classes.entities.abilities;
 import arc.graphics.g2d.*;
 import arc.scene.ui.layout.Table;
 import arc.util.*;
+import arc.util.io.Reads;
+import arc.util.io.Writes;
 import ice.classes.type.IceStats;
 import ice.content.IceFx;
 import mindustry.entities.abilities.Ability;
@@ -47,5 +49,13 @@ public class RepairPillAbility extends Ability{
             Draw.reset();
             IceFx.pillTrail.at(unit.x + Tmp.v1.x, unit.y + Tmp.v1.y);
         }
+    }
+
+    public void write(Writes write){
+        write.bool(used);
+    }
+
+    public void read(Reads read, byte revision){
+        used = read.bool();
     }
 }

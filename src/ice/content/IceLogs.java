@@ -8,7 +8,7 @@ public class IceLogs {
             crux1,
             //malis
             malis1
-            //bushark
+            //venixen
             //sharded
             //genesis
     ;

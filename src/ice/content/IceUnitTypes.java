@@ -252,7 +252,7 @@ public class IceUnitTypes {
                 mirror = true;
                 shootSound = Sounds.pew;
                 x = 6f;
-                y = 0f;
+                y = 0.5f;
 
                 inaccuracy = 20f;
                 ejectEffect = Fx.casing2;

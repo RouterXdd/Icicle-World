@@ -9,7 +9,7 @@ import arc.util.noise.*;
 import ice.classes.blocks.environment.LargeCrater;
 import ice.content.IceAttributes;
 import ice.content.IceBlocks;
-import ice.content.IceLoadouts;
+import ice.content.IceSchematics;
 import mindustry.ai.*;
 import mindustry.ai.BaseRegistry.*;
 import mindustry.content.*;
@@ -18,7 +18,6 @@ import mindustry.graphics.g3d.PlanetGrid.*;
 import mindustry.maps.generators.*;
 import mindustry.type.*;
 import mindustry.world.*;
-import mindustry.world.blocks.environment.*;
 
 import static ice.content.IceBlocks.*;
 import static mindustry.Vars.*;
@@ -49,7 +48,7 @@ public class RkiTrueGenerator extends PlanetGenerator {
             IceBlocks.thermalFloor, IceBlocks.thermalBoulder
     );
     {
-        defaultLoadout = IceLoadouts.angryBasic;
+        defaultLoadout = IceSchematics.angryBasic;
     }
 
     float water = 2f / arr[0].length;
@@ -104,9 +103,8 @@ public class RkiTrueGenerator extends PlanetGenerator {
 
     @Override
     public Color getColor(Vec3 position){
-        Block block = getBlock(position);
-        //replace salt with sand color
-        if(block == Blocks.salt) return Blocks.sand.mapColor;
+        Block block = rawHeight(position) < 0.4 ? (Mathf.chance(0.35f) ? ice : redIce) : (Mathf.chance(0.7f) ? snow : iceSnow);
+
         return Tmp.c1.set(block.mapColor).a(1f - block.albedo);
     }
 
@@ -116,7 +114,7 @@ public class RkiTrueGenerator extends PlanetGenerator {
         tile.block = tile.floor.asFloor().wall;
 
         if(Ridged.noise3d(seed + 1, position.x, position.y, position.z, 2, 22) > 0.31){
-            tile.block = Blocks.air;
+            tile.block = air;
         }
     }
 

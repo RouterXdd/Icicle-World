@@ -7,8 +7,8 @@ import mindustry.type.*;
 
 public class IcicleSectorPreset extends SectorPreset {
     public boolean story;
-    public ObjectSet<UnitType> enemies = new ObjectSet();
-    public ObjectSet<UnitType> guardians = new ObjectSet();
+    public ObjectSet<UnitType> enemies = new ObjectSet<>();
+    public ObjectSet<UnitType> guardians = new ObjectSet<>();
 
     public IcicleSectorPreset(String name, Planet planet, int sector) {
         super(name, planet, sector);
@@ -17,6 +17,8 @@ public class IcicleSectorPreset extends SectorPreset {
     public void loadIcon() {
         if (Icon.terrain != null && !story) {
             this.uiIcon = this.fullIcon = Icon.terrain.getRegion();
+        } else if (isLastSector){
+            uiIcon = fullIcon = Core.atlas.find("icicle-world-terrain-last-sector");
         } else {
             uiIcon = fullIcon = Core.atlas.find("icicle-world-terrain-story");
         }

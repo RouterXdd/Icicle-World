@@ -17,17 +17,17 @@ import static mindustry.Vars.tilesize;
 public class IceWall extends Wall {
     public float inflictChance = 0f;
     public StatusEffect inflictStatus = IceStatuses.radiation;
-    public float inflictTime = 60 * 40f;
+    public float inflictTime = 60 * 45f;
     public float inflictRange = 10f * 8f;
     public float regenSpeed = 0.25f;
     public Effect regenEffect = Fx.none;
     public float regenChance = 0.1f;
-    public boolean regenerate = true;
+    public int pierceDecrease = 0;
+    public boolean regenerate = false;
     public int onlyDamage = 0;
     public IceWall(String name) {
         super(name);
         update = true;
-        suppressable = true;
     }
     @Override
     public void setStats(){
@@ -55,7 +55,6 @@ public class IceWall extends Wall {
         public boolean collision(Bullet bullet) {
                 if (onlyDamage > 0){
                     damage(onlyDamage);
-                    bullet.collided().add(100);
                 } else {
                     super.collision(bullet);
                 }
@@ -65,6 +64,7 @@ public class IceWall extends Wall {
                                 return true;
                     });
                 }
+            for(int i = 0; i < pierceDecrease; i++) bullet.collided().add(0);
             return true;
         }
     }

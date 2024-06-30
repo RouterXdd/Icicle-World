@@ -4,6 +4,8 @@ import arc.Core;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
+import arc.util.io.Reads;
+import arc.util.io.Writes;
 import ice.IcicleVars;
 import ice.content.*;
 import mindustry.Vars;
@@ -91,6 +93,19 @@ public class EnemyNest extends EditorBlock {
             super.onDestroyed();
             Tile tile = world.tileWorld(x, y);
             tile.setBlock(IceBlocks.destroyedMonsterNest, team);
+        }
+        @Override
+        public void write(Writes write){
+            super.write(write);
+
+            write.f(statRising);
+        }
+
+        @Override
+        public void read(Reads read, byte revision){
+            super.read(read, revision);
+
+            statRising = read.f();
         }
     }
 }

@@ -60,7 +60,11 @@ public class WorldDuster extends EditorBlock {
                 place();
                 reloadTime = 0;
             }
-            reloadTime += Time.delta / reload;
+            if (team == Team.derelict) {
+                reloadTime += Time.delta / reload;
+            } else if (canConsume() && team != Team.derelict){
+                reloadTime += Time.delta / reload;
+            }
         }
         public void place() {
             for(int i = 0; i < amount; i++) {

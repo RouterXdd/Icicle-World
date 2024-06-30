@@ -25,7 +25,7 @@ public class IcePlanets {
     public static void load() {
         rki = new Planet("rki", Planets.sun, 1f, 3) {{
             generator = new RkiTrueGenerator();
-            meshLoader = () -> new HexMesh(rkiFake, 5);
+            meshLoader = () -> new HexMesh(this, 5);
             cloudMeshLoader = () -> new MultiMesh(
                     new HexSkyMesh(this, 2, 0.15f, 0.14f, 5, IcePal.methaneLight.a(0.75f), 2, 0.42f, 1f, 0.43f),
                     new HexSkyMesh(this, 3, 0.6f, 0.15f, 5, IcePal.methaneMid.a(0.75f), 2, 0.42f, 1.2f, 0.45f)

@@ -5,7 +5,7 @@ import arc.math.*;
 import arc.math.geom.*;
 import arc.util.*;
 import arc.util.noise.*;
-import ice.content.IceLoadouts;
+import ice.content.IceSchematics;
 import mindustry.ai.*;
 import mindustry.content.*;
 import mindustry.game.*;
@@ -24,7 +24,7 @@ public class RkiSurfaceGenerator extends PlanetGenerator{
 
     {
         baseSeed = 2;
-        defaultLoadout = IceLoadouts.angryBasic;
+        defaultLoadout = IceSchematics.angryBasic;
     }
 
     @Override

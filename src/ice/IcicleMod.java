@@ -1,16 +1,13 @@
 package ice;
 
 import arc.*;
-import arc.graphics.Color;
 import arc.graphics.Texture;
 import arc.math.Mathf;
-import arc.util.*;
 import ice.classes.graphic.IceEmojis;
 import ice.content.*;
 import ice.graphics.IceShaders;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
-import mindustry.ui.dialogs.*;
 
 import static arc.Core.*;
 import static mindustry.Vars.*;
@@ -52,7 +49,7 @@ public class IcicleMod extends Mod{
         IceBullets.load();
         IceUnitTypes.load();
         IceBlocks.load();
-        IceLoadouts.load();
+        IceSchematics.load();
         IcePlanets.load();
         IceSectors.load();
         RkiTechTree.load();
