@@ -65,7 +65,7 @@ public class IceBlocks {
      //ores
     oreDust, oreThallium, oreSoptin, orePolonium, oreChalk, orePoloniumUnderground, oreThalliumUnderground, oreChalkUnderground,
     //crafting
-    prinuteMerger, prinuteFabricator, siliconDissembler, ceramicalAssembler, ceramicSmelter, distiller, quarry, metalIncubator, poloniumCrucible, denseStructurer,
+    prinuteMerger, prinuteFabricator, siliconDissembler, ceramicalAssembler, ceramicSmelter, distiller, quarry, metalIncubator, enmitiumCrucible, poloniumCrucible, denseStructurer,
     //production
     protoDrill, advancedDrill, engineDrill, nuclearDrill, mechanicalCutter, laserCutter, oreFinder, methaneDigger, electricCrusher,
     //distribution
@@ -427,6 +427,38 @@ public class IceBlocks {
 
             consumeItems(with(scrap, 2, sporeWood, 4, prinute, 1));
             consumePower(2.8f);
+        }};
+        enmitiumCrucible = new GenericCrafter("enmitium-crucible"){{
+            requirements(Category.crafting, with(thallium, 320, ceramic, 110, silicon, 135, livesteel, 90));
+            /*craftEffect = new MultiEffect( new ParticleEffect(){{
+                particles = 6;
+                colorFrom = Color.valueOf("e1d8a5");
+                colorTo = Color.valueOf("00000000");
+                sizeFrom = 3;
+                region = "icicle-world-square";
+                length = 35;
+                cone = 360;
+                lifetime = 60;
+            }});*/
+            outputLiquid = new LiquidStack(enmitium, 5f / 60f);
+            craftTime = 70f;
+            size = 3;
+            hasPower = true;
+            itemCapacity = 10;
+            drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawCircles(){{
+                color = Color.valueOf("be5159").a(0.24f);
+                strokeMax = 2f;
+                radius = 8f;
+                amount = 5;
+            }}, new DrawDefault());
+            fogRadius = 3;
+            ambientSound = Sounds.extractLoop;
+            ambientSoundVolume = 0.1f;
+            researchCostMultiplier = 0.9f;
+
+            consumeItems(with(thallium, 2, ceramic, 2));
+            consumeLiquid(water, 16f / 60f);
+            consumePower(8f);
         }};
         poloniumCrucible = new GenericCrafter("polonium-crucible"){{
             requirements(Category.crafting, with(thallium, 275, sporeWood, 190, silicon, 130, prinute, 110, polonium, 85));

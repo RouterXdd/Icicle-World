@@ -55,7 +55,7 @@ public class RotatingShieldsAbility extends Ability {
     /** Shield regen speed in damage/tick. */
     public float regen = 0.1f;
     /** Maximum shield. */
-    public float max = 200f;
+    public float max = 500f;
     /** Cooldown after the shield is broken, in ticks. */
     public float cooldown = 60f * 5;
     /** Angle of shield arc. */
@@ -128,7 +128,7 @@ public class RotatingShieldsAbility extends Ability {
             }
 
             if(drawArc){
-                Lines.stroke(width * widthScale);
+                Lines.stroke(width * widthScale * data / max);
                 Lines.arc(pos.x, pos.y, radius, angle / 360f, angleOffset - angle / 2f + Time.time * 2);
             }
             //Draw.reset();

@@ -28,7 +28,9 @@ public class RkiTechTree {
                                 nodeProduce(poloniumCharge, () -> {});
                             });
                             nodeProduce(methanum, () -> {
-                                nodeProduce(water, () -> {});
+                                nodeProduce(water, () -> {
+                                    nodeProduce(enmitium, () -> {});
+                                });
                                 nodeProduce(waste, () -> {});
                             });
                         });
@@ -161,6 +163,7 @@ public class RkiTechTree {
                     node(metalIncubator, () -> {
                         node(poloniumCrucible);
                         node(denseStructurer);
+                        node(enmitiumCrucible);
                     });
                     node(distiller);
                     node(prinuteFabricator);

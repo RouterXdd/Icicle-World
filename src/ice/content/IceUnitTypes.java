@@ -578,8 +578,7 @@ public class IceUnitTypes {
 
         groundwork = new RkiTankUnitType("groundwork"){{
             hitSize = 37.5f;
-            treadPullOffset = 6;
-            treadFrames = 50;
+            treadPullOffset = 0;
             speed = 0.285f;
             rotateSpeed = 1.12f;
             health = 21600;
@@ -589,7 +588,7 @@ public class IceUnitTypes {
             drawCell = false;
             researchCostMultiplier = 0f;
             constructor = TankUnit::create;
-            treadRects = new Rect[]{new Rect(44 - 150f, 23 - 150f, 36, 253),new Rect(94 - 150f, 90f, 56, 44)};
+            treadRects = new Rect[]{new Rect(44f - 150f, 25f - 150f, 36, 253),new Rect(94f - 150f, 241f - 150f, 56, 44)};
             abilities.add(new RotatingShieldsAbility(){{
                 radius = 47;
             }});
@@ -1536,7 +1535,7 @@ public class IceUnitTypes {
 
             ammoType = new PowerAmmoType(500);
 
-            abilities.add(new ForceFieldAbility(55f, 0.5f, 320f, 55f * 6));
+            abilities.add(new ForceFieldAbility(55f, 0.5f, 700f, 55f * 6, 8, 0));
             weapons.add(new Weapon(){{
                 x = 0f;
                 shootY = 0f;
