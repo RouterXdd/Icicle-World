@@ -34,7 +34,7 @@ public class AggressiveNode extends PowerNode {
             Units.nearbyEnemies(team, x, y, range, u -> {
                 reloadTime -= Time.delta;
             });
-            if (reloadTime <= 0 && canConsume()){
+            if (reloadTime <= 0 && canConsume() && power.graph.getPowerBalance() >= damageLight / 40){
                 Lightning.create(this.team,team.color,damageLight ,this.x, this.y, Mathf.random(0, 360), lengthLight);
                 reloadTime = reload;
             }

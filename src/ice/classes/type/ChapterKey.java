@@ -5,8 +5,9 @@ import ice.IcicleVars;
 import mindustry.Vars;
 
 public class ChapterKey extends LogFile{
-    public ChapterKey(String name) {
-        super(name);
+    public ChapterKey(String name, boolean hidden) {
+        super(name, hidden);
+        hideDetails = false;
     }
     public void onUnlock(){
         IcicleVars.chapter2 = true;

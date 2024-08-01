@@ -418,13 +418,13 @@ public class RkiTrueGenerator extends PlanetGenerator {
                     for (var pos : LargeCrater.offsets) {
                         Tile other = tiles.get(pos.x + tile.x + 2, pos.y + tile.y + 2);
                         other.setFloor(vent.asFloor());
-                        Tile other1 = tiles.get(tile.x + 2, tile.y + 2);
+                        Tile other1 = tiles.get(tile.x + 3, tile.y + 3);
                         other1.setFloor(vent.asFloor());
-                        Tile other2 = tiles.get(tile.x - 2, tile.y - 2);
+                        Tile other2 = tiles.get(tile.x - 3, tile.y - 3);
                         other2.setFloor(vent.asFloor());
-                        Tile other3 = tiles.get(tile.x - 2, tile.y + 2);
+                        Tile other3 = tiles.get(tile.x - 3, tile.y + 3);
                         other3.setFloor(vent.asFloor());
-                        Tile other4 = tiles.get(tile.x + 2, tile.y - 2);
+                        Tile other4 = tiles.get(tile.x + 3, tile.y - 3);
                         other4.setFloor(vent.asFloor());
                     }
 

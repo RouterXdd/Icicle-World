@@ -705,7 +705,12 @@ public class IceBlocks {
             requirements(Category.liquid, with(soptin, 2));
             health = 50;
             bridgeReplacement = soptinTunnel;
-        }};
+        }
+            @Override
+            public TextureRegion[] icons(){
+                return new TextureRegion[]{botRegions[0], topRegions[0]};
+            }
+        };
         soptinRouter = new LiquidRouter("soptin-router"){{
             requirements(Category.liquid, with(soptin, 5, sporeWood, 2));
             liquidCapacity = 12f;
@@ -878,6 +883,7 @@ public class IceBlocks {
             useTime = 900;
             scaledHealth = 110;
             squareSprite = false;
+            researchCostMultiplier = 0.75f;
             baseColor = phaseColor = IcePal.thalliumLight;
             consumeItem(poloniumCharge).boost();
         }};
@@ -966,7 +972,7 @@ public class IceBlocks {
             size = 2;
             laserRange = 7.5f;
             maxNodes = 2;
-            fogRadius = 3;
+            fogRadius = 2;
             laserColor2 = IcePal.thalliumLight;
             consumePower(1);
             consumePowerBuffered(500f);
@@ -979,7 +985,7 @@ public class IceBlocks {
             size = 2;
             laserRange = 9.5f;
             maxNodes = 3;
-            fogRadius = 3;
+            fogRadius = 2;
             laserColor2 = IcePal.thalliumLight;
             consumePowerBuffered(200f);
         }};
@@ -999,6 +1005,7 @@ public class IceBlocks {
             powerProduction = 0.8f;
             radius = 18f;
             size = 2;
+            fogRadius = 2;
             attribute = sun;
             displayEfficiency = false;
             minEfficiency = 4f - 0.00001f;
@@ -1011,6 +1018,7 @@ public class IceBlocks {
             requirements(Category.power, with(thallium, 75, ceramic, 25, silicon, 42, polonium, 30));
             powerProduction = 1f;
             radius = 24.5f;
+            fogRadius = 3;
             size = 3;
             attribute = sun;
             displayEfficiency = false;
@@ -1320,7 +1328,7 @@ public class IceBlocks {
                         backColor = trailColor = hitColor = IcePal.wasteMid;
                         trailChance = 1f;
                         ammoMultiplier = 3f;
-                        reloadMultiplier = 0.75f;
+                        reloadMultiplier = 0.55f;
 
                         lifetime = 170f / 9f;
                         rotationOffset = 90f;
@@ -1517,6 +1525,7 @@ public class IceBlocks {
             minRange = 30f;
             limitRange(0f);
             drawer = new DrawTurret("rik-");
+            researchCostMultiplier = 0.75f;
         }};
         discharge = new PowerTurret("discharge"){{
             requirements(Category.turret, with(thallium, 430, sporeWood, 310, silicon, 390, prinute, 260, polonium, 190, denseAlloy, 110));

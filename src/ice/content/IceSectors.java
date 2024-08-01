@@ -7,7 +7,10 @@ import static ice.content.IceUnitTypes.*;
 
 public class IceSectors {
     public static SectorPreset
-    fallPoint, primaryBase, methanePurficate, purpleFortress, trinityCollumn, resurgent, paths, familiarComplex, flameOcean, aggressiveTactic, execution, theHive
+            //main sectors
+    fallPoint, primaryBase, methanePurficate, purpleFortress, trinityCollumn, resurgent, paths, brokenComplex, flameOcean, aggressiveTactic, execution, theHive,
+    //optional sectors
+    ignintion
             ;
     public static void load(){
         fallPoint = new IcicleSectorPreset("fall-point", IcePlanets.rki, 33){{
@@ -21,6 +24,10 @@ public class IceSectors {
         primaryBase = new IcicleSectorPreset("primary-base", IcePlanets.rki, 58){{
             difficulty = 2;
             enemies.addAll(stem);
+        }};
+        ignintion = new IcicleSectorPreset("ignition", IcePlanets.rki, 203){{
+            difficulty = 4;
+            enemies.addAll(vessel, stem, basis);
         }};
         methanePurficate = new IcicleSectorPreset("methane-purficate", IcePlanets.rki, 83){{
             difficulty = 4;
@@ -49,6 +56,11 @@ public class IceSectors {
             story = true;
             enemies.addAll(vessel, stem, basis, quant, ewer, xylem, fundament, chronon);
             guardians.addAll(unknown);
+        }};
+        brokenComplex = new IcicleSectorPreset("broken-complex", IcePlanets.rki, 235){{
+            captureWave = 35;
+            difficulty = 6;
+            enemies.addAll(vessel, stem, basis, quant, ewer, xylem, fundament, chronon);
         }};
     }
 }
