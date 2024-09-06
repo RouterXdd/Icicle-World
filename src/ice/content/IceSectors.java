@@ -27,6 +27,7 @@ public class IceSectors {
         }};
         ignintion = new IcicleSectorPreset("ignition", IcePlanets.rki, 203){{
             difficulty = 4;
+            captureWave = 20;
             enemies.addAll(vessel, stem, basis);
         }};
         methanePurficate = new IcicleSectorPreset("methane-purficate", IcePlanets.rki, 83){{

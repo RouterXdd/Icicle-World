@@ -178,7 +178,7 @@ public class IceUnitTypes {
                         widthSinMag = 0.07f;
                         reload = 20f;
                         x = 6f;
-                        y = -6.5f;
+                        y = -7f;
                         rotate = true;
                         shootY = 2f;
                         beamWidth = 0.535f;
@@ -228,7 +228,7 @@ public class IceUnitTypes {
                 shootCone = 32;
                 mirror = false;
                 x = 0f;
-                y = -1f;
+                y = -2f;
 
                 inaccuracy = 14f;
                 ejectEffect = Fx.casing2;

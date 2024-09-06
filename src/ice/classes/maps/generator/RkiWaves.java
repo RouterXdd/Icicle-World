@@ -17,7 +17,7 @@ public class RkiWaves {
                 {vessel, ewer, decanter},
                 {stem, xylem, stalk},
                 {basis, fundament, groundwork},
-                {quant, chronon /*hovers doesnt have T3*/},
+                {quant, chronon, chronon /*hovers doesnt have T3*/},
         };
 
         UnitType[][] fspec = species;
