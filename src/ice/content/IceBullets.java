@@ -528,13 +528,14 @@ public class IceBullets {
             collideTerrain = true;
         }};
         basicBullet = new BasicBulletType(5, 50){{
-            width = height = 7f;
+            width = 5f;
+            height = 5f;
             lifetime = 30f;
             sprite = "circle-bullet";
             shootEffect = Fx.sparkShoot;
             smokeEffect = Fx.shootBigSmoke;
-            hitColor = backColor = Color.valueOf("1d54a1");
-            frontColor = Color.valueOf("3873c5");
+            hitColor = backColor = Color.valueOf("3e82a3");
+            frontColor = Color.valueOf("64c5d8");
             hitEffect = despawnEffect = Fx.hitBulletColor;
         }};
     }

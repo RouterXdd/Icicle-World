@@ -254,7 +254,7 @@ public class IceBlocks {
         prinuteFabricator = new GenericCrafter("prinute-fabricator"){{
             requirements(Category.crafting, with(thallium, 240, sporeWood, 175, silicon, 140, prinute, 80, soptin, 110));
             craftEffect = Fx.smeltsmoke;
-            outputItem = new ItemStack(prinute, 3);
+            outputItem = new ItemStack(prinute, 5);
             craftTime = 95f;
             size = 3;
             hasPower = true;
@@ -1564,7 +1564,7 @@ public class IceBlocks {
             squareSprite = false;
             outlineColor = IcePal.rkiOutline;
             ammo(
-                    poloniumCharge, new ScaledBasicBulletType(5, 100, 5f){{
+                    poloniumCharge, new ScaledBasicBulletType(5, 100, 2.5f){{
                 shootEffect = new MultiEffect(Fx.shootTitan, new WaveEffect(){{
                     colorTo = IcePal.poloniumLight;
                     sizeTo = 28f;
@@ -1602,6 +1602,7 @@ public class IceBlocks {
                     height = 15f;
                     drag = 0.02f;
                     pierce = true;
+                    pierceCap = 3;
                     lifetime = 110f;
                     sprite = "large-orb";
                     hitColor = backColor = trailColor = IcePal.poloniumLight;

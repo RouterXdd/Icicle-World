@@ -12,7 +12,7 @@ public interface HealthScaledBulletType{
 
     default void onHit(Bullet b, Hitboxc entity){
         if (entity instanceof Unit u) {
-                u.damagePierce(((Healthc) entity).health() * healthScale() / 100f);
+                u.damage(((Healthc) entity).health() * healthScale() / 100f);
             }
         }
     }

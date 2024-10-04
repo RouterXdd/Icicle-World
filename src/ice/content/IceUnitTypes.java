@@ -1,5 +1,6 @@
 package ice.content;
 
+import arc.Core;
 import arc.graphics.*;
 import arc.math.Interp;
 import arc.math.Mathf;
@@ -46,8 +47,9 @@ public class IceUnitTypes {
     shieldDrone, vesselPoint,
     //methanite
     born, haste, angle, moto, queen, emperor, collector,
-    //funny
-    basic, octo, swarmling, reaver, giant, unknown;
+    //other
+    basic, pounder, destroyer, annihilator, octo,
+    swarmling, reaver, giant, unknown;
     public static void load(){
         malice = new RkiUnitType("malice"){{
             aiController = BuilderAI::new;
@@ -177,7 +179,7 @@ public class IceUnitTypes {
                     new RepairBeamWeapon("icicle-world-malice-repair-gun"){{
                         widthSinMag = 0.07f;
                         reload = 20f;
-                        x = 6f;
+                        x = 5f;
                         y = -7f;
                         rotate = true;
                         shootY = 2f;
@@ -1667,75 +1669,50 @@ public class IceUnitTypes {
                             }};
                         }});
         }};
-        basic = new UnitType("basic"){{
+        basic = new PolygonUnitType("basic") {{
             health = 1000;
-            speed = 7f;
-            hitSize = 11f;
-            drag = 1f;
-            flying = true;
-            drawBody = false;
-            range = 60f;
-            constructor = UnitEntity::create;
-            engineSize = 0;
-            parts.add(new ShapePart(){{
-                          progress = PartProgress.life;
-                          color = Color.valueOf("1d54a1");
-                          hollow = false;
-                          circle = true;
-                          radius = 6f;
-                      }},
-                    new ShapePart(){{
-                        progress = PartProgress.life;
-                        color = Color.valueOf("3873c5");
-                        hollow = false;
-                        radius = 4.8f;
-                        circle = true;
-                    }});
+            speed = 0.9f;
+            hitSize = 12f;
             weapons.add(
-                    new Weapon("barrel"){{
+                    new Weapon("icicle-world-basic-gun") {{
                         shootSound = Sounds.blaster;
                         reload = 20f;
                         x = 0f;
-                        y = 5f;
+                        y = 7.75f;
+                        layerOffset = -0.0001f;
                         shootY = 3;
                         mirror = false;
                         top = false;
                         rotate = false;
                         bullet = basicBullet;
-                        parts.add(new ShapePart(){{
-                                      progress = PartProgress.life;
-                                      color = Color.valueOf("5b5b5bff");
-                                      hollow = false;
-                                      sides = 4;
-                                      rotation = 45;
-                                      radius = 4f;
-                                  }},
-                                new ShapePart(){{
-                                    progress = PartProgress.life;
-                                    color = Color.valueOf("5b5b5bff");
-                                    hollow = false;
-                                    sides = 4;
-                                    rotation = 45;
-                                    radius = 4f;
-                                    y = 2;
-                                }},
-                                new ShapePart(){{
-                                    progress = PartProgress.life;
-                                    color = Color.valueOf("7e7e7eff");
-                                    hollow = false;
-                                    sides = 4;
-                                    rotation = 45;
-                                    radius = 2.8f;
-                                }},
-                                new ShapePart(){{
-                                    progress = PartProgress.life;
-                                    color = Color.valueOf("7e7e7eff");
-                                    hollow = false;
-                                    sides = 4;
-                                    rotation = 45;
-                                    radius = 2.8f;
-                                    y = 2;
-                                }});
+                    }});
+        }};
+        pounder = new PolygonUnitType("pounder") {{
+            health = 1200;
+            speed = 0.8f;
+            hitSize = 12f;
+            weapons.add(
+                    new Weapon("icicle-world-pounder-gun") {{
+                        shootSound = Sounds.blaster;
+                        reload = 35f;
+                        x = 0f;
+                        y = 7.75f;
+                        layerOffset = -0.0001f;
+                        shootY = 3;
+                        mirror = false;
+                        top = false;
+                        rotate = false;
+                        bullet = new BasicBulletType(4.5f, 80){{
+                            width = 7f;
+                            height = 7f;
+                            lifetime = 30f;
+                            sprite = "circle-bullet";
+                            shootEffect = Fx.sparkShoot;
+                            smokeEffect = Fx.shootBigSmoke;
+                            hitColor = backColor = Color.valueOf("3e82a3");
+                            frontColor = Color.valueOf("64c5d8");
+                            hitEffect = despawnEffect = Fx.hitBulletColor;
+                        }};
                     }});
         }};
         octo = new UnitType("octo"){{
