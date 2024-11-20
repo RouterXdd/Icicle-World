@@ -2,8 +2,7 @@ package ice.content;
 
 import arc.Core;
 import arc.graphics.*;
-import arc.math.Interp;
-import arc.math.Mathf;
+import arc.math.*;
 import arc.math.geom.Rect;
 import arc.util.Time;
 import arc.util.Tmp;
@@ -19,8 +18,7 @@ import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
-import mindustry.entities.pattern.ShootAlternate;
-import mindustry.entities.pattern.ShootSpread;
+import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -32,6 +30,7 @@ import mindustry.world.meta.Stat;
 
 import static ice.content.IceBullets.*;
 import static mindustry.content.Items.*;
+import static mindustry.content.StatusEffects.*;
 
 public class IceUnitTypes {
     public static UnitType
@@ -528,6 +527,7 @@ public class IceUnitTypes {
             health = 19650f;
             hitSize = 26f;
             constructor = MechUnit::create;
+            immunities.add(burning);
             weapons.add(new Weapon("icicle-world-stalk-weapon"){{
                 top = false;
                 reload = 70f;
@@ -535,25 +535,27 @@ public class IceUnitTypes {
                 shootCone = 50;
                 mirror = true;
                 shootSound = Sounds.cannon;
+                inaccuracy = 8;
                 x = 25f;
                 y = 0f;
                 shootY = 13.5f;
 
                 ejectEffect = Fx.none;
                 shoot = new ShootSpread(){{
-                    shots = 3;
-                    spread = 5;
+                    shots = 8;
+                    spread = 2;
                 }};
 
-                bullet = new BasicBulletType(9, 100){{
-                    lifetime = 35;
+                bullet = new BasicBulletType(9, 40){{
+                    lifetime = 25;
                     width = 12f;
                     height = 21f;
-                    splashDamage = 25;
+                    splashDamage = 15;
                     splashDamageRadius = 2.5f * 8;
                     splashDamagePierce = true;
                     hitColor = backColor = IcePal.sporeMid;
                     frontColor = trailColor = IcePal.sporeLight;
+                    velocityRnd = 0.2f;
                     incendChance = 1;
                     incendSpread = 11;
                     incendAmount = 8;
@@ -626,7 +628,7 @@ public class IceUnitTypes {
 
                         smokeEffect = Fx.shootSmokeTitan;
                         splashDamage = 270;
-                        splashDamageRadius = 170;
+                        splashDamageRadius = 70;
                         pierceCap = 5;
                         pierce = true;
                         pierceBuilding = collideTerrain = true;
@@ -1448,12 +1450,12 @@ public class IceUnitTypes {
                 teamColor = true;
             }});
             abilities.add(new WraithAbility(55, 20, 180){{
-                shockBullet = new MissileBulletType(6f, 50){{
+                shockBullet = new MissileBulletType(6f, 75){{
                     width = 8f;
                     height = 15f;
                     lifetime = 25f;
                     splashDamage = 35;
-                    splashDamageRadius = 21;
+                    splashDamageRadius = 30;
 
                     smokeEffect = Fx.shootBigSmoke;
                     hitColor = backColor = trailColor = Pal.techBlue;
@@ -1496,12 +1498,12 @@ public class IceUnitTypes {
                 shoot.shots = 3;
                 shoot.shotDelay = 6;
 
-                bullet = new MissileBulletType(6f, 45){{
+                bullet = new MissileBulletType(6f, 60){{
                     width = 8f;
                     height = 15f;
                     lifetime = 25f;
                     splashDamage = 20;
-                    splashDamageRadius = 21;
+                    splashDamageRadius = 45;
                     shootEffect = new WaveEffect(){{
                         sides = 4;
                         sizeFrom = 0;
@@ -1537,18 +1539,16 @@ public class IceUnitTypes {
 
             ammoType = new PowerAmmoType(500);
 
-            abilities.add(new ForceFieldAbility(55f, 0.5f, 700f, 55f * 6, 8, 0));
+            abilities.add(new ForceFieldAbility(55f, 0.5f, 1000f, 55f * 6, 8, 0));
             weapons.add(new Weapon(){{
                 x = 0f;
                 shootY = 0f;
-                reload = 60;
+                reload = 100;
                 mirror = false;
                 shootCone = 70f;
                 ejectEffect = Fx.none;
-                shootSound = Sounds.lasershoot;
-                shoot.shots = 3;
-                shoot.shotDelay = 5;
-                bullet = pointBullet;
+                shootSound = Sounds.pulseBlast;
+                bullet = methaneSpike;
             }});
         }};
         born = new MethaniteUnitType("born"){{

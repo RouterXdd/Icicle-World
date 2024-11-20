@@ -15,9 +15,6 @@ import static mindustry.Vars.*;
 public class IcicleMod extends Mod{
 
     public IcicleMod(){
-        if (!android) {
-            Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
-        }
         Events.on(ClientLoadEvent.class, e -> {
             loadSettings();
         });
@@ -38,6 +35,7 @@ public class IcicleMod extends Mod{
 
     @Override
     public void loadContent(){
+        IceShaders.load();
         IceSFX.load();
         IceAttributes.load();
         IceWeather.load();

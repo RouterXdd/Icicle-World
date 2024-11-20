@@ -37,6 +37,7 @@ import mindustry.world.blocks.storage.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
+import static ice.content.IceStatuses.*;
 import static mindustry.type.ItemStack.*;
 import static mindustry.content.Items.*;
 import static mindustry.content.Liquids.*;
@@ -55,7 +56,7 @@ public class IceBlocks {
             //calamite pikes
             calamiteFloor, calamiteWall, calamiteBoulder,
             //dust valley
-            dustFloor, dustWall, dustSpit,
+            dustFloor, dustMix, dustWall, dustSpit,
             //methane ocean
             methaneFloor, methaneFloorShallow, thermalFloor, solidMethane, thermalBoulder,
             //magnet cavern
@@ -128,6 +129,18 @@ public class IceBlocks {
                 lifetime = 80;
             }};
         }}*/;
+        dustMix = new Floor("dust-mix"){{
+            speedMultiplier = 0.4f;
+            variants = 3;
+            drownTime = 200;
+            status = rusting;
+            statusDuration = 140f;
+            liquidDrop = waste;
+            liquidMultiplier = 0.1f;
+            isLiquid = true;
+            cacheLayer = CacheLayer.mud;
+            attributes.set(meth, 0.1f);
+        }};
         dustWall = new StaticWall("dust-wall"){{
             dustFloor.asFloor().wall = this;
         }};
@@ -177,14 +190,16 @@ public class IceBlocks {
             magnetNegativeRock.asFloor().wall = this;
             magnetPositiveRock.asFloor().wall = this;
         }};
-        positiveCrystal = new TallBlock("positive-crystal"){{
+        positiveCrystal = new ChargeCrystal("positive-crystal"){{
             variants = 2;
             clipSize = 64f;
+            status = positiveCharge;
             magnetPositiveRock.asFloor().decoration = this;
         }};
-        negativeCrystal = new TallBlock("negative-crystal"){{
+        negativeCrystal = new ChargeCrystal("negative-crystal"){{
             variants = 2;
             clipSize = 64f;
+            status = negativeCharge;
             magnetNegativeRock.asFloor().decoration = this;
         }};
         magnetBoulder = new Prop("magnet-boulder"){{
@@ -563,14 +578,14 @@ public class IceBlocks {
             requirements(Category.production, with(thallium, 190, prinute, 75, silicon, 90, ceramic, 60, polonium, 50));
             health = 1200;
             tier = 5;
-            drillTime = 190;
+            drillTime = 150;
             rotateSpeed = 5f;
             size = 3;
             colorLight = IcePal.poloniumLight;
-            damageLight = 5;
-            lengthLight = 4;
+            damageLight = 8;
+            lengthLight = 5;
             reload = 22;
-            consumePower(4f);
+            consumePower(6f);
             minHealth = 0;
 
             consumeLiquid(water, 0.125f).boost();
@@ -1071,7 +1086,7 @@ public class IceBlocks {
             size = 4;
             health = 700;
             itemDuration = 380f;
-            powerProduction = 22f;
+            powerProduction = 30f;
             fuelItem = poloniumCharge;
             lightColor = IcePal.poloniumLightish;
             hotColor = IcePal.poloniumLight;
@@ -1336,7 +1351,7 @@ public class IceBlocks {
                         trailEffect = Fx.disperseTrail;
 
                         hitEffect = despawnEffect = IceFx.hitLargeSplashBulletColor;
-                        status = IceStatuses.rusting;
+                        status = rusting;
                         statusDuration = 80;
                     }},
                     enmitium, new BasicBulletType(){{
@@ -1446,7 +1461,7 @@ public class IceBlocks {
                         homingPower = 0.5f;
                         trailLength = 10;
                         despawnEffect = hitEffect = Fx.hitBulletColor;
-                        status = IceStatuses.rusting;
+                        status = rusting;
                         statusDuration = 130;
                         collideTerrain = true;
                     }}

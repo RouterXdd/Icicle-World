@@ -7,12 +7,15 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
 import arc.scene.style.TextureRegionDrawable;
+import arc.scene.ui.ButtonGroup;
+import arc.scene.ui.ImageButton;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
 import arc.util.*;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import mindustry.Vars;
+import mindustry.ai.UnitCommand;
 import mindustry.entities.Units;
 import mindustry.gen.*;
 import mindustry.graphics.Drawf;
@@ -51,6 +54,11 @@ public class LegacyFactoryPad extends Block {
             if(tile.currentPlan == i) return;
             tile.currentPlan = i < 0 || i >= plans.size ? -1 : i;
             tile.progress = 0;
+            /*
+            if(build.command != null && !val.commands.contains(build.command)){
+                build.command = null;
+            }
+            */
         });
 
         config(UnitType.class, (LegacyFactoryPadBuild tile, UnitType val) -> {
@@ -60,10 +68,16 @@ public class LegacyFactoryPad extends Block {
             if(tile.currentPlan == next) return;
             tile.currentPlan = next;
             tile.progress = 0;
+            /*
+            if(build.command != null && !val.commands.contains(build.command)){
+                build.command = null;
+            }
+            */
         });
 
         consume(new ConsumeItemDynamic((LegacyFactoryPadBuild e) -> e.currentPlan != -1 ? plans.get(Math.min(e.currentPlan, plans.size - 1)).requirements : ItemStack.empty));
     }
+    //Got some preparation to v8
     @Override
     public TextureRegion[] icons(){
         if (drawTop) {
@@ -172,6 +186,7 @@ public class LegacyFactoryPad extends Block {
     }
     public class LegacyFactoryPadBuild extends Building {
         public @Nullable Vec2 commandPos;
+        public @Nullable UnitCommand command;
         public int currentPlan = -1;
         public float speedScl = 4;
         public float time, progress;
@@ -180,6 +195,12 @@ public class LegacyFactoryPad extends Block {
             return currentPlan == -1 ? 0 : progress / plans.get(currentPlan).time;
         }
 
+        /*public boolean canSetCommand(){
+            var output = unit();
+            return output != null && output.commands.size > 1 && output.allowChangeCommands &&
+                    //to avoid cluttering UI, don't show command selection for "standard" units that only have two commands.
+                    !(output.commands.size == 2 && output.commands.get(1) == UnitCommand.enterPayloadCommand);
+        }*/
         @Override
         public Vec2 getCommandPosition() {
             return commandPos;
@@ -214,6 +235,50 @@ public class LegacyFactoryPad extends Block {
 
             if (units.any()) {
                 ItemSelection.buildTable(LegacyFactoryPad.this, table, units, () -> currentPlan == -1 ? null : plans.get(currentPlan).unit, unit -> configure(plans.indexOf(u -> u.unit == unit)), selectionRows, selectionColumns);
+
+                /*table.row();
+
+                Table commands = new Table();
+                commands.top().left();
+
+                Runnable rebuildCommands = () -> {
+                    commands.clear();
+                    commands.background(null);
+                    var unit = unit();
+                    if(unit != null && canSetCommand()){
+                        commands.background(Styles.black6);
+                        var group = new ButtonGroup<ImageButton>();
+                        group.setMinCheckCount(0);
+                        int i = 0, columns = Mathf.clamp(units.size, 2, selectionColumns);
+                        var list = unit.commands;
+
+                        commands.image(Tex.whiteui, Pal.gray).height(4f).growX().colspan(columns).row();
+
+                        for(var item : list){
+                            ImageButton button = commands.button(item.getIcon(), Styles.clearNoneTogglei, 40f, () -> {
+                                configure(item);
+                            }).tooltip(item.localized()).group(group).get();
+
+                            button.update(() -> button.setChecked(command == item || (command == null && unit.defaultCommand == item)));
+
+                            if(++i % columns == 0){
+                                commands.row();
+                            }
+                        }
+
+                        if(list.size < columns){
+                            for(int j = 0; j < (columns - list.size); j++){
+                                commands.add().size(40f);
+                            }
+                        }
+                    }
+                };
+
+                rebuildCommands.run();
+
+                table.row();
+
+                table.add(commands).fillX().left();*/
             } else {
                 table.table(Styles.black3, t -> t.add("@none").color(Color.lightGray));
             }
@@ -334,6 +399,7 @@ public class LegacyFactoryPad extends Block {
             write.f(progress);
             write.s(currentPlan);
             TypeIO.writeVecNullable(write, commandPos);
+            //TypeIO.writeCommand(write, command);
         }
 
         @Override
@@ -344,6 +410,9 @@ public class LegacyFactoryPad extends Block {
             if(revision >= 2){
                 commandPos = TypeIO.readVecNullable(read);
             }
+            /*if(revision >= 3){
+                command = TypeIO.readCommand(read);
+            }*/
         }
     }
 }

@@ -16,7 +16,7 @@ import static mindustry.Vars.*;
 public class IceShaders {
     public static @Nullable BlockSurfaceShader methane;
     public static ShaderLayer methaneLayer;
-    public static void init() {
+    public static void load() {
             if (!Vars.headless) {
                 methane = new BlockSurfaceShader("methane");
             }
