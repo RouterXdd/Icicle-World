@@ -105,8 +105,8 @@ public class IceUnitTypes {
                         rotate = true;
                         shootY = 2f;
                         beamWidth = 0.5f;
-                        repairSpeed = 2f;
-                        fractionRepairSpeed = 1.1f;
+                        repairSpeed = 1.25f;
+                        fractionRepairSpeed = 0.2f;
                         aimDst = 0f;
                         shootCone = 20f;
                         mirror = false;
@@ -183,8 +183,8 @@ public class IceUnitTypes {
                         rotate = true;
                         shootY = 2f;
                         beamWidth = 0.535f;
-                        repairSpeed = 1.4f;
-                        fractionRepairSpeed = 0.75f;
+                        repairSpeed = 1f;
+                        fractionRepairSpeed = 0.2f;
                         aimDst = 0f;
                         shootCone = 25f;
                         mirror = true;
@@ -244,7 +244,7 @@ public class IceUnitTypes {
 
             legMoveSpace = 4f;
             groundLayer = Layer.legUnit - 1f;
-            abilities.add(new EnergyFieldAbility(30f, 50f, 100f){{
+            abilities.add(new EnergyFieldAbility(30f, 40f, 100f){{
                 color = IcePal.thalliumLightish;
                 status = none;
                 healEffect = Fx.none;
