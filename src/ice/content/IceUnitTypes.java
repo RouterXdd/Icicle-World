@@ -183,7 +183,7 @@ public class IceUnitTypes {
                         rotate = true;
                         shootY = 2f;
                         beamWidth = 0.535f;
-                        repairSpeed = 1f;
+                        repairSpeed = 1.25f;
                         fractionRepairSpeed = 0.2f;
                         aimDst = 0f;
                         shootCone = 25f;
