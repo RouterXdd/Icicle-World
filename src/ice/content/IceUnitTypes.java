@@ -138,7 +138,7 @@ public class IceUnitTypes {
             speed = 2.55f;
             rotateSpeed = 17f;
             accel = 0.13f;
-            fogRadius = 5f;
+            fogRadius = 7f;
             itemCapacity = 40;
             health = 520f;
             armor = 3;
@@ -202,7 +202,65 @@ public class IceUnitTypes {
                             maxRange = 46.5f;
                         }};
                     }});
-        }};
+        }
+            @Override
+            public void load() {
+                super.load();
+                legRegion = Core.atlas.find("icicle-world-malice-leg");
+                legBaseRegion = Core.atlas.find("icicle-world-malice-leg-base");
+            }
+        };
+        censure = new RkiUnitType("censure"){{
+            aiController = BuilderAI::new;
+            defaultCommand = UnitCommand.rebuildCommand;
+            isEnemy = false;
+
+            lowAltitude = false;
+            mineSpeed = 15f;
+            mineTier = 3;
+            buildSpeed = 2f;
+            drag = 0.1f;
+            speed = 3f;
+            rotateSpeed = 20f;
+            accel = 0.13f;
+            fogRadius = 10f;
+            itemCapacity = 70;
+            health = 1210f;
+            armor = 5;
+            hitSize = 19f;
+            constructor = LegsUnit::create;
+            mineWalls = true;
+            hovering = true;
+            lockLegBase = true;
+            legContinuousMove = false;
+            legCount = 6;
+            legExtension = -7f;
+            legBaseOffset = 6f;
+            legMaxLength = 0.9f;
+            legLength = 24f;
+            legMinLength = 0.7f;
+            legLengthScl = 1f;
+            legForwardScl = 0.75f;
+
+            legMoveSpace = 2f;
+            groundLayer = Layer.legUnit - 1f;
+            abilities.add(new EnergyFieldAbility(30f, 50f, 100f){{
+                color = IcePal.thalliumLightish;
+                status = none;
+                healEffect = Fx.none;
+                maxTargets = 10;
+                healPercent = 1f;
+                sameTypeHealMult = 1f;
+                y = -11;
+            }});
+        }
+            @Override
+            public void load() {
+                super.load();
+                legRegion = Core.atlas.find("icicle-world-malice-leg");
+                legBaseRegion = Core.atlas.find("icicle-world-malice-leg-base");
+            }
+        };
         vessel = new RkiUnitType("vessel"){{
             drag = 0.08f;
             speed = 1.45f;

@@ -1148,7 +1148,7 @@ public class IceBlocks {
         };
         coreFury = new CoreBlock("core-fury"){{
             requirements(Category.effect, with(thallium, 3250, sporeWood, 2600, prinute, 1900, silicon, 1300, polonium, 930));
-            unitType = charity;
+            unitType = censure;
             health = 5600;
             armor = 5;
             itemCapacity = 7000;
