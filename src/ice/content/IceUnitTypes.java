@@ -233,16 +233,16 @@ public class IceUnitTypes {
             hovering = true;
             lockLegBase = true;
             legContinuousMove = false;
-            legCount = 6;
+            legCount = 8;
             legExtension = -7f;
-            legBaseOffset = 6f;
+            legBaseOffset = 8f;
             legMaxLength = 0.9f;
-            legLength = 24f;
+            legLength = 25f;
             legMinLength = 0.7f;
             legLengthScl = 1f;
-            legForwardScl = 0.75f;
+            legForwardScl = 0.6f;
 
-            legMoveSpace = 2f;
+            legMoveSpace = 4f;
             groundLayer = Layer.legUnit - 1f;
             abilities.add(new EnergyFieldAbility(30f, 50f, 100f){{
                 color = IcePal.thalliumLightish;
