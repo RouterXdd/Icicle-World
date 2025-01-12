@@ -63,5 +63,9 @@ public class IceSectors {
             difficulty = 6;
             enemies.addAll(vessel, stem, basis, quant, ewer, xylem, fundament, chronon);
         }};
+        flameOcean = new IcicleSectorPreset("flame-ocean", IcePlanets.rki, 239){{
+            difficulty = 7;
+            enemies.addAll(vessel, quant, chronon, sin, zen);
+        }};
     }
 }

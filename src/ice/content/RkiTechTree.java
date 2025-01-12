@@ -68,8 +68,7 @@ public class RkiTechTree {
                         node(nuclearDrill);
                     });
                 });
-                node(electricCrusher, Seq.with(new SectorComplete(paths)), () -> {
-                });
+                node(electricCrusher, Seq.with(new SectorComplete(paths)), () -> {});
                 node(burstPump, () -> {
                     node(pulsePump, Seq.with(new OnSector(trinityCollumn)), () -> {
 
@@ -79,7 +78,7 @@ public class RkiTechTree {
             //support
             node(bleak, () -> {
                 node(shine, Seq.with(new SectorComplete(trinityCollumn)),() -> {
-                    node(repairPylon);
+                    node(repairPylon, Seq.with(new SectorComplete(flameOcean)), () -> {});;
                 });
                 node(flameDome,Seq.with(new OnSector(methanePurficate)),() -> {
                     node(forceDome);
@@ -116,7 +115,7 @@ public class RkiTechTree {
                     });
                     //power
                     node(cremator, Seq.with(new SectorComplete(purpleFortress)), () -> {
-                        node(demonCore, () -> {
+                        node(demonCore, Seq.with(new OnSector(flameOcean)),() -> {
                             node(discharge, () -> {
 
                             });
@@ -162,7 +161,7 @@ public class RkiTechTree {
                     node(metalIncubator, () -> {
                         node(poloniumCrucible, Seq.with(new SectorComplete(brokenComplex)), () ->{});
                         node(denseStructurer);
-                        node(enmitiumCrucible);
+                        node(enmitiumCrucible, Seq.with(new SectorComplete(flameOcean)), () ->{});
                     });
                     node(distiller);
                     node(prinuteFabricator, () -> {
@@ -222,7 +221,7 @@ public class RkiTechTree {
             });
             node(coreHate, Seq.with(new SectorComplete(trinityCollumn)),() -> {
                 node(coreFury, Seq.with(new SectorComplete(brokenComplex)), () -> {
-                    //node(censure);
+                    node(censure);
                 });
                 node(charity);
             });
@@ -240,7 +239,11 @@ public class RkiTechTree {
                                 node(resurgent, Seq.with(new SectorComplete(trinityCollumn)),() -> {
                                     node(paths, Seq.with(new SectorComplete(resurgent), new Research(coreHate)),() -> {
                                         node(brokenComplex, Seq.with(new SectorComplete(paths), new Research(shatter), new Research(engineDrill)),() -> {
+                                            node(brokenComplex, Seq.with(new SectorComplete(paths), new Research(shatter), new Research(engineDrill)),() -> {
+                                                node(flameOcean, Seq.with(new SectorComplete(brokenComplex), new Research(atlanticConstructor)),() -> {
 
+                                                });
+                                            });
                                         });
                                     });
                                 });
