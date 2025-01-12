@@ -244,7 +244,7 @@ public class IceUnitTypes {
 
             legMoveSpace = 4f;
             groundLayer = Layer.legUnit - 1f;
-            abilities.add(new EnergyFieldAbility(30f, 40f, 100f){{
+            abilities.add(new NerfedEnergyFieldAbility(30f, 40f, 100f){{
                 color = IcePal.thalliumLightish;
                 status = none;
                 healEffect = Fx.none;
@@ -1507,7 +1507,7 @@ public class IceUnitTypes {
             abilities.add(new MoveEffectAbility(0f, -10f, Pal.techBlue, Fx.missileTrailShort, 5.5f){{
                 teamColor = true;
             }});
-            abilities.add(new WraithAbility(55, 20, 180){{
+            abilities.add(new WraithAbility(55, 10, 180){{
                 shockBullet = new MissileBulletType(6f, 75){{
                     width = 8f;
                     height = 15f;
@@ -1556,7 +1556,7 @@ public class IceUnitTypes {
                 shoot.shots = 3;
                 shoot.shotDelay = 6;
 
-                bullet = new MissileBulletType(6f, 60){{
+                bullet = new MissileBulletType(6f, 80){{
                     width = 8f;
                     height = 15f;
                     lifetime = 25f;
