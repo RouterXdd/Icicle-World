@@ -12,6 +12,7 @@ import mindustry.graphics.*;
 import mindustry.graphics.CacheLayer.*;
 
 import static mindustry.Vars.*;
+import static mindustry.graphics.Shaders.getShaderFi;
 
 public class IceShaders {
     public static BlockSurfaceShader methane;
@@ -32,11 +33,11 @@ public class IceShaders {
                 return "noiseAlpha";
             }
         }
-    public static class ModSurfaceShader extends ModShader {
+    public static class ModSurfaceShader extends Shader {
         Texture noiseTex;
 
-        public ModSurfaceShader(String frag) {
-            super(frag, "screenspace");
+        public ModSurfaceShader(String frag){
+            super(getShaderFi("screenspace.vert"), tree.get("shaders/" + frag + ".frag"));
             loadNoise();
         }
 
@@ -67,12 +68,6 @@ public class IceShaders {
 
                 setUniformi("u_noise", 1);
             }
-        }
-    }
-
-    public static class ModShader extends Shader {
-        public ModShader(String frag, String vert) {
-            super(Vars.tree.get("shaders/" + vert + ".vert"), Vars.tree.get("shaders/" + frag + ".frag"));
         }
     }
 }
