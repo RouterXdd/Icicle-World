@@ -6,6 +6,7 @@ import arc.math.Mathf;
 import ice.graphics.IceEmojis;
 import ice.content.*;
 import ice.graphics.IceShaders;
+import mindustry.Vars;
 import mindustry.game.EventType.*;
 import mindustry.mod.*;
 
@@ -15,6 +16,9 @@ import static mindustry.Vars.*;
 public class IcicleMod extends Mod{
 
     public IcicleMod(){
+        if (!Vars.android) {
+            Events.run(FileTreeInitEvent.class, () -> Core.app.post(IceShaders::init));
+        }
         Events.on(ClientLoadEvent.class, e -> {
             loadSettings();
         });
@@ -35,7 +39,6 @@ public class IcicleMod extends Mod{
 
     @Override
     public void loadContent(){
-        IceShaders.load();
         IceSFX.load();
         IceAttributes.load();
         IceWeather.load();
