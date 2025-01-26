@@ -1,4 +1,4 @@
-package ice.classes.graphic;
+package ice.graphics;
 
 import arc.*;
 import arc.graphics.*;

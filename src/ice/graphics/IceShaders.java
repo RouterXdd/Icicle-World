@@ -14,9 +14,9 @@ import mindustry.graphics.CacheLayer.*;
 import static mindustry.Vars.*;
 
 public class IceShaders {
-    public static @Nullable BlockSurfaceShader methane;
+    public static BlockSurfaceShader methane;
     public static ShaderLayer methaneLayer;
-    public static void load() {
+    public static void init() {
             if (!Vars.headless) {
                 methane = new BlockSurfaceShader("methane");
             }

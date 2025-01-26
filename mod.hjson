@@ -1,22 +1,8 @@
-#the mod name as displayed in-game
 displayName: "Buried in Ice"
-
-#the internal name of your mod
 name: "icicle-world"
-
-#your name
 author: "R.O.T."
-
-#the fully qualified main class of the mod
 main: "ice.IcicleMod"
-
-#the mod description as seen in the mod dialog
 description: "A mod who adds a new planet, where we will play in underground"
-
-#the mod version
-version: alpha 0.9
-#the minimum game build required to run this mod
+version: alpha 0.9.1
 minGameVersion: 146
-
-#this is a java mod
 java: true
