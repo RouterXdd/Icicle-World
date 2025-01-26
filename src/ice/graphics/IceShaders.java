@@ -2,26 +2,19 @@ package ice.graphics;
 
 import arc.*;
 import arc.graphics.*;
-import arc.graphics.Texture.*;
 import arc.graphics.gl.*;
-import arc.scene.ui.layout.*;
-import arc.struct.*;
 import arc.util.*;
-import mindustry.*;
 import mindustry.graphics.*;
-import mindustry.graphics.CacheLayer.*;
 
+import static mindustry.graphics.Shaders.*;
 import static mindustry.Vars.*;
-import static mindustry.graphics.Shaders.getShaderFi;
 
 public class IceShaders {
     public static BlockSurfaceShader methane;
-    public static ShaderLayer methaneLayer;
+    public static CacheLayer.ShaderLayer methaneLayer;
     public static void load() {
-            if (!Vars.headless) {
-                methane = new BlockSurfaceShader("methane");
-            }
-            CacheLayer.add(methaneLayer = new ShaderLayer(methane));
+            methane = new BlockSurfaceShader("methane");
+            CacheLayer.add(methaneLayer = new CacheLayer.ShaderLayer(methane));
     }
     public static class BlockSurfaceShader extends Shader {
         Texture noiseTex;
