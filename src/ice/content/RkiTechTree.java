@@ -249,6 +249,7 @@ public class RkiTechTree {
                                 });
                             });
                         });
+                        node(genesis1, Seq.with(new SectorComplete(methanePurficate)),() -> {});
                     });
                 });
             });

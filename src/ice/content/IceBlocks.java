@@ -226,6 +226,7 @@ public class IceBlocks {
         }};
         dustLargeCrater = new LargeCrater("dust-large-crater", 1){{
             attributes.set(sun, 1);
+            variants = 2;
             emitLight = true;
             lightRadius = 26f;
             blendGroup = parent = dustFloor;
@@ -280,7 +281,7 @@ public class IceBlocks {
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.12f;
 
-            consumeItems(with(thallium, 2, scrap, 2, ceramic, 2));
+            consumeItems(with(thallium, 2, scrap, 2, ceramic, 1));
             consumePower(4.75f);
         }};
         siliconDissembler = new GenericCrafter("silicon-dissembler"){{
@@ -578,14 +579,14 @@ public class IceBlocks {
             requirements(Category.production, with(thallium, 190, prinute, 75, silicon, 90, ceramic, 60, polonium, 50));
             health = 1200;
             tier = 5;
-            drillTime = 150;
+            drillTime = 135;
             rotateSpeed = 5f;
             size = 3;
             colorLight = IcePal.poloniumLight;
-            damageLight = 8;
+            damageLight = 10;
             lengthLight = 5;
-            reload = 22;
-            consumePower(6f);
+            reload = 14;
+            consumePower(6.5f);
             minHealth = 0;
 
             consumeLiquid(water, 0.125f).boost();
@@ -1103,6 +1104,7 @@ public class IceBlocks {
             floating = true;
             ambientSound = Sounds.hum;
             ambientSoundVolume = 0.012f;
+            researchCostMultiplier = 0.08f;
             drawer = new DrawMulti(new DrawRegion("-vint", 3, true){{
                 layer = 1;
             }}, new DrawDefault(), new DrawRegion("-top"));
@@ -1245,7 +1247,7 @@ public class IceBlocks {
                             width = 4f;
                             hitSize = 5f;
                             height = 8f;
-                            lifetime = 18f;
+                            lifetime = 30f;
                             hitColor = trailColor = Pal.lightTrail;
                             frontColor = Color.white;
                             trailWidth = 1.5f;
@@ -1290,6 +1292,7 @@ public class IceBlocks {
                 length = 100f;
                 damage = 5f;
                 status = StatusEffects.melting;
+                statusDuration = 5 * 60;
                 pierceArmor = true;
                 pierce = false;
                 pointEffectSpace = 1;
@@ -1327,7 +1330,7 @@ public class IceBlocks {
                     methanum, methaneSpike,
                     waste, new BasicBulletType(){{
                         damage = 50;
-                        splashDamage = 35;
+                        splashDamage = 25;
                         splashDamageRadius = 36;
                         splashDamagePierce = true;
                         speed = 9f;

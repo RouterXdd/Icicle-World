@@ -258,7 +258,7 @@ public class IceBullets {
                 width = 6f;
                 hitSize = 5f;
                 height = 12f;
-                lifetime = 18f;
+                lifetime = 30f;
                 hitColor = trailColor = IcePal.sporeLight;
                 frontColor = Color.white;
                 trailWidth = 2.1f;
@@ -317,7 +317,7 @@ public class IceBullets {
                 width = 6f;
                 hitSize = 5f;
                 height = 12f;
-                lifetime = 18f;
+                lifetime = 30f;
                 hitColor = trailColor = Pal.darkishGray;
                 frontColor = Color.white;
                 trailWidth = 2.1f;
