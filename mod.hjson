@@ -1,8 +1,8 @@
 displayName: "Buried in Ice"
 name: "icicle-world"
-author: "R.O.T."
+author: "R.O.T.\nThanks yesC48 for normal english translation"
 main: "ice.IcicleMod"
-description: "A mod who adds a new planet, where we will play in underground"
+description: "A mod that adds a new planet, where we will play in underground"
 version: alpha 0.9.2
 minGameVersion: 146
 java: true
