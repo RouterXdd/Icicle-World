@@ -1707,9 +1707,9 @@ public class IceBlocks {
         simpleConstructor = new LegacyFactoryPad("simple-constructor"){{
             requirements(Category.units, with(thallium, 120, sporeWood, 75, prinute, 50));
             plans = Seq.with(
-                    new UnitLeagcyPlan(vessel, 60f * 18, with(thallium, 25, prinute, 10)),
-                    new UnitLeagcyPlan(stem, 60f * 19.5f, with(thallium, 15, prinute, 10, sporeWood, 20)),
-                    new UnitLeagcyPlan(basis, 60f * 21, with(thallium, 45, scrap, 20, prinute, 15))
+                    new UnitPlan(vessel, 60f * 18, with(thallium, 25, prinute, 10)),
+                    new UnitPlan(stem, 60f * 19.5f, with(thallium, 15, prinute, 10, sporeWood, 20)),
+                    new UnitPlan(basis, 60f * 21, with(thallium, 45, scrap, 20, prinute, 15))
             );
             size = 3;
             consumePower(1.8f);
@@ -1718,9 +1718,9 @@ public class IceBlocks {
         forcedConstructor = new LegacyFactoryPad("force-constructor"){{
             requirements(Category.units, with(thallium, 270, livesteel, 80, prinute, 120, silicon, 140));
             plans = Seq.with(
-                    new UnitLeagcyPlan(ewer, 60f * 37, with(thallium, 145, prinute, 75, silicon, 90, ceramic, 35)),
-                    new UnitLeagcyPlan(xylem, 60f * 49, with(thallium, 110, prinute, 60, livesteel, 70, silicon, 75)),
-                    new UnitLeagcyPlan(fundament, 60f * 66, with(thallium, 190, ceramic, 60, prinute, 90, silicon, 110, livesteel, 80))
+                    new UnitPlan(ewer, 60f * 37, with(thallium, 145, prinute, 75, silicon, 90, ceramic, 35)),
+                    new UnitPlan(xylem, 60f * 49, with(thallium, 110, prinute, 60, livesteel, 70, silicon, 75)),
+                    new UnitPlan(fundament, 60f * 66, with(thallium, 190, ceramic, 60, prinute, 90, silicon, 110, livesteel, 80))
             );
             size = 5;
             consumeLiquid(methanum, 6f/ 60);
@@ -1729,9 +1729,9 @@ public class IceBlocks {
         omegaConstructor = new LegacyFactoryPad("omega-constructor"){{
             requirements(Category.units, with(thallium, 970, livesteel, 460, prinute, 755, silicon, 600, ceramic, 720, polonium, 820, denseAlloy, 285));
             plans = Seq.with(
-                    new UnitLeagcyPlan(decanter, 60f * 400, with(prinute, 180, silicon, 150, ceramic, 175, livesteel, 110, denseAlloy, 70)),
-                    new UnitLeagcyPlan(stalk, 60f * 400, with(prinute, 220, silicon, 120, polonium, 190, livesteel, 135, denseAlloy, 80)),
-                    new UnitLeagcyPlan(groundwork, 60f * 400, with(prinute, 240, silicon, 190, cerymec, 115, livesteel, 150, denseAlloy, 100))
+                    new UnitPlan(decanter, 60f * 400, with(prinute, 180, silicon, 150, ceramic, 175, livesteel, 110, denseAlloy, 70)),
+                    new UnitPlan(stalk, 60f * 400, with(prinute, 220, silicon, 120, polonium, 190, livesteel, 135, denseAlloy, 80)),
+                    new UnitPlan(groundwork, 60f * 400, with(prinute, 240, silicon, 190, cerymec, 115, livesteel, 150, denseAlloy, 100))
             );
             size = 10;
             consumeLiquid(enmitium, 30f/ 60);
@@ -1740,8 +1740,8 @@ public class IceBlocks {
         aquaConstructor = new LegacyFactoryPad("aqua-constructor"){{
             requirements(Category.units, with(thallium, 165, sporeWood, 90, prinute, 55, soptin, 70));
             plans = Seq.with(
-                    new UnitLeagcyPlan(quant, 60f * 21, with(thallium, 28, prinute, 20, soptin, 15)),
-                    new UnitLeagcyPlan(sin, 60f * 24f, with(soptin, 20, prinute, 15))
+                    new UnitPlan(quant, 60f * 21, with(thallium, 28, prinute, 20, soptin, 15)),
+                    new UnitPlan(sin, 60f * 24f, with(soptin, 20, prinute, 15))
             );
             size = 3;
             floating = true;
@@ -1752,8 +1752,8 @@ public class IceBlocks {
         atlanticConstructor = new LegacyFactoryPad("atlantic-constructor"){{
             requirements(Category.units, with(thallium, 230, prinute, 130, soptin, 170, silicon, 155, livesteel, 95));
             plans = Seq.with(
-                    new UnitLeagcyPlan(chronon, 60f * 66f, with(thallium, 170, prinute, 80, silicon, 115, soptin, 80)),
-                    new UnitLeagcyPlan(zen, 60f * 80f, with(thallium, 150, soptin, 90, silicon, 110))
+                    new UnitPlan(chronon, 60f * 66f, with(thallium, 170, prinute, 80, silicon, 115, soptin, 80)),
+                    new UnitPlan(zen, 60f * 80f, with(thallium, 150, soptin, 90, silicon, 110))
             );
             size = 4;
             floating = true;
@@ -1764,7 +1764,7 @@ public class IceBlocks {
         lustrousConstructor = new LegacyFactoryPad("lustrous-constructor"){{
             requirements(Category.units, with(thallium, 120, prinute, 90, ceramic, 70));
             plans = Seq.with(
-                    new UnitLeagcyPlan(blaze, 60f * 24, with(thallium, 40, prinute, 30))
+                    new UnitPlan(blaze, 60f * 24, with(thallium, 40, prinute, 30))
                     //new UnitLeagcyPlan(sunLight, 60f * 40, with(thallium, 75, silicon, 50, ceramic, 60, cerymec, 35))
             );
             size = 3;
