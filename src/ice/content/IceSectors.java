@@ -8,7 +8,7 @@ import static ice.content.IceUnitTypes.*;
 public class IceSectors {
     public static SectorPreset
             //main sectors
-    fallPoint, primaryBase, methanePurficate, purpleFortress, trinityCollumn, resurgent, paths, brokenComplex, flameOcean, aggressiveTactic, execution, theHive,
+    fallPoint, primaryBase, methanePurficate, purpleFortress, trinityCollumn, resurgent, paths, brokenComplex, flameOcean, aggressiveTactic, execution, finality,
     //optional sectors
     ignintion
             ;
