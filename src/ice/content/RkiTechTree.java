@@ -160,7 +160,7 @@ public class RkiTechTree {
                     node(quarry, Seq.with(new OnSector(resurgent)),() -> {});
                     node(metalIncubator, () -> {
                         node(poloniumCrucible, Seq.with(new SectorComplete(brokenComplex)), () ->{});
-                        node(denseStructurer);
+                        node(denseStructurer, Seq.with(new SectorComplete(aggressiveTactic)), () ->{});
                         node(enmitiumCrucible, Seq.with(new SectorComplete(flameOcean)), () ->{});
                     });
                     node(distiller);
@@ -219,6 +219,15 @@ public class RkiTechTree {
                     });
                 });
             });
+            node(yellow, Seq.with(new SectorComplete(fallPoint)), () -> {
+                node(purple, Seq.with(new SectorComplete(purpleFortress)), () -> {
+                    node(blue, Seq.with(new SectorComplete(paths)), () -> {
+                        node(red, Seq.with(new SectorComplete(aggressiveTactic)), () -> {
+
+                        });
+                    });
+                });
+            });
             node(coreHate, Seq.with(new SectorComplete(trinityCollumn)),() -> {
                 node(coreFury, Seq.with(new SectorComplete(brokenComplex)), () -> {
                     node(censure);
@@ -241,7 +250,9 @@ public class RkiTechTree {
                                         node(brokenComplex, Seq.with(new SectorComplete(paths), new Research(shatter), new Research(engineDrill)),() -> {
                                             node(brokenComplex, Seq.with(new SectorComplete(paths), new Research(shatter), new Research(engineDrill)),() -> {
                                                 node(flameOcean, Seq.with(new SectorComplete(brokenComplex), new Research(atlanticConstructor)),() -> {
+                                                    node(aggressiveTactic, Seq.with(new SectorComplete(flameOcean)),() -> {
 
+                                                    });
                                                 });
                                             });
                                         });

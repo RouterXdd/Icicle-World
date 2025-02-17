@@ -67,5 +67,11 @@ public class IceSectors {
             difficulty = 7;
             enemies.addAll(vessel, quant, chronon, sin, zen);
         }};
+        aggressiveTactic = new IcicleSectorPreset("aggressive-tactic", IcePlanets.rki, 186){{
+            difficulty = 8;
+            captureWave = 45;
+            enemies.addAll(vessel, stem, basis, quant, ewer, xylem, fundament, chronon);
+            guardians.addAll(unknown);
+        }};
     }
 }
