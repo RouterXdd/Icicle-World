@@ -664,10 +664,6 @@ public class IceBlocks {
             requirements(Category.distribution, with(thallium, 10));
             researchCost = with(thallium, 30);
         }};
-        thalliumSorter = new Sorter("custom-sorter"){{
-            requirements(Category.distribution, with(thallium, 15, sporeWood, 10));
-            researchCost = with(thallium, 45, sporeWood, 30);
-        }};
         thalliumTunnel = new DuctBridge("thallium-tunnel"){{
             requirements(Category.distribution, with(thallium, 15, prinute, 3));
             health = 130;
@@ -1179,19 +1175,11 @@ public class IceBlocks {
         bail = new ItemTurret("bail"){{
             requirements(Category.turret, with(thallium, 90, sporeWood, 35, scrap, 40));
             ammo(
-                    thallium, new ShrapnelBulletType(){{
-            length = 75f;
-            width = 5f;
-            damage = 30f;
-            serrationLenScl = 5f;
-            serrationSpacing = 5f;
-            serrationFadeOffset = 0f;
-            toColor = IcePal.thalliumMid;
-                    }});
+                    thallium, pointBullet);
 
             shoot = new ShootSpread(){{
-                shots = 3;
-                spread = 25;
+                shots = 5;
+                spread = 10;
             }};
             outlineColor = IcePal.rkiOutline;
             squareSprite = false;
@@ -1209,10 +1197,6 @@ public class IceBlocks {
             ammo(
                 scrap, scrapMissile
             );
-            shoot = new ShootSpread(){{
-                shots = 2;
-                spread = 10;
-            }};
             outlineColor = IcePal.rkiOutline;
             squareSprite = false;
             reload = 55f;
