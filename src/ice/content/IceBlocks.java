@@ -70,7 +70,7 @@ public class IceBlocks {
     //production
     protoDrill, advancedDrill, engineDrill, nuclearDrill, mechanicalCutter, laserCutter, oreFinder, methaneDigger, electricCrusher,
     //distribution
-    thalliumConveyor, thalliumJunction, splitter, thalliumTunnel,
+    thalliumConveyor, thalliumJunction, splitter, thalliumTunnel, thalliumSorter,
     //liquid
     burstPump, pulsePump, soptinTube, soptinRouter, soptinTunnel,
     //defence
@@ -664,6 +664,10 @@ public class IceBlocks {
             requirements(Category.distribution, with(thallium, 10));
             researchCost = with(thallium, 30);
         }};
+        sorter = new Sorter("custom-sorter"){{
+            requirements(Category.distribution, with(thallium, 15, sporeWood, 10));
+            researchCost = with(thallium, 45, sporeWood, 30);
+        }};
         thalliumTunnel = new DuctBridge("thallium-tunnel"){{
             requirements(Category.distribution, with(thallium, 15, prinute, 3));
             health = 130;
@@ -846,7 +850,7 @@ public class IceBlocks {
             recoil = 1f;
             size = 1;
             health = 260;
-            shootSound = Sounds.spark;
+            shootSound = Sounds.lasershoot;
             consumePower(2f);
             researchCost = with(thallium, 30, sporeWood, 20);
             coolant = consumeCoolant(0.1f);
@@ -884,7 +888,7 @@ public class IceBlocks {
             recoil = 1.5f;
             size = 2;
             scaledHealth = 140;
-            shootSound = Sounds.spark;
+            shootSound = Sounds.lasershoot;
             consumePower(4.5f);
             coolant = consumeCoolant(0.2f);
         }};
@@ -976,7 +980,7 @@ public class IceBlocks {
             maxNodes = 2;
             fogRadius = 1;
             laserColor2 = IcePal.thalliumLight;
-            consumePowerBuffered(50f);
+            consumePowerBuffered(200f);
             researchCost = with(thallium, 20, sporeWood, 20);
         }};
         armoredNode = new AggressiveNode("armored-node"){{
@@ -991,7 +995,7 @@ public class IceBlocks {
             fogRadius = 2;
             laserColor2 = IcePal.thalliumLight;
             consumePower(1);
-            consumePowerBuffered(500f);
+            consumePowerBuffered(2500f);
         }};
         recallNode = new PowerNode("recall-node"){{
             requirements(Category.power, with(silicon, 18, ceramic, 10));
@@ -1003,10 +1007,10 @@ public class IceBlocks {
             maxNodes = 3;
             fogRadius = 2;
             laserColor2 = IcePal.thalliumLight;
-            consumePowerBuffered(200f);
+            consumePowerBuffered(1000f);
         }};
         scrapSolar = new UndergroundPanels("scrap-solar"){{
-            requirements(Category.power, with(thallium, 25, scrap, 25));
+            requirements(Category.power, with(thallium, 15, scrap, 15));
             powerProduction = 0.5f;
             size = 1;
             attribute = sun;
@@ -1014,7 +1018,7 @@ public class IceBlocks {
             floating = false;
             ambientSound = Sounds.electricHum;
             ambientSoundVolume = 0.02f;
-            researchCost = with(thallium, 20, scrap, 20);
+            researchCost = with(thallium, 10, scrap, 10);
         }};
         siliconSolar = new UndergroundPanels("silicon-solar"){{
             requirements(Category.power, with(thallium, 40, prinute, 10, silicon, 10));
@@ -1170,12 +1174,19 @@ public class IceBlocks {
         bail = new ItemTurret("bail"){{
             requirements(Category.turret, with(thallium, 90, sporeWood, 35, scrap, 40));
             ammo(
-                    thallium, pointBullet
-            );
+                    thallium, new ShrapnelBulletType(){{
+            length = 75f;
+            width = 5f;
+            damage = 30f;
+            serrationLenScl = 5f;
+            serrationSpacing = 5f;
+            serrationFadeOffset = 0f;
+            toColor = IcePal.thalliumMid;
+                    }});
 
             shoot = new ShootSpread(){{
-                shots = 5;
-                spread = 10;
+                shots = 3;
+                spread = 25;
             }};
             outlineColor = IcePal.rkiOutline;
             squareSprite = false;
@@ -1191,8 +1202,12 @@ public class IceBlocks {
         clockwise = new ItemTurret("clockwise"){{
             requirements(Category.turret, with(thallium, 75, sporeWood, 50, scrap, 68));
             ammo(
-                    scrap, scrapMissile
+                scrap, scrapMissile
             );
+            shoot = new ShootSpread(){{
+                shots = 2;
+                spread = 10;
+            }};
             outlineColor = IcePal.rkiOutline;
             squareSprite = false;
             reload = 55f;
