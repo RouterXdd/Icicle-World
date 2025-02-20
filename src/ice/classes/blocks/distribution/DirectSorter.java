@@ -59,7 +59,7 @@ public class DirectSorter extends Block {
     }
     @Override
     public TextureRegion[] icons(){
-        return new TextureRegion[]{region, topRegion};
+        return new TextureRegion[]{region, topRegion, dirRegion};
     }
     @Override
     public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list){
