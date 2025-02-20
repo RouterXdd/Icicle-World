@@ -70,7 +70,7 @@ public class IceBlocks {
     //production
     protoDrill, advancedDrill, engineDrill, nuclearDrill, mechanicalCutter, laserCutter, oreFinder, methaneDigger, electricCrusher,
     //distribution
-    thalliumConveyor, thalliumJunction, splitter, thalliumTunnel,
+    thalliumConveyor, thalliumJunction, splitter, thalliumTunnel, thalliumSorter,
     //liquid
     burstPump, pulsePump, soptinTube, soptinRouter, soptinTunnel,
     //defence
@@ -669,6 +669,11 @@ public class IceBlocks {
             health = 130;
             range = 6;
             researchCostMultiplier = 0.3f;
+        }};
+        thalliumSorter = new DirectSorter("thallium-sorter"){{
+            requirements(Category.distribution, with(thallium, 20, prinute, 5));
+            researchCost = with(thallium, 80, prinute, 20);
+            squareSprite = false;
         }};
         //TODO effects
         burstPump = new BurstPump("burst-pump"){{
