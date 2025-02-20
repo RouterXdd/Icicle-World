@@ -27,7 +27,7 @@ public class IceBullets {
     //funny bullets
     basicBullet;
     public static void load(){
-        pointBullet = new BasicBulletType(20f, 8){{
+        pointBullet = new BasicBulletType(20f, 12){{
             width = 8f;
             hitSize = 8f;
             height = 16f;
