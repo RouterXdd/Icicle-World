@@ -47,6 +47,7 @@ public class RkiTechTree {
             });
             //distribution
             node(thalliumConveyor, () -> {
+                node(thalliumSorter, () -> {});
                 node(thalliumJunction, () -> {
                     node(thalliumTunnel, Seq.with(new SectorComplete(primaryBase)),() -> {});
                 });
