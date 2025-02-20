@@ -664,7 +664,7 @@ public class IceBlocks {
             requirements(Category.distribution, with(thallium, 10));
             researchCost = with(thallium, 30);
         }};
-        sorter = new Sorter("custom-sorter"){{
+        thalliumSorter = new Sorter("custom-sorter"){{
             requirements(Category.distribution, with(thallium, 15, sporeWood, 10));
             researchCost = with(thallium, 45, sporeWood, 30);
         }};
