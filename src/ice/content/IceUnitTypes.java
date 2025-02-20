@@ -1504,7 +1504,7 @@ public class IceUnitTypes {
             useEngineElevation = false;
             researchCostMultiplier = 0f;
 
-            abilities.add(new MoveEffectAbility(0f, -10f, Pal.techBlue, Fx.missileTrailShort, 5.5f){{
+            abilities.add(new MoveEffectAbility(0f, -10f, Pal.techBlue, Fx.missileTrailShort, 4f){{
                 teamColor = true;
             }});
             abilities.add(new WraithAbility(55, 10, 180){{
@@ -1539,6 +1539,16 @@ public class IceUnitTypes {
                 radius = 7f;
                 phase = 90f;
                 stroke = 1.5f;
+                layerOffset = -0.001f;
+                color = Pal.techBlue;
+            }},
+            new HoverPart(){{
+                x = 0;
+                y = 0;
+                mirror = false;
+                radius = 18f;
+                phase = 60f;
+                stroke = 2f;
                 layerOffset = -0.001f;
                 color = Pal.techBlue;
             }});
