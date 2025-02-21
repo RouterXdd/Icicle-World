@@ -829,7 +829,7 @@ public class IceBlocks {
             armor = 70;
         }};
         bleak = new PowerTurret("bleak"){{
-            requirements(Category.effect, with(thallium, 40, sporeWood, 20));
+            requirements(Category.effect, with(thallium, 40, sporeWood, 35));
             shootType = new LaserBoltBulletType(){{
                 lightningLength = 10;
                 collidesAir = false;
@@ -1026,14 +1026,13 @@ public class IceBlocks {
             attribute = sun;
             displayEfficiency = false;
             floating = false;
-            ambientSound = Sounds.hum;
-            ambientSoundVolume = 0.1f;
             researchCost = with(thallium, 10, scrap, 10);
+            radius = 10f;
         }};
         siliconSolar = new UndergroundPanels("silicon-solar"){{
             requirements(Category.power, with(thallium, 40, prinute, 10, silicon, 10));
             powerProduction = 0.8f;
-            radius = 18f;
+            radius = 15f;
             size = 2;
             fogRadius = 2;
             attribute = sun;
@@ -1041,13 +1040,11 @@ public class IceBlocks {
             minEfficiency = 4f - 0.00001f;
             displayEfficiencyScale = 1f / 4f;
             floating = false;
-            ambientSound = Sounds.hum;
-            ambientSoundVolume = 0.12f;
         }};
         poloniumPanel = new UndergroundPanels("polonium-solar"){{
             requirements(Category.power, with(thallium, 75, ceramic, 25, silicon, 42, polonium, 30));
             powerProduction = 1f;
-            radius = 24.5f;
+            radius = 20f;
             fogRadius = 3;
             size = 3;
             attribute = sun;
@@ -1055,8 +1052,6 @@ public class IceBlocks {
             minEfficiency = 9f - 0.00001f;
             displayEfficiencyScale = 1f / 9f;
             floating = false;
-            ambientSound = Sounds.hum;
-            ambientSoundVolume = 0.15f;
         }};
         decomposer = new SootGenerator("decomposer"){{
             requirements(Category.power, with(thallium, 40, scrap, 25));
