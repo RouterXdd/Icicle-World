@@ -209,7 +209,16 @@ public class IceBlocks {
         oreDust = new OreBlock(ceramicalDust);
         oreThallium = new OreBlock(thallium);
         oreSoptin = new OreBlock(soptin);
-        orePolonium = new OreBlock(polonium);
+        orePolonium = new ShineOre(polonium){{
+            effect = new ParticleEffect(){{
+                spin = 1;
+                lifetime = 65;
+                sizeFrom = 1.5f;
+                colorFrom = IcePal.poloniumLightish;
+                region = "icicle-world-star";
+                particles = 2;
+            }};
+        }};
         oreChalk = new OreBlock(chalkStone);
         orePoloniumUnderground = new UndergroundOre("polonium-under");
         oreThalliumUnderground = new UndergroundOre("thallium-under"){{

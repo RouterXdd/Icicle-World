@@ -1,14 +1,11 @@
 package ice.classes.blocks.environment;
 
-import arc.Core;
 import arc.graphics.g2d.*;
 import arc.util.Nullable;
 import ice.content.IceBlocks;
 import mindustry.Vars;
 import mindustry.graphics.Layer;
-import mindustry.type.Item;
-import mindustry.world.Block;
-import mindustry.world.Tile;
+import mindustry.world.*;
 import mindustry.world.blocks.environment.*;
 //HPL moment
 public class UndergroundOre extends OverlayFloor {
@@ -33,7 +30,6 @@ public class UndergroundOre extends OverlayFloor {
             Draw.z(l);
         }
     }
-
     @Override
     public String getDisplayName(Tile tile) {
         return null;
