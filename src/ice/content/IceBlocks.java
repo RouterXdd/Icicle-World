@@ -829,7 +829,7 @@ public class IceBlocks {
             armor = 70;
         }};
         bleak = new PowerTurret("bleak"){{
-            requirements(Category.effect, with(thallium, 50, sporeWood, 35));
+            requirements(Category.effect, with(thallium, 40, sporeWood, 20));
             shootType = new LaserBoltBulletType(){{
                 lightningLength = 10;
                 collidesAir = false;
@@ -952,7 +952,7 @@ public class IceBlocks {
             scaledHealth = 180;
             alwaysShooting = true;
             flags = EnumSet.of(BlockFlag.extinguisher);
-            shootSound = Sounds.spark;
+            shootSound = Sounds.splash;
             consumePower(5f);
             fogRadiusMultiplier = 0.1f;
             coolant = consumeCoolant(0.1f);
@@ -1026,8 +1026,8 @@ public class IceBlocks {
             attribute = sun;
             displayEfficiency = false;
             floating = false;
-            ambientSound = Sounds.electricHum;
-            ambientSoundVolume = 0.02f;
+            ambientSound = Sounds.hum;
+            ambientSoundVolume = 0.1f;
             researchCost = with(thallium, 10, scrap, 10);
         }};
         siliconSolar = new UndergroundPanels("silicon-solar"){{
@@ -1041,8 +1041,8 @@ public class IceBlocks {
             minEfficiency = 4f - 0.00001f;
             displayEfficiencyScale = 1f / 4f;
             floating = false;
-            ambientSound = Sounds.electricHum;
-            ambientSoundVolume = 0.02f;
+            ambientSound = Sounds.hum;
+            ambientSoundVolume = 0.12f;
         }};
         poloniumPanel = new UndergroundPanels("polonium-solar"){{
             requirements(Category.power, with(thallium, 75, ceramic, 25, silicon, 42, polonium, 30));
@@ -1055,14 +1055,14 @@ public class IceBlocks {
             minEfficiency = 9f - 0.00001f;
             displayEfficiencyScale = 1f / 9f;
             floating = false;
-            ambientSound = Sounds.electricHum;
-            ambientSoundVolume = 0.02f;
+            ambientSound = Sounds.hum;
+            ambientSoundVolume = 0.15f;
         }};
         decomposer = new SootGenerator("decomposer"){{
             requirements(Category.power, with(thallium, 40, scrap, 25));
             scaledHealth = 20f;
             powerProduction = 3f;
-            itemDuration = 80f;
+            itemDuration = 100f;
             size = 2;
 
             ambientSound = Sounds.smelter;
