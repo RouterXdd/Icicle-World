@@ -829,7 +829,7 @@ public class IceBlocks {
             armor = 70;
         }};
         bleak = new PowerTurret("bleak"){{
-            requirements(Category.effect, with(thallium, 50, sporeWood, 35));
+            requirements(Category.effect, with(thallium, 40, sporeWood, 20));
             shootType = new LaserBoltBulletType(){{
                 lightningLength = 10;
                 collidesAir = false;
@@ -952,7 +952,7 @@ public class IceBlocks {
             scaledHealth = 180;
             alwaysShooting = true;
             flags = EnumSet.of(BlockFlag.extinguisher);
-            shootSound = Sounds.spark;
+            shootSound = Sounds.splash;
             consumePower(5f);
             fogRadiusMultiplier = 0.1f;
             coolant = consumeCoolant(0.1f);
@@ -1026,7 +1026,7 @@ public class IceBlocks {
             attribute = sun;
             displayEfficiency = false;
             floating = false;
-            ambientSound = Sounds.electricHum;
+            ambientSound = Sounds.hum;
             ambientSoundVolume = 0.02f;
             researchCost = with(thallium, 10, scrap, 10);
         }};
@@ -1041,7 +1041,7 @@ public class IceBlocks {
             minEfficiency = 4f - 0.00001f;
             displayEfficiencyScale = 1f / 4f;
             floating = false;
-            ambientSound = Sounds.electricHum;
+            ambientSound = Sounds.hum;
             ambientSoundVolume = 0.02f;
         }};
         poloniumPanel = new UndergroundPanels("polonium-solar"){{
@@ -1055,14 +1055,14 @@ public class IceBlocks {
             minEfficiency = 9f - 0.00001f;
             displayEfficiencyScale = 1f / 9f;
             floating = false;
-            ambientSound = Sounds.electricHum;
+            ambientSound = Sounds.hum;
             ambientSoundVolume = 0.02f;
         }};
         decomposer = new SootGenerator("decomposer"){{
             requirements(Category.power, with(thallium, 40, scrap, 25));
             scaledHealth = 20f;
             powerProduction = 3f;
-            itemDuration = 80f;
+            itemDuration = 100f;
             size = 2;
 
             ambientSound = Sounds.smelter;
