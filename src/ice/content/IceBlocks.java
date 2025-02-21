@@ -1027,7 +1027,7 @@ public class IceBlocks {
             displayEfficiency = false;
             floating = false;
             ambientSound = Sounds.hum;
-            ambientSoundVolume = 0.02f;
+            ambientSoundVolume = 0.1f;
             researchCost = with(thallium, 10, scrap, 10);
         }};
         siliconSolar = new UndergroundPanels("silicon-solar"){{
@@ -1042,7 +1042,7 @@ public class IceBlocks {
             displayEfficiencyScale = 1f / 4f;
             floating = false;
             ambientSound = Sounds.hum;
-            ambientSoundVolume = 0.02f;
+            ambientSoundVolume = 0.12f;
         }};
         poloniumPanel = new UndergroundPanels("polonium-solar"){{
             requirements(Category.power, with(thallium, 75, ceramic, 25, silicon, 42, polonium, 30));
@@ -1056,7 +1056,7 @@ public class IceBlocks {
             displayEfficiencyScale = 1f / 9f;
             floating = false;
             ambientSound = Sounds.hum;
-            ambientSoundVolume = 0.02f;
+            ambientSoundVolume = 0.15f;
         }};
         decomposer = new SootGenerator("decomposer"){{
             requirements(Category.power, with(thallium, 40, scrap, 25));
