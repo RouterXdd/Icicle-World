@@ -1337,7 +1337,7 @@ public class IceBlocks {
             ammo(
                     methanum, methaneSpike,
                     waste, new BasicBulletType(){{
-                        damage = 50;
+                        damage = 35;
                         splashDamage = 25;
                         splashDamageRadius = 36;
                         splashDamagePierce = true;

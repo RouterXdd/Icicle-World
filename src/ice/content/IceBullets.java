@@ -340,7 +340,7 @@ public class IceBullets {
             intervalSpread = 300f;
         }};
         methaneSpike = new BasicBulletType(){{
-            damage = 30;
+            damage = 20;
             splashDamage = 20;
             splashDamageRadius = 24;
             splashDamagePierce = true;
