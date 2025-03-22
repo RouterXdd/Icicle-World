@@ -906,7 +906,7 @@ public class IceBlocks {
             requirements(Category.effect, with(thallium, 330, prinute, 145, silicon, 110, polonium, 75));
             consumePower(5.3f);
             size = 3;
-            reload = 190f;
+            reload = 170f;
             range = 85f;
             healAmount = 40f;
             phaseBoost = 30f;
@@ -914,10 +914,10 @@ public class IceBlocks {
             scaledHealth = 110;
             squareSprite = false;
             researchCostMultiplier = 0.75f;
-            baseColor = phaseColor = IcePal.thalliumLight;
+            baseColor = IcePal.thalliumLight;
             consumeItem(poloniumCharge).boost();
         }};
-        flameDome = new PowerTurret("flame-dome"){{
+        flameDome = new FlameDome("flame-dome"){{
             requirements(Category.effect, with(thallium, 140, sporeWood, 90, prinute, 75, soptin, 55));
             shootType = new LiquidBulletType(Liquids.water){{
                 lifetime = 20f;
@@ -942,7 +942,7 @@ public class IceBlocks {
             shootCone = 360f;
             rotateSpeed = 0f;
             targetAir = false;
-            targetGround = true;
+            targetGround = false;
             range = 200f;
             shootY = 0;
             shootEffect = Fx.shootLiquid;
@@ -950,7 +950,6 @@ public class IceBlocks {
             recoil = 0f;
             size = 2;
             scaledHealth = 180;
-            alwaysShooting = true;
             flags = EnumSet.of(BlockFlag.extinguisher);
             shootSound = Sounds.splash;
             consumePower(5f);

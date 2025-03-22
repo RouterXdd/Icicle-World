@@ -5,6 +5,7 @@ import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.util.*;
 import arc.util.io.*;
+import ice.graphics.IcePal;
 import mindustry.content.*;
 import mindustry.entities.Units;
 import mindustry.gen.*;
@@ -18,7 +19,7 @@ import static mindustry.Vars.*;
 
 public class Pylon extends Block{
     public final int timerUse = timers++;
-    public Color baseColor = Color.valueOf("84f491");
+    public Color baseColor = IcePal.thalliumLight;
     public Color phaseColor = baseColor;
     public float reload = 250f;
     public float range = 60f;

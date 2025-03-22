@@ -249,11 +249,9 @@ public class RkiTechTree {
                                 node(resurgent, Seq.with(new SectorComplete(trinityCollumn)),() -> {
                                     node(paths, Seq.with(new SectorComplete(resurgent), new Research(coreHate)),() -> {
                                         node(brokenComplex, Seq.with(new SectorComplete(paths), new Research(shatter), new Research(engineDrill)),() -> {
-                                            node(brokenComplex, Seq.with(new SectorComplete(paths), new Research(shatter), new Research(engineDrill)),() -> {
-                                                node(flameOcean, Seq.with(new SectorComplete(brokenComplex), new Research(atlanticConstructor)),() -> {
-                                                    node(aggressiveTactic, Seq.with(new SectorComplete(flameOcean)),() -> {
+                                            node(flameOcean, Seq.with(new SectorComplete(brokenComplex), new Research(atlanticConstructor)),() -> {
+                                                node(aggressiveTactic, Seq.with(new SectorComplete(flameOcean)),() -> {
 
-                                                    });
                                                 });
                                             });
                                         });

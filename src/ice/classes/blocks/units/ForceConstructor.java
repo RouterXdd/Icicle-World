@@ -95,9 +95,17 @@ public class ForceConstructor extends Block{
     public boolean canPlaceOn(Tile tile, Team team, int rotation){
         boolean tooClose = false;
         if (tile != null) {
-        tooClose = indexer.eachBlock(team, tile.worldx(), tile.worldy(), noBuildRange, b -> b.block() instanceof ForceConstructor, b -> {
-                Drawf.dashLine(Pal.remove, tile.worldx(), tile.worldy(), b.x, b.y);
-            });
+        tooClose = indexer.eachBlock(team, tile.worldx(), tile.worldy(), noBuildRange, b -> {
+            if (b.block() instanceof ForceConstructor) return true;
+            if (b.block() instanceof ConstructBlock) {
+                if (b instanceof ConstructBlock.ConstructBuild g) {
+                    return (g.current instanceof ForceConstructor) && (g.previous instanceof ForceConstructor);
+                }
+            }
+            return false;
+        }, b -> {
+            Drawf.dashLine(Pal.remove, tile.worldx(), tile.worldy(), b.x, b.y);
+        });
         }
         return super.canPlaceOn(tile, team, rotation) && !tooClose;
     }
