@@ -533,8 +533,8 @@ public class IceBlocks {
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.18f;
 
-            consumeItems(with(scrap, 4, sporeWood, 3, prinute, 2, thallium, 4, polonium, 2));
-            consumePower(6.8f);
+            consumeItems(with(scrap, 4, thallium, 4, polonium, 2));
+            consumePower(7.5f);
         }};
         protoDrill = new BreakDrill("proto-drill"){{
             requirements(Category.production, with(thallium, 20));
@@ -1561,6 +1561,7 @@ public class IceBlocks {
                 pierceArmor = true;
                 pierce = false;
                 lineEffect = IceFx.thalliumChainLightning;
+                endEffect = IceFx.thalliumBomb;
                 hitEffect = IceFx.thalliumBlastExplosion;
                 collideTerrain = true;
             }};

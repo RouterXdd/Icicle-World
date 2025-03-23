@@ -236,20 +236,38 @@ public class IceFx {
             Lines.endLine();
         }
     }).followParent(false).rotWithParent(false),
-            regenSuppressSootSeek = new Effect(140f, e -> {
-                e.lifetime = Mathf.randomSeed(e.id, 120f, 200f);
+    thalliumBomb = new Effect(40f, 100f, e -> {
+        color(IcePal.thalliumLight);
+        stroke(e.fout() * 2f);
+        float circleRad = 1f + e.finpow() * 40f;
+        Lines.circle(e.x, e.y, circleRad);
 
-                if(!(e.data instanceof Position to)) return;
+        color(IcePal.thalliumLight);
+        for(int i = 0; i < 4; i++){
+            Drawf.tri(e.x, e.y, 6f, 50f * e.fout(), i*90);
+        }
 
-                Tmp.v2.set(to).sub(e.x, e.y).nor().rotate90(1).scl(Mathf.randomSeedRange(e.id, 1f) * 50f);
+        color();
+        for(int i = 0; i < 4; i++){
+            Drawf.tri(e.x, e.y, 3f, 20f * e.fout(), i*90);
+        }
 
-                Tmp.bz2.set(Tmp.v1.set(e.x, e.y), Tmp.v2.add(e.x, e.y), Tmp.v3.set(to));
+        Drawf.light(e.x, e.y, circleRad * 1.6f, IcePal.thalliumLight, e.fout());
+    }),
+    regenSuppressSootSeek = new Effect(140f, e -> {
+        e.lifetime = Mathf.randomSeed(e.id, 120f, 200f);
 
-                Tmp.bz2.valueAt(Tmp.v4, e.fout());
+        if(!(e.data instanceof Position to)) return;
 
-                color(IcePal.sootSuppressParticleColor);
-                Fill.poly(Tmp.v4.x, Tmp.v4.y, 6, e.fslope() * 2f + 0.1f, Time.time * 1.4f);
-            }).followParent(false).rotWithParent(false),
+        Tmp.v2.set(to).sub(e.x, e.y).nor().rotate90(1).scl(Mathf.randomSeedRange(e.id, 1f) * 50f);
+
+        Tmp.bz2.set(Tmp.v1.set(e.x, e.y), Tmp.v2.add(e.x, e.y), Tmp.v3.set(to));
+
+        Tmp.bz2.valueAt(Tmp.v4, e.fout());
+
+        color(IcePal.sootSuppressParticleColor);
+        Fill.poly(Tmp.v4.x, Tmp.v4.y, 6, e.fslope() * 2f + 0.1f, Time.time * 1.4f);
+    }).followParent(false).rotWithParent(false),
     sporeRegen = new ParticleEffect(){{
         particles = 8;
         line = true;
