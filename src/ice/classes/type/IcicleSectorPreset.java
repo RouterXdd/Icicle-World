@@ -16,11 +16,11 @@ public class IcicleSectorPreset extends SectorPreset {
     }
     public void loadIcon() {
         if (Icon.terrain != null && !story) {
-            this.uiIcon = this.fullIcon = Icon.terrain.getRegion();
+            this.uiIcon = this.fullIcon = Core.atlas.find(name, Icon.terrain.getRegion());
         } else if (isLastSector){
-            uiIcon = fullIcon = Core.atlas.find("icicle-world-terrain-last-sector");
+            uiIcon = fullIcon = Core.atlas.find(name,"icicle-world-terrain-last-sector");
         } else {
-            uiIcon = fullIcon = Core.atlas.find("icicle-world-terrain-story");
+            uiIcon = fullIcon = Core.atlas.find(name,"icicle-world-terrain-story");
         }
 
     }

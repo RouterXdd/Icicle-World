@@ -45,7 +45,6 @@ public class IcePlanets {
             allowLaunchLoadout = true;
             defaultCore = IceBlocks.coreAngry;
             iconColor = IcePal.methaneLight;
-            itemWhitelist = Seq.with(RkiItems);
             enemyBuildSpeedMultiplier = 0.4f;
 
             allowLaunchToNumbered = false;
