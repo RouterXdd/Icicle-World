@@ -33,7 +33,7 @@ public class WraithAbility extends Ability {
     public void addStats(Table t){
         t.add("[lightgray]" + IceStats.usePercent.localized() + ": [white]" + Strings.autoFixed(activatePercent, 2) + StatUnit.percent.localized());
         t.row();
-        t.add("[lightgray]" + Stat.reload.localized() + ": [white]" + Strings.autoFixed(shockTime / 60, 1) + StatUnit.seconds.localized());
+        t.add("[lightgray]" + Stat.reload.localized() + ": [white]" + Strings.autoFixed(shockTime / 60, 1) + " " +StatUnit.seconds.localized());
     }
     @Override
     public void update(Unit unit){

@@ -2,20 +2,16 @@ package ice.content;
 
 
 import arc.graphics.Color;
-import arc.struct.Seq;
 import ice.IcicleVars;
 import ice.classes.maps.generator.RkiSurfaceGenerator;
 import ice.classes.maps.generator.RkiTrueGenerator;
 import ice.graphics.IcePal;
 import mindustry.content.Items;
 import mindustry.content.Planets;
-import mindustry.game.Team;
 import mindustry.graphics.Pal;
 import mindustry.graphics.g3d.*;
-import mindustry.maps.planet.SerpuloPlanetGenerator;
 import mindustry.type.ItemStack;
 import mindustry.type.Planet;
-import mindustry.world.meta.Env;
 
 import static ice.content.IceItems.*;
 
@@ -63,6 +59,10 @@ public class IcePlanets {
                 r.coreDestroyClear = true;
                 r.onlyDepositCore = true;
             };
+            allowCampaignRules = true;
+            campaignRules.fog = true;
+            campaignRuleDefaults.showSpawns = true;
+            campaignRuleDefaults.randomWaveAI = false;
 
             unlockedOnLand.add(IceBlocks.coreAngry);
         }};

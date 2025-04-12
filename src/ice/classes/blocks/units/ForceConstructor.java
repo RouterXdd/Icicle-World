@@ -96,8 +96,8 @@ public class ForceConstructor extends Block{
         boolean tooClose = false;
         if (tile != null) {
         tooClose = indexer.eachBlock(team, tile.worldx(), tile.worldy(), noBuildRange, b -> {
-            if (b.block() instanceof ForceConstructor) return true;
-            if (b.block() instanceof ConstructBlock) {
+            if (b.block instanceof ForceConstructor) return true;
+            if (b.block instanceof ConstructBlock) {
                 if (b instanceof ConstructBlock.ConstructBuild g) {
                     return (g.current instanceof ForceConstructor) && (g.previous instanceof ForceConstructor);
                 }
@@ -185,11 +185,6 @@ public class ForceConstructor extends Block{
         @Override
         public boolean shouldConsume(){
             return unitT == null;
-        }
-
-        @Override
-        public boolean shouldActiveSound(){
-            return shouldConsume() && warmup > 0.01f;
         }
 
         @Override

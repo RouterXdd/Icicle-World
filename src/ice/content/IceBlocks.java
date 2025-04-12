@@ -4,6 +4,7 @@ package ice.content;
 import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Interp;
+import arc.math.Mathf;
 import arc.struct.*;
 import ice.IcicleVars;
 import ice.classes.blocks.defence.*;
@@ -62,7 +63,7 @@ public class IceBlocks {
             //magnet cavern
             magnetRock, magnetChunk, magnetPositiveRock, magnetNegativeRock, positiveCrystal, negativeCrystal, magnetBoulder,
             //other
-            stoneLargeCrater, dustLargeCrater, rkiMetal, rkiMetal2, rkiMetal3, rkiMetalWall, floor,
+            stoneLargeCrater, dustLargeCrater, rkiMetal, rkiMetal2, rkiMetal3, rkiMetalWall, rkiLamp, floor,
      //ores
     oreDust, oreThallium, oreSoptin, orePolonium, oreChalk, orePoloniumUnderground, oreThalliumUnderground, oreChalkUnderground,
     //crafting
@@ -251,6 +252,16 @@ public class IceBlocks {
             variants = 2;
             rkiMetal.asFloor().wall = this;
         }};
+        rkiLamp = new StaticTallBlock("rki-lamp"){{
+            variants = 0;
+            lightColor = Pal.logicControl;
+            lightRadius = 130;
+            emitLight = true;
+        }
+            public void drawEnvironmentLight(Tile tile){
+                Drawf.light(tile.worldx(), tile.worldy(), lightRadius, lightColor, lightColor.a);
+            }
+        };
         floor = new Floor("-floor", 0);
         dustCrusher = new WorldDuster("dust-crusher"){{
             requirements(Category.effect, BuildVisibility.sandboxOnly, with(thallium, 5));
@@ -1455,7 +1466,7 @@ public class IceBlocks {
         crypt = new LiquidTurret("crypt"){{
             requirements(Category.turret, with(thallium, 260, prinute, 110, silicon, 130, soptin, 90, ceramic, 75));
             ammo(
-                    waste, new BasicBulletType(6, 55){{
+                    waste, new BasicBulletType(6, 75){{
                         smokeEffect = Fx.shootBigSmoke;
                         shootEffect = Fx.shootBigColor;
                         width = 7f;

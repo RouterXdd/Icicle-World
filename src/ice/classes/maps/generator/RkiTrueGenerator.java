@@ -514,11 +514,11 @@ public class RkiTrueGenerator extends PlanetGenerator {
         });
 
         float difficulty = sector.threat;
-        ints.clear();
-        ints.ensureCapacity(width * height / 4);
+        int ruinCount = rand.random(-3, 6);
 
-        int ruinCount = rand.random(-2, 4);
         if(ruinCount > 0){
+            IntSeq ints = new IntSeq(width * height / 4);
+
             int padding = 25;
 
             //create list of potential positions
@@ -558,7 +558,7 @@ public class RkiTrueGenerator extends PlanetGenerator {
                 }
 
                 //actually place the part
-                if(part != null && BaseGenerator.tryPlace(part, x, y, Team.derelict, (cx, cy) -> {
+                if(part != null && BaseGenerator.tryPlace(part, x, y, Team.derelict, rand, (cx, cy) -> {
                     Tile other = tiles.getn(cx, cy);
                     if(other.floor().hasSurface()){
                         other.setOverlay(Blocks.oreScrap);

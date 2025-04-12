@@ -506,8 +506,8 @@ public class IceUnitTypes {
                 shootStatus = StatusEffects.slow;
                 shootStatusDuration = reload + 1f;
 
-                shoot.shots = 40;
-                shoot.firstShotDelay = 30;
+                shoot.shots = 24;
+                shoot.firstShotDelay = 37.5f;
                 shoot.shotDelay = 6;
                 heatColor = Color.red;
 
@@ -556,7 +556,7 @@ public class IceUnitTypes {
                 shoot.firstShotDelay = 30;
                 shoot.shotDelay = 8;
                 heatColor = Color.red;
-                bullet = new BasicBulletType(10f, 70){{
+                bullet = new BasicBulletType(10f, 55){{
                     width = 18f;
                     height = 34f;
                     hitSize = 7f;

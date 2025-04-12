@@ -9,6 +9,7 @@ import mindustry.game.Team;
 import mindustry.world.Tile;
 import mindustry.world.blocks.power.NuclearReactor;
 
+import static mindustry.Vars.headless;
 import static mindustry.Vars.world;
 
 public class RuinReactor extends NuclearReactor {
@@ -23,13 +24,15 @@ public class RuinReactor extends NuclearReactor {
         @Override
         public void createExplosion(){
             super.createExplosion();
-                for(int i = 0; i < amount; i++) {
+            if (!headless) {
+                for (int i = 0; i < amount; i++) {
                     int posX = Mathf.random(minPos, maxPos);
                     int posY = Mathf.random(minPos, maxPos);
                     Tile tile = world.tileWorld(x + posX * 8, y + posY * 8);
 
                     if (tile != null && tile.block() == Blocks.air) tile.setBlock(IceBlocks.ruinBlock, Team.neoplastic);
                 }
+            }
         }
     }
 }

@@ -62,7 +62,7 @@ public class Pylon extends Block{
             stats.add(Stat.booster, StatValues.itemBoosters(
                     "{0}" + StatUnit.timesSpeed.localized(),
                     stats.timePeriod, (phaseBoost + healAmount) / healAmount, phaseRangeBoost,
-                    cons.items, this::consumesItem)
+                    cons.items)
             );
         }
     }

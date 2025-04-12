@@ -114,7 +114,7 @@ public class Splitter extends Block {
         @Override
         public boolean acceptItem(Building source, Item item){
             return current == null && items.total() == 0 &&
-                    (Edges.getFacingEdge(source.tile(), tile).relativeTo(tile) == rotation);
+                    (Edges.getFacingEdge(source.tile, tile).relativeTo(tile) == rotation);
         }
 
         @Override
