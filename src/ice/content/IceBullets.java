@@ -449,7 +449,6 @@ public class IceBullets {
             statusDuration = 60f * 15f;
             frontColor = IcePal.poloniumLight;
             backColor = IcePal.poloniumMid;
-            makeFire = true;
             trailEffect = IceFx.poloniumSteam;
             trailChance = 0.35f;
             ammoMultiplier = 4f;
@@ -468,7 +467,6 @@ public class IceBullets {
             statusDuration = 60f * 28f;
             frontColor = IcePal.poloniumMid;
             backColor = IcePal.poloniumDark;
-            makeFire = true;
             trailEffect = IceFx.poloniumSteam;
             trailChance = 0.35f;
             ammoMultiplier = 4f;
@@ -476,7 +474,7 @@ public class IceBullets {
             collideTerrain = true;
         }};
 
-        yellowBlast = new BasicBulletType(4f, 50){{
+        yellowBlast = new BasicBulletType(4f, 45){{
             backColor = trailColor = hitColor = Pal.accent;
             frontColor = Color.white;
             width = 9f;
@@ -527,7 +525,7 @@ public class IceBullets {
             lightningLength = 5;
             collideTerrain = true;
         }};
-        basicBullet = new BasicBulletType(5, 50){{
+        basicBullet = new BasicBulletType(5, 100){{
             width = 5f;
             height = 5f;
             lifetime = 30f;

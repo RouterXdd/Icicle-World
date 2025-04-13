@@ -75,7 +75,8 @@ public class IceBlocks {
     //liquid
     burstPump, pulsePump, soptinTube, soptinRouter, soptinTunnel,
     //defence
-    woodWall, woodWallLarge, ceramicWall, ceramicWallLarge, aliveWall, aliveWallLarge, conductiveWall, conductiveWallLarge, bitWall, bitWallLarge, bleak, shine, repairPylon, flameDome, forceDome,
+    woodWall, woodWallLarge, ceramicWall, ceramicWallLarge, aliveWall, aliveWallLarge, conductiveWall, conductiveWallLarge, bitWall, bitWallLarge,
+    bleak, shine, repairPylon, flameDome, forceDome,
     //effect
     lamp, largeLamp,
     //power
@@ -1308,7 +1309,7 @@ public class IceBlocks {
 
             shootType = new RailBulletType(){{
                 length = 100f;
-                damage = 5f;
+                damage = 3.5f;
                 status = StatusEffects.melting;
                 statusDuration = 5 * 60;
                 pierceArmor = true;
@@ -1376,7 +1377,7 @@ public class IceBlocks {
                         statusDuration = 80;
                     }},
                     enmitium, new BasicBulletType(){{
-                        damage = 30;
+                        damage = 40;
                         speed = 10f;
                         width = height = 18;
                         shrinkY = 0.3f;

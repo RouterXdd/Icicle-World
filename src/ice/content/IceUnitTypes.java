@@ -1770,10 +1770,68 @@ public class IceUnitTypes {
                         mirror = false;
                         top = false;
                         rotate = false;
-                        bullet = new BasicBulletType(4.5f, 80){{
-                            width = 7f;
-                            height = 7f;
+                        bullet = new BasicBulletType(4f, 150){{
+                            width = 6.5f;
+                            height = 6.5f;
                             lifetime = 30f;
+                            sprite = "circle-bullet";
+                            shootEffect = Fx.sparkShoot;
+                            smokeEffect = Fx.shootBigSmoke;
+                            hitColor = backColor = Color.valueOf("3e82a3");
+                            frontColor = Color.valueOf("64c5d8");
+                            hitEffect = despawnEffect = Fx.hitBulletColor;
+                        }};
+                    }});
+        }};
+        destroyer = new PolygonUnitType("destroyer") {{
+            health = 1500;
+            speed = 0.75f;
+            hitSize = 12f;
+            weapons.add(
+                    new Weapon("icicle-world-destroyer-gun") {{
+                        shootSound = Sounds.blaster;
+                        reload = 65f;
+                        x = 0f;
+                        y = 7.75f;
+                        layerOffset = -0.0001f;
+                        shootY = 3;
+                        mirror = false;
+                        top = false;
+                        rotate = false;
+                        bullet = new BasicBulletType(3.75f, 300){{
+                            width = 7.5f;
+                            height = 7.5f;
+                            lifetime = 30f;
+                            recoil = 1.5f;
+                            sprite = "circle-bullet";
+                            shootEffect = Fx.sparkShoot;
+                            smokeEffect = Fx.shootBigSmoke;
+                            hitColor = backColor = Color.valueOf("3e82a3");
+                            frontColor = Color.valueOf("64c5d8");
+                            hitEffect = despawnEffect = Fx.hitBulletColor;
+                        }};
+                    }});
+        }};
+        annihilator = new PolygonUnitType("annihilator") {{
+            health = 1800;
+            speed = 0.7f;
+            hitSize = 12f;
+            weapons.add(
+                    new Weapon("icicle-world-annihilator-gun") {{
+                        shootSound = Sounds.blaster;
+                        reload = 105f;
+                        x = 0f;
+                        y = 7.5f;
+                        layerOffset = -0.0001f;
+                        shootY = 3;
+                        mirror = false;
+                        top = false;
+                        rotate = false;
+                        bullet = new BasicBulletType(2.5f, 700){{
+                            width = 9f;
+                            height = 9f;
+                            lifetime = 30f;
+                            recoil = 4f;
                             sprite = "circle-bullet";
                             shootEffect = Fx.sparkShoot;
                             smokeEffect = Fx.shootBigSmoke;
