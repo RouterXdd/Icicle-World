@@ -26,7 +26,7 @@ public class IceEmojis {
         OrderedMap<String, String> map = new OrderedMap<>();
         PropertiesUtils.load(map, Core.files.internal("icons/icons.properties").reader(256));
 
-        id = 0xF8FF;
+        id = 0xF9FF;
 
         ObjectMap<String, String> content2id = new ObjectMap<>();
         map.each((key, val) -> content2id.put(val.split("\\|")[0], key));

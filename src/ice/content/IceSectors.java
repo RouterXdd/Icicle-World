@@ -8,9 +8,9 @@ import static ice.content.IceUnitTypes.*;
 public class IceSectors {
     public static SectorPreset
             //main sectors
-    fallPoint, primaryBase, methanePurficate, purpleFortress, trinityCollumn, resurgent, paths, brokenComplex, flameOcean, aggressiveTactic, execution, finality,
+    fallPoint, primaryBase, methanePurification, purpleFortress, trinityColumn, resurgent, paths, brokenComplex, flameOcean, aggressiveTactic, execution, finality,
     //optional sectors
-    ignintion
+    ignintion, cathedral
             ;
     public static void load(){
         fallPoint = new IcicleSectorPreset("fall-point", IcePlanets.rki, 33){{
@@ -30,7 +30,7 @@ public class IceSectors {
             captureWave = 20;
             enemies.addAll(vessel, stem, basis);
         }};
-        methanePurficate = new IcicleSectorPreset("methane-purficate", IcePlanets.rki, 83){{
+        methanePurification = new IcicleSectorPreset("methane-purification", IcePlanets.rki, 83){{
             difficulty = 4;
             enemies.addAll(quant, stem);
         }};
@@ -41,7 +41,7 @@ public class IceSectors {
             enemies.addAll(vessel, stem, basis, ewer);
             guardians.addAll(unknown);
         }};
-        trinityCollumn = new IcicleSectorPreset("trinity-collumn", IcePlanets.rki, 238){{
+        trinityColumn = new IcicleSectorPreset("trinity-column", IcePlanets.rki, 238){{
             difficulty = 6;
             enemies.addAll(vessel, stem, ewer);
         }};

@@ -55,7 +55,7 @@ public class RotatingShieldsAbility extends Ability {
     /** Shield regen speed in damage/tick. */
     public float regen = 0.1f;
     /** Maximum shield. */
-    public float max = 500f;
+    public float max = 750f;
     /** Cooldown after the shield is broken, in ticks. */
     public float cooldown = 60f * 5;
     /** Angle of shield arc. */

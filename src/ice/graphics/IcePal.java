@@ -33,6 +33,7 @@ public class IcePal {
     negativeStatusCol = Color.valueOf("285fb7ff"),
     cruxMid = Color.valueOf("f15454"),
     cruxDark = Color.valueOf("a04553"),
+    genesis = Color.valueOf("95e1e1"),
     rkiOutline = Color.valueOf("1b121f"),
     monsterOutline = Color.valueOf("011a00");
 }

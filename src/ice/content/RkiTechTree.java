@@ -65,23 +65,23 @@ public class RkiTechTree {
                 node(advancedDrill, Seq.with(new SectorComplete(primaryBase)),() -> {
                     node(oreFinder, Seq.with(new OnSector(resurgent)),() -> {});
                     node(methaneDigger, Seq.with(new OnSector(resurgent)),() -> {});
-                    node(engineDrill, Seq.with(new OnSector(trinityCollumn)),() -> {
+                    node(engineDrill, Seq.with(new OnSector(trinityColumn)),() -> {
                         node(nuclearDrill);
                     });
                 });
                 node(electricCrusher, Seq.with(new SectorComplete(paths)), () -> {});
                 node(burstPump, () -> {
-                    node(pulsePump, Seq.with(new OnSector(trinityCollumn)), () -> {
+                    node(pulsePump, Seq.with(new OnSector(trinityColumn)), () -> {
 
                     });
                 });
             });
             //support
             node(bleak, () -> {
-                node(shine, Seq.with(new SectorComplete(trinityCollumn)),() -> {
+                node(shine, Seq.with(new SectorComplete(trinityColumn)),() -> {
                     node(repairPylon, Seq.with(new SectorComplete(flameOcean)), () -> {});;
                 });
-                node(flameDome,Seq.with(new OnSector(methanePurficate)),() -> {
+                node(flameDome,Seq.with(new OnSector(methanePurification)),() -> {
                     node(forceDome);
                 });
             });
@@ -125,7 +125,7 @@ public class RkiTechTree {
 
                 });
                 //liquid
-                node(perfection, Seq.with(new SectorComplete(methanePurficate)),() -> {
+                node(perfection, Seq.with(new SectorComplete(methanePurification)),() -> {
                     node(crypt, () -> {
 
                     });
@@ -134,10 +134,10 @@ public class RkiTechTree {
             //power
             node(scrapSolar, () -> {
                 node(oldNode, () -> {
-                    node(armoredNode, Seq.with(new OnSector(trinityCollumn)),() -> {
+                    node(armoredNode, Seq.with(new OnSector(trinityColumn)),() -> {
 
                     });
-                    node(recallNode, Seq.with(new OnSector(trinityCollumn)),() -> {
+                    node(recallNode, Seq.with(new OnSector(trinityColumn)),() -> {
 
                     });
                 });
@@ -145,7 +145,7 @@ public class RkiTechTree {
                     node(poloniumPanel);
                 });
                 node(decomposer, () -> {
-                    node(methaneBurner, Seq.with(new OnSector(trinityCollumn)),() -> {
+                    node(methaneBurner, Seq.with(new OnSector(trinityColumn)),() -> {
                         node(nuclearReactor, Seq.with(new SectorComplete(brokenComplex)), () -> {
 
                         });
@@ -204,13 +204,13 @@ public class RkiTechTree {
 
                     });
                 });
-                node(aquaConstructor, Seq.with(new OnSector(methanePurficate)), () -> {
-                    node(quant, Seq.with(new OnSector(methanePurficate)),() -> {
+                node(aquaConstructor, Seq.with(new OnSector(methanePurification)), () -> {
+                    node(quant, Seq.with(new OnSector(methanePurification)),() -> {
                         node(chronon, Seq.with(new Research(atlanticConstructor)),() -> {
 
                         });
                     });
-                    node(sin, Seq.with(new OnSector(methanePurficate)),() -> {
+                    node(sin, Seq.with(new OnSector(methanePurification)),() -> {
                         node(zen, Seq.with(new Research(atlanticConstructor)),() -> {
 
                         });
@@ -229,7 +229,7 @@ public class RkiTechTree {
                     });
                 });
             });
-            node(coreHate, Seq.with(new SectorComplete(trinityCollumn)),() -> {
+            node(coreHate, Seq.with(new SectorComplete(trinityColumn)),() -> {
                 node(coreFury, Seq.with(new SectorComplete(brokenComplex)), () -> {
                     node(censure);
                 });
@@ -242,11 +242,11 @@ public class RkiTechTree {
                     node(ignintion, () -> {
                         node(venixen1, Seq.with(new SectorComplete(ignintion)),() -> {});
                     });
-                    node(methanePurficate, Seq.with(new SectorComplete(primaryBase)),() -> {
-                        node(purpleFortress, Seq.with(new SectorComplete(methanePurficate), new Research(perfection)),() -> {
+                    node(methanePurification, Seq.with(new SectorComplete(primaryBase)),() -> {
+                        node(purpleFortress, Seq.with(new SectorComplete(methanePurification), new Research(perfection)),() -> {
                             node(malis1, Seq.with(new OnSector(purpleFortress)),() -> {});
-                            node(trinityCollumn, Seq.with(new SectorComplete(purpleFortress)),() -> {
-                                node(resurgent, Seq.with(new SectorComplete(trinityCollumn)),() -> {
+                            node(trinityColumn, Seq.with(new SectorComplete(purpleFortress)),() -> {
+                                node(resurgent, Seq.with(new SectorComplete(trinityColumn)),() -> {
                                     node(paths, Seq.with(new SectorComplete(resurgent), new Research(coreHate)),() -> {
                                         node(brokenComplex, Seq.with(new SectorComplete(paths), new Research(shatter), new Research(engineDrill)),() -> {
                                             node(flameOcean, Seq.with(new SectorComplete(brokenComplex), new Research(atlanticConstructor)),() -> {
@@ -259,7 +259,7 @@ public class RkiTechTree {
                                 });
                             });
                         });
-                        node(genesis1, Seq.with(new SectorComplete(methanePurficate)),() -> {});
+                        node(genesis1, Seq.with(new SectorComplete(methanePurification)),() -> {});
                     });
                 });
             });
