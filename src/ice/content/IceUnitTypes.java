@@ -645,7 +645,7 @@ public class IceUnitTypes {
             rotateSpeed = 1.12f;
             health = 21600;
             armor = 21f;
-            crushDamage = 5f;
+            crushDamage = 6f;
             itemCapacity = 0;
             drawCell = false;
             researchCostMultiplier = 0f;
