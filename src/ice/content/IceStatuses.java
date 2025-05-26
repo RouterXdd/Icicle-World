@@ -33,12 +33,12 @@ public class IceStatuses {
         rusting = new StatusEffect("rusting"){{
             color = IcePal.wasteLight;
             speedMultiplier = reloadMultiplier = 0.7f;
-            damage = 0.05f;
+            damage = 0.5f;
         }};
         radiation = new StatusEffect("radiation"){{
             color = IcePal.poloniumLight;
             speedMultiplier = 0.8f;
-            damage = 0.25f;
+            damage = 0.3f;
         }};
         flash = new StatusEffect("flash"){{
             color = IcePal.cerymecLight;

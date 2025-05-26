@@ -257,6 +257,7 @@ public class IceBlocks {
             variants = 0;
             lightColor = Pal.logicControl;
             lightRadius = 130;
+            layer = Layer.block;
             emitLight = true;
         }
             public void drawEnvironmentLight(Tile tile){
@@ -545,7 +546,7 @@ public class IceBlocks {
             ambientSound = Sounds.smelter;
             ambientSoundVolume = 0.18f;
 
-            consumeItems(with(scrap, 4, thallium, 4, polonium, 2));
+            consumeItems(with(scrap, 4, ceramic, 2, polonium, 2));
             consumePower(7.5f);
         }};
         protoDrill = new BreakDrill("proto-drill"){{
@@ -809,14 +810,14 @@ public class IceBlocks {
         }};
         conductiveWall = new IceWall("conductive-wall"){{
             requirements(Category.defense, with(ceramic, 3, polonium, 7));
-            health = 182 * 4;
+            health = 200 * 4;
             envDisabled |= Env.scorching;
             inflictChance = 0.1f;
             armor = 5;
         }};
         conductiveWallLarge = new IceWall("conductive-wall-large"){{
             requirements(Category.defense, with(ceramic, 12, polonium, 28));
-            health = 182 * 4 * 4;
+            health = 200 * 4 * 4;
             envDisabled |= Env.scorching;
             inflictChance = 0.1f;
             armor = 5;
@@ -1374,7 +1375,7 @@ public class IceBlocks {
 
                         hitEffect = despawnEffect = IceFx.hitLargeSplashBulletColor;
                         status = rusting;
-                        statusDuration = 80;
+                        statusDuration = 35;
                     }},
                     enmitium, new BasicBulletType(){{
                         damage = 40;
@@ -1400,6 +1401,7 @@ public class IceBlocks {
                         hitEffect = despawnEffect = Fx.hitBulletColor;
                     }}
             );
+            liquidCapacity = 5;
             extinguish = false;
             ammoPerShot = 100;
             outlineColor = IcePal.rkiOutline;
@@ -1484,7 +1486,7 @@ public class IceBlocks {
                         trailLength = 10;
                         despawnEffect = hitEffect = Fx.hitBulletColor;
                         status = rusting;
-                        statusDuration = 130;
+                        statusDuration = 320;
                         collideTerrain = true;
                     }}
             );
