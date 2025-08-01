@@ -73,7 +73,7 @@ public class IceBlocks {
     //distribution
     thalliumConveyor, thalliumJunction, splitter, thalliumTunnel, thalliumSorter,
     //liquid
-    burstPump, pulsePump, soptinTube, soptinRouter, soptinTunnel,
+    burstPump, pulsePump, soptinTube, soptinRouter, soptinTunnel, soptinStash, soptinCrate,
     //defence
     woodWall, woodWallLarge, ceramicWall, ceramicWallLarge, aliveWall, aliveWallLarge, conductiveWall, conductiveWallLarge, bitWall, bitWallLarge,
     bleak, shine, repairPylon, flameDome, forceDome,
@@ -111,7 +111,7 @@ public class IceBlocks {
             deepStone.asFloor().wall = this;
         }};
         deepBoulder = new Prop("deep-boulder"){{
-            variants = 1;
+            variants = 2;
             deepStone.asFloor().decoration = this;
         }};
         calamiteFloor = new Floor("calamite-floor", 2);
@@ -180,7 +180,7 @@ public class IceBlocks {
             thermalFloor.asFloor().wall = this;
         }};
         thermalBoulder = new Prop("thermal-boulder"){{
-            variants = 1;
+            variants = 2;
             thermalFloor.asFloor().decoration = this;
         }};
         magnetRock = new Floor("magnet-rock");
@@ -234,6 +234,7 @@ public class IceBlocks {
             emitLight = true;
             lightRadius = 26f;
             blendGroup = parent = deepStone;
+            lightColor = Color.black;
         }};
         dustLargeCrater = new LargeCrater("dust-large-crater", 1){{
             attributes.set(sun, 1);
@@ -241,6 +242,7 @@ public class IceBlocks {
             emitLight = true;
             lightRadius = 26f;
             blendGroup = parent = dustFloor;
+            lightColor = Color.black;
         }};
         rkiMetal = new Floor("rki-metal", 0);
         rkiMetal2 = new Floor("rki-metal2", 0){{
@@ -646,7 +648,7 @@ public class IceBlocks {
             range = 14 * 8;
             consumePower(1.6f);
             fogRadius = 14;
-            researchCostMultiplier = 0.7f;
+            researchCostMultiplier = 0.65f;
         }};
         methaneDigger = new OreUpper("methane-digger"){{
             requirements(Category.production, with(thallium, 220, soptin, 160, prinute, 110, silicon, 120, ceramic, 90));
@@ -654,7 +656,7 @@ public class IceBlocks {
             size = 3;
             consumePower(8f);
             consumeLiquid(methanum, 0.2f);
-            researchCostMultiplier = 0.7f;
+            researchCostMultiplier = 0.65f;
         }};
         electricCrusher = new WorldDuster("electric-crusher"){{
             requirements(Category.production,  with(ceramic, 140, cerymec, 95, silicon, 120));
@@ -679,7 +681,6 @@ public class IceBlocks {
         thalliumJunction = new Junction("thallium-junction"){{
             requirements(Category.distribution, with(thallium, 14, sporeWood, 4));
             researchCost = with(thallium, 30, sporeWood, 15);
-            squareSprite = false;
             ((RegenConveyor)thalliumConveyor).junctionReplacement = this;
         }};
         splitter = new Splitter("splitter"){{
@@ -758,7 +759,7 @@ public class IceBlocks {
             requirements(Category.liquid, with(soptin, 5, sporeWood, 2));
             liquidCapacity = 12f;
             solid = true;
-            ((Conduit)soptinTube).junctionReplacement = this;
+            //((Conduit)soptinTube).junctionReplacement = this;
         }};
         soptinTunnel = new DirectionLiquidBridge("soptin-tunnel"){{
             requirements(Category.liquid, with(soptin, 12, prinute, 5));
@@ -766,6 +767,24 @@ public class IceBlocks {
             range = 6;
             researchCostMultiplier = 0.3f;
             ((Conduit)soptinTube).rotBridgeReplacement = this;
+        }};
+        soptinStash = new LiquidRouter("soptin-stash"){{
+            requirements(Category.liquid, with(soptin, 5, prinute, 12));
+            liquidCapacity = 150f;
+            size = 2;
+            solid = true;
+            squareSprite = false;
+            researchCostMultiplier = 0.75f;
+            health = 140;
+        }};
+        soptinCrate = new LiquidRouter("soptin-crate"){{
+            requirements(Category.liquid, with(soptin, 20, prinute, 30));
+            liquidCapacity = 500f;
+            size = 3;
+            solid = true;
+            squareSprite = false;
+            researchCostMultiplier = 0.75f;
+            health = 560;
         }};
         woodWall = new Wall("wood-wall"){{
             requirements(Category.defense, with(sporeWood, 6));
@@ -783,11 +802,13 @@ public class IceBlocks {
             requirements(Category.defense, with(ceramic, 6));
             health = 140 * 4;
             envDisabled |= Env.scorching;
+            absorbLasers = true;
         }};
         ceramicWallLarge = new IceWall("ceramic-wall-large"){{
             requirements(Category.defense, with(ceramic, 24));
             health = 140 * 4 * 4;
             envDisabled |= Env.scorching;
+            absorbLasers = true;
             size = 2;
             pierceDecrease = 1;
         }};
@@ -812,6 +833,7 @@ public class IceBlocks {
             requirements(Category.defense, with(ceramic, 3, polonium, 7));
             health = 200 * 4;
             envDisabled |= Env.scorching;
+            absorbLasers = true;
             inflictChance = 0.1f;
             armor = 5;
         }};
@@ -819,6 +841,7 @@ public class IceBlocks {
             requirements(Category.defense, with(ceramic, 12, polonium, 28));
             health = 200 * 4 * 4;
             envDisabled |= Env.scorching;
+            absorbLasers = true;
             inflictChance = 0.1f;
             armor = 5;
             size = 2;
@@ -1009,7 +1032,7 @@ public class IceBlocks {
             requirements(Category.power, with(prinute, 8, silicon, 15));
             consumesPower = outputsPower = true;
             health = 470;
-            armor = 3;
+            armor = 5;
             range = 66;
             size = 2;
             laserRange = 7.5f;
@@ -1751,9 +1774,9 @@ public class IceBlocks {
         omegaConstructor = new LegacyFactoryPad("omega-constructor"){{
             requirements(Category.units, with(thallium, 970, livesteel, 460, prinute, 755, silicon, 600, ceramic, 720, polonium, 820, denseAlloy, 285));
             plans = Seq.with(
-                    new UnitPlan(decanter, 60f * 400, with(prinute, 180, silicon, 150, ceramic, 175, livesteel, 110, denseAlloy, 70)),
-                    new UnitPlan(stalk, 60f * 400, with(prinute, 220, silicon, 120, polonium, 190, livesteel, 135, denseAlloy, 80)),
-                    new UnitPlan(groundwork, 60f * 400, with(prinute, 240, silicon, 190, cerymec, 115, livesteel, 150, denseAlloy, 100))
+                    new UnitPlan(decanter, 60f * 400, with(prinute, 460, silicon, 430, ceramic, 210, livesteel, 240, denseAlloy, 70)),
+                    new UnitPlan(stalk, 60f * 400, with(prinute, 520, silicon, 240, polonium, 270, livesteel, 185, denseAlloy, 80)),
+                    new UnitPlan(groundwork, 60f * 400, with(prinute, 490, silicon, 315, cerymec, 185, livesteel, 170, denseAlloy, 100))
             );
             size = 10;
             consumeLiquid(enmitium, 30f/ 60);

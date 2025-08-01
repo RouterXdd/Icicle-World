@@ -29,12 +29,25 @@ public class OreFinder extends Block {
     public float circleAlpha = 1f;
     public float coneAlpha = 0.4f;
     public float moveCircleAlpha = 0.4f;
+    TextureRegion glowRegion, topRegion;
 
 
     public OreFinder(String name) {
         super(name);
         solid = true;
         update = true;
+    }
+
+    @Override
+    public void load(){
+        super.load();
+        glowRegion = Core.atlas.find(this.name + "-glow");
+        topRegion = Core.atlas.find(this.name + "-top");
+    }
+
+    @Override
+    public TextureRegion[] icons(){
+        return new TextureRegion[]{region, topRegion};
     }
 
     @Override
@@ -71,7 +84,16 @@ public class OreFinder extends Block {
         @Override
         public void draw() {
             super.draw();
+            if (!canConsume()) {
+                Draw.rect(topRegion, x, y);
+            }
             if (canConsume()) {
+                Draw.alpha(Time.delta * (1f - 0.5f) + Mathf.absin(Time.time, 8, 0.5f) * Time.delta);
+                Draw.rect(glowRegion, x, y, rot() -30);
+                Draw.alpha(1);
+                Drawf.spinSprite(topRegion, x, y, rot() -30);
+
+
                 Draw.z(Layer.light);
                 Draw.alpha(0.6f);
                 Lines.stroke(1.4f, team.color);
@@ -85,6 +107,8 @@ public class OreFinder extends Block {
 
                 Draw.alpha(circleAlpha);
                 Lines.circle(x, y, range());
+
+
 
                 Draw.reset();
                 Draw.z(Layer.blockUnder);

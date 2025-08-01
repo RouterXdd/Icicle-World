@@ -37,11 +37,11 @@ public class IceUnitTypes {
     //core
     malice, charity, censure,
     //main
-    vessel, stem, basis, ewer, xylem, fundament, decanter, stalk, groundwork,
+    vessel, ewer, decanter, stem, xylem, stalk, basis, fundament, groundwork,
         //sub units
-    quant, sin, chronon, zen, blaze, sunLight,
+    quant, chronon, sin, zen, blaze, sunLight,
         //executioners (Mini bosses)
-        yellow, purple, remnant, red, blue, green, warden,
+        yellow, purple, remnant, red, blue, green,
     //utility
     shieldDrone, vesselPoint,
     //methanite
@@ -66,7 +66,7 @@ public class IceUnitTypes {
             fogRadius = 5f;
             itemCapacity = 40;
             health = 330f;
-            hitSize = 14f;
+            hitSize = 11f;
             constructor = LegsUnit::create;
             mineWalls = true;
             legLength = 12f;
@@ -295,58 +295,6 @@ public class IceUnitTypes {
                 bullet = vesselBullet;
             }});
         }};
-        stem = new RkiUnitType("stem"){{
-            speed = 1.05f;
-            rotateSpeed = 12f;
-            armor = 3;
-            itemCapacity = 15;
-            health = 360f;
-            hitSize = 10f;
-            constructor = MechUnit::create;
-            weapons.add(new Weapon("icicle-world-stem-weapon"){{
-                top = false;
-                reload = 4f;
-                rotate = false;
-                shootCone = 40;
-                mirror = true;
-                shootSound = Sounds.pew;
-                x = 6f;
-                y = 0.5f;
-
-                inaccuracy = 20f;
-                ejectEffect = Fx.casing2;
-
-                bullet = stemBullet;
-            }});
-        }};
-        basis = new RkiTankUnitType("basis"){{
-            hitSize = 12f;
-            treadPullOffset = -3;
-            speed = 0.75f;
-            rotateSpeed = 3.5f;
-            health = 480;
-            armor = 6f;
-            itemCapacity = 0;
-            researchCostMultiplier = 0f;
-            constructor = TankUnit::create;
-            treadRects = new Rect[]{new Rect(11 - 32f, 8 - 32f, 9, 53)};
-
-            weapons.add(new Weapon("icicle-world-basis-weapon"){{
-                layerOffset = 0.0001f;
-                reload = 60f;
-                shootY = 4.5f;
-                recoil = 2.4f;
-                rotate = true;
-                rotateSpeed = 2.4f;
-                mirror = true;
-                x = 3f;
-                y = -1f;
-                heatColor = IcePal.thalliumLightish;
-                cooldownTime = 32f;
-
-                bullet = basisBullet;
-            }});
-        }};
         ewer = new RkiUnitType("ewer"){{
             drag = 0.1f;
             speed = 1;
@@ -379,63 +327,6 @@ public class IceUnitTypes {
                 ejectEffect = Fx.casing2;
 
                 bullet = ewerBullet;
-            }});
-        }};
-        xylem = new RkiUnitType("xylem"){{
-            speed = 0.65f;
-            rotateSpeed = 7f;
-            armor = 7;
-            itemCapacity = 15;
-            health = 2420f;
-            hitSize = 14f;
-            constructor = MechUnit::create;
-            weapons.add(new Weapon("icicle-world-xylem-weapon"){{
-                top = false;
-                reload = 8f;
-                rotate = false;
-                shootCone = 45;
-                mirror = true;
-                shootSound = Sounds.flame2;
-                x = 10f;
-                y = 1f;
-                shootY = 2f;
-
-                ejectEffect = Fx.none;
-
-                bullet = xylemFlame;
-            }});
-        }};
-        fundament = new RkiTankUnitType("fundament"){{
-            hitSize = 27f;
-            treadPullOffset = 0;
-            speed = 0.49f;
-            rotateSpeed = 1.95f;
-            health = 3260;
-            armor = 12f;
-            itemCapacity = 0;
-            researchCostMultiplier = 0f;
-            constructor = TankUnit::create;
-            treadRects = new Rect[]{new Rect(15 - 64f, 15 - 64f, 10, 98)};
-
-            weapons.add(new Weapon("icicle-world-fundament-weapon"){{
-                layerOffset = 0.0001f;
-                reload = 90f;
-                shootY = 0f;
-                recoil = 0f;
-                rotate = true;
-                rotateSpeed = 0.5f;
-                rotationLimit = 30;
-                shootCone = 340;
-                inaccuracy = 360;
-                mirror = false;
-                x = 0f;
-                y = 0f;
-                shoot.shots = 4;
-
-                heatColor = IcePal.thalliumLightish;
-                cooldownTime = 40f;
-
-                bullet = fundamentLightningBall;
             }});
         }};
         decanter = new RkiUnitType("decanter"){{
@@ -479,7 +370,7 @@ public class IceUnitTypes {
                 orbRadius = 9;
                 particleSize = 4;
                 layer = Layer.legUnit - 0.001f;
-                        y = 0f;
+                y = 0f;
                 particles = 14;
                 particleColor = IcePal.sootSuppressColor;
                 color = IcePal.sootColor;
@@ -575,7 +466,55 @@ public class IceUnitTypes {
                     hitEffect = despawnEffect = Fx.hitBulletColor;
                     collideTerrain = true;
                 }};
-                    }});
+            }});
+        }};
+        stem = new RkiUnitType("stem"){{
+            speed = 1.05f;
+            rotateSpeed = 12f;
+            armor = 3;
+            itemCapacity = 15;
+            health = 360f;
+            hitSize = 10f;
+            constructor = MechUnit::create;
+            weapons.add(new Weapon("icicle-world-stem-weapon"){{
+                top = false;
+                reload = 4f;
+                rotate = false;
+                shootCone = 40;
+                mirror = true;
+                shootSound = Sounds.pew;
+                x = 6f;
+                y = 0.5f;
+
+                inaccuracy = 20f;
+                ejectEffect = Fx.casing2;
+
+                bullet = stemBullet;
+            }});
+        }};
+        xylem = new RkiUnitType("xylem"){{
+            speed = 0.65f;
+            rotateSpeed = 7f;
+            armor = 7;
+            itemCapacity = 15;
+            health = 2420f;
+            hitSize = 14f;
+            constructor = MechUnit::create;
+            weapons.add(new Weapon("icicle-world-xylem-weapon"){{
+                top = false;
+                reload = 8f;
+                rotate = false;
+                shootCone = 45;
+                mirror = true;
+                shootSound = Sounds.flame2;
+                x = 10f;
+                y = 1f;
+                shootY = 2f;
+
+                ejectEffect = Fx.none;
+
+                bullet = xylemFlame;
+            }});
         }};
         stalk = new RkiUnitType("stalk"){{
             speed = 0.42f;
@@ -637,7 +576,68 @@ public class IceUnitTypes {
                 }};
             }});
         }};
+        basis = new RkiTankUnitType("basis"){{
+            hitSize = 12f;
+            treadPullOffset = -3;
+            speed = 0.75f;
+            rotateSpeed = 3.5f;
+            health = 480;
+            armor = 6f;
+            itemCapacity = 0;
+            researchCostMultiplier = 0f;
+            constructor = TankUnit::create;
+            treadRects = new Rect[]{new Rect(11 - 32f, 8 - 32f, 9, 53)};
 
+            weapons.add(new Weapon("icicle-world-basis-weapon"){{
+                layerOffset = 0.0001f;
+                reload = 60f;
+                shootY = 4.5f;
+                recoil = 2.4f;
+                rotate = true;
+                rotateSpeed = 2.4f;
+                mirror = true;
+                x = 3f;
+                y = -1f;
+                heatColor = IcePal.thalliumLightish;
+                cooldownTime = 32f;
+
+                bullet = basisBullet;
+            }});
+        }};
+        fundament = new RkiTankUnitType("fundament"){{
+            hitSize = 27f;
+            treadPullOffset = 0;
+            speed = 0.49f;
+            rotateSpeed = 1.95f;
+            health = 3260;
+            armor = 12f;
+            itemCapacity = 0;
+            researchCostMultiplier = 0f;
+            constructor = TankUnit::create;
+            treadRects = new Rect[]{new Rect(15 - 64f, 15 - 64f, 10, 98)};
+
+            weapons.add(new Weapon("icicle-world-fundament-weapon"){{
+                layerOffset = 0.0001f;
+                reload = 90f;
+                shootY = 0f;
+                recoil = 2f;
+                rotate = true;
+                rotateSpeed = 1f;
+                rotationLimit = 120;
+                shootCone = 45;
+                inaccuracy = 12;
+                mirror = false;
+                x = 0f;
+                y = 0f;
+                shoot.shots = 2;
+                shootSound = Sounds.pulseBlast;
+
+                heatColor = IcePal.thalliumLightish;
+                cooldownTime = 40f;
+
+                bullet = fundamentLightningBall;
+            }});
+        }};
         groundwork = new RkiTankUnitType("groundwork"){{
             hitSize = 37.5f;
             treadPullOffset = 0;
@@ -748,6 +748,7 @@ public class IceUnitTypes {
         }};
         quant = new RkiUnitType("quant"){{
             hovering = true;
+            canDrown = false;
             shadowElevation = 0.1f;
 
             drag = 0.07f;
@@ -814,6 +815,7 @@ public class IceUnitTypes {
         }};
         chronon = new RkiUnitType("chronon"){{
             hovering = true;
+            canDrown = false;
             shadowElevation = 0.1f;
 
             drag = 0.07f;

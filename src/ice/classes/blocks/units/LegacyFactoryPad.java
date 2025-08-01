@@ -89,7 +89,7 @@ public class LegacyFactoryPad extends UnitFactory {
                 currentPlan = -1;
             }
 
-            if(efficiency > 0 && currentPlan != -1){
+            if(efficiency > 0 && currentPlan != -1 && Units.canCreate(team, unit())){
                 time += edelta() * speedScl * Vars.state.rules.unitBuildSpeed(team);
                 progress += edelta() * Vars.state.rules.unitBuildSpeed(team);
                 speedScl = Mathf.lerpDelta(speedScl, 1f, 0.05f);
@@ -108,7 +108,7 @@ public class LegacyFactoryPad extends UnitFactory {
                     return;
                 }
 
-                if(progress >= plan.time){
+                if(progress >= plan.time ){
                     progress %= 1f;
 
                     Unit unit = plan.unit.create(team);

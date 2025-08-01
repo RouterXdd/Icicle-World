@@ -33,7 +33,7 @@ public class IcicleMod extends Mod{
             mod.meta.subtitle = bundle.get("subtitle-ch2-" + Mathf.random(0, 2));
             mod.iconTexture = new Texture(mod.root.child("icon-glitch.png"));
         } else {
-            mod.meta.subtitle = bundle.get("subtitle-" + Mathf.random(0, 2));
+            mod.meta.subtitle = bundle.get("subtitle-" + Mathf.random(0, 3));
         }
     }
 

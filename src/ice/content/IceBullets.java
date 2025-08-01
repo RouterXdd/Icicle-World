@@ -155,7 +155,7 @@ public class IceBullets {
             shrinkY = 0f;
             speed = 6f;
             trailLength = 20;
-            trailWidth = 6f;
+            trailWidth = 4.5f;
             trailColor = IcePal.thalliumLightish;
             trailInterval = 3f;
             splashDamage = 30f;

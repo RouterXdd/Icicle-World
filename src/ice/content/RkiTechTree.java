@@ -53,7 +53,11 @@ public class RkiTechTree {
                 });
                 node(splitter);
                 node(soptinTube, () -> {
-                    node(soptinRouter);
+                    node(soptinRouter, () -> {
+                        node(soptinStash, () -> {
+                            node(soptinCrate);
+                        });
+                    });
                     node(soptinTunnel);
                 });
             });
@@ -103,7 +107,7 @@ public class RkiTechTree {
             });
             //turrets
             node(bail, () -> {
-                //item
+                //item turrets
                 node(clockwise, () -> {
                     node(skimmer, () -> {
                         node(shatter, () -> {
@@ -114,7 +118,7 @@ public class RkiTechTree {
                             });
                         });
                     });
-                    //power
+                    //power turrets
                     node(cremator, Seq.with(new SectorComplete(purpleFortress)), () -> {
                         node(demonCore, Seq.with(new OnSector(flameOcean)),() -> {
                             node(discharge, () -> {
@@ -124,7 +128,7 @@ public class RkiTechTree {
                     });
 
                 });
-                //liquid
+                //liquid turrets
                 node(perfection, Seq.with(new SectorComplete(methanePurification)),() -> {
                     node(crypt, () -> {
 
@@ -172,6 +176,7 @@ public class RkiTechTree {
                     });
                 });
             });
+            //lamps
             node(lamp, () -> {
                 node(largeLamp, () -> {
 
@@ -220,6 +225,7 @@ public class RkiTechTree {
                     });
                 });
             });
+            //executioners
             node(yellow, Seq.with(new SectorComplete(fallPoint)), () -> {
                 node(purple, Seq.with(new SectorComplete(purpleFortress)), () -> {
                     node(blue, Seq.with(new SectorComplete(paths)), () -> {
@@ -229,6 +235,7 @@ public class RkiTechTree {
                     });
                 });
             });
+            //cores
             node(coreHate, Seq.with(new SectorComplete(trinityColumn)),() -> {
                 node(coreFury, Seq.with(new SectorComplete(brokenComplex)), () -> {
                     node(censure);
@@ -236,6 +243,7 @@ public class RkiTechTree {
                 node(charity);
             });
             node(malice);
+            //sectors
             node(fallPoint, () -> {
                 node(crux1, Seq.with(new SectorComplete(fallPoint)),() -> {});
                 node(primaryBase, Seq.with(new SectorComplete(fallPoint)),() -> {

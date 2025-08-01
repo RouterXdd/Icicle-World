@@ -8,9 +8,11 @@ import java.io.IOException;
 
 public class IceSchematics {
     public static Schematic
-    angryBasic;
+    angryBasic, hateBasic, furyBasic;
     public static void load() {
         angryBasic = loadSchem("basic-angry");
+        hateBasic = loadSchem("basic-hate");
+        furyBasic = loadSchem("basic-fury");
     }
 
     private static Schematic loadSchem(String name) {
