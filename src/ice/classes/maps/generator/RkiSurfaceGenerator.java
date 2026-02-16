@@ -38,9 +38,9 @@ public class RkiSurfaceGenerator extends PlanetGenerator{
     }
 
     @Override
-    public Color getColor(Vec3 position){
+    public void getColor(Vec3 position, Color out){
         Block block = getBlock(position);
-        return Tmp.c1.set(block.mapColor).a(1f - block.albedo + 0.1f);
+        out.set(Tmp.c1.set(block.mapColor).a(1f - block.albedo + 0.1f));
     }
 
     @Override

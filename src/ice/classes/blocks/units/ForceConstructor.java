@@ -45,7 +45,7 @@ public class ForceConstructor extends Block{
 
         solid = true;
         update = true;
-        ambientSound = Sounds.respawning;
+        ambientSound = Sounds.loopUnitBuilding;
     }
 
     @Override

@@ -14,6 +14,7 @@ import mindustry.graphics.Layer;
 import mindustry.type.UnitType;
 import mindustry.world.Tile;
 
+import static mindustry.Vars.headless;
 import static mindustry.Vars.world;
 
 public class EnemyNest extends EditorBlock {
@@ -64,12 +65,14 @@ public class EnemyNest extends EditorBlock {
                     healthRise += Mathf.random(0, 100);
                 }
                 for(int i = 0; i < Mathf.random(startAmount, startAmount + Vars.state.wave); i++) {
-                    Unit unit = getEnemy().create(team);
-                    unit.armor += armorRise;
-                    unit.health += healthRise;
-                    unit.set(x + Mathf.random(-10, 10), y + Mathf.random(-10, 10));
-                    unit.rotation = 90f;
-                    unit.add();
+                    if (!headless) {
+                        Unit unit = getEnemy().create(team);
+                        unit.armor += armorRise;
+                        unit.health += healthRise;
+                        unit.set(x + Mathf.random(-10, 10), y + Mathf.random(-10, 10));
+                        unit.rotation = 90f;
+                        unit.add();
+                    }
                 }
                 progress = 0;
             }

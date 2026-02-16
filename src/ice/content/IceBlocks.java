@@ -285,7 +285,7 @@ public class IceBlocks {
             hasPower = true;
             hasLiquids = false;
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame(IcePal.thalliumLightish));
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.07f;
 
             consumeItems(with(thallium, 1, scrap, 1));
@@ -302,7 +302,7 @@ public class IceBlocks {
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame(IcePal.thalliumLightish){{
                 flameRadius = 5f;
             }});
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.12f;
 
             consumeItems(with(thallium, 2, scrap, 2, ceramic, 1));
@@ -325,7 +325,7 @@ public class IceBlocks {
             }}, new DrawDefault());
             fogRadius = 3;
             researchCost = with(thallium, 1000, sporeWood, 750, scrap, 600, prinute, 300);
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.16f;
 
             consumeItems(with(ceramicalDust, 6));
@@ -351,7 +351,7 @@ public class IceBlocks {
             itemCapacity = 30;
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawDefault());
             fogRadius = 3;
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.16f;
             researchCostMultiplier = 1.5f;
 
@@ -393,7 +393,7 @@ public class IceBlocks {
                 color = IcePal.methaneLightish;
             }});
             fogRadius = 3;
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.16f;
             researchCostMultiplier = 2f;
 
@@ -462,7 +462,7 @@ public class IceBlocks {
                 particleInterp = new Interp.PowOut(1.6f);
                 flameRadiusScl = 12f;
             }}, new DrawDefault(), new DrawRegion("-top"));
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.11f;
 
             consumeItems(with(scrap, 2, sporeWood, 4, prinute, 1));
@@ -492,7 +492,7 @@ public class IceBlocks {
                 amount = 5;
             }}, new DrawDefault());
             fogRadius = 3;
-            ambientSound = Sounds.extractLoop;
+            ambientSound = Sounds.loopExtract;
             ambientSoundVolume = 0.1f;
             researchCostMultiplier = 0.9f;
 
@@ -517,7 +517,7 @@ public class IceBlocks {
                 particleLife = 80f;
             }}, new DrawDefault());
             fogRadius = 3;
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.16f;
 
             consumeItems(with(polonium, 3, prinute, 2));
@@ -545,7 +545,7 @@ public class IceBlocks {
             }},new DrawFlame(IcePal.wasteLightish){{
                 lightRadius = 90f;
             }});
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.18f;
 
             consumeItems(with(scrap, 4, ceramic, 2, polonium, 2));
@@ -896,7 +896,8 @@ public class IceBlocks {
             recoil = 1f;
             size = 1;
             health = 260;
-            shootSound = Sounds.lasershoot;
+            shootSound = IceSFX.shootBolt;
+            shootSoundVolume = 0.25f;
             consumePower(2f);
             researchCost = with(thallium, 30, sporeWood, 20);
             coolant = consumeCoolant(0.1f);
@@ -934,7 +935,8 @@ public class IceBlocks {
             recoil = 1.5f;
             size = 2;
             scaledHealth = 140;
-            shootSound = Sounds.lasershoot;
+            shootSound = IceSFX.shootBolt;
+            shootSoundVolume = 0.25f;
             consumePower(4.5f);
             coolant = consumeCoolant(0.2f);
         }};
@@ -972,6 +974,7 @@ public class IceBlocks {
                 shots = 360;
             }};
             squareSprite = false;
+            rotate = false;
             outlineColor = IcePal.rkiOutline;
             drawer = new DrawTurret("rik-");
             reload = 40f;
@@ -987,7 +990,7 @@ public class IceBlocks {
             size = 2;
             scaledHealth = 180;
             flags = EnumSet.of(BlockFlag.extinguisher);
-            shootSound = Sounds.splash;
+            shootSound = Sounds.shootLaser;
             consumePower(5f);
             fogRadiusMultiplier = 0.1f;
             coolant = consumeCoolant(0.1f);
@@ -1031,16 +1034,15 @@ public class IceBlocks {
         armoredNode = new AggressiveNode("armored-node"){{
             requirements(Category.power, with(prinute, 8, silicon, 15));
             consumesPower = outputsPower = true;
-            health = 470;
+            health = 500;
             armor = 5;
-            range = 66;
+            range = 70;
             size = 2;
             laserRange = 7.5f;
             maxNodes = 2;
             fogRadius = 2;
             laserColor2 = IcePal.thalliumLight;
-            consumePower(1);
-            consumePowerBuffered(2500f);
+            consumePowerBuffered(3500f);
         }};
         recallNode = new PowerNode("recall-node"){{
             requirements(Category.power, with(silicon, 18, ceramic, 10));
@@ -1095,7 +1097,7 @@ public class IceBlocks {
             itemDuration = 100f;
             size = 2;
 
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.03f;
             generateEffect = Fx.generatespark;
 
@@ -1110,7 +1112,7 @@ public class IceBlocks {
             itemDuration = 70f;
             size = 3;
 
-            ambientSound = Sounds.smelter;
+            ambientSound = Sounds.loopSmelter;
             ambientSoundVolume = 0.03f;
             generateEffect = Fx.fuelburn;
 
@@ -1126,7 +1128,7 @@ public class IceBlocks {
         }};
         nuclearReactor = new RuinReactor("nuclear-reactor"){{
             requirements(Category.power, with(thallium, 270, prinute, 170, silicon, 190, ceramic, 135, polonium, 98));
-            ambientSound = Sounds.hum;
+            ambientSound = Sounds.loopThoriumReactor;
             ambientSoundVolume = 0.24f;
             size = 4;
             health = 700;
@@ -1146,7 +1148,7 @@ public class IceBlocks {
             size = 2;
             attribute = meth;
             floating = true;
-            ambientSound = Sounds.hum;
+            ambientSound = Sounds.loopHum;
             ambientSoundVolume = 0.012f;
             researchCostMultiplier = 0.08f;
             drawer = new DrawMulti(new DrawRegion("-vint", 3, true){{
@@ -1226,7 +1228,7 @@ public class IceBlocks {
             range = 80f;
             size = 2;
             scaledHealth = 270;
-            shootSound = Sounds.lasershoot;
+            shootSound = Sounds.shootFuse;
             coolant = consumeCoolant(0.3f);
             drawer = new DrawTurret("rik-");
             researchCost = with(thallium, 100, sporeWood, 50, scrap, 30);
@@ -1242,7 +1244,7 @@ public class IceBlocks {
             range = 115f;
             size = 2;
             scaledHealth = 260;
-            shootSound = Sounds.shootAlt;
+            shootSound = Sounds.shootBreach;
             coolant = consumeCoolant(0.3f);
             drawer = new DrawTurret("rik-");
             researchCost = with(thallium, 150, sporeWood, 100, scrap, 136);
@@ -1269,13 +1271,13 @@ public class IceBlocks {
                         trailParam = 6f;
                         pierceCap = 5;
                         lifetime = 32.5f;
-                        width = 7f;
+                        width = 8f;
                         height = 14f;
                         backColor = Pal.lightTrail;
                         frontColor = Color.white;
                         shrinkX = shrinkY = 0f;
                         trailColor = Pal.lightTrail;
-                        trailLength = 7;
+                        trailLength = 10;
                         trailWidth = 2.2f;
                         despawnEffect = hitEffect = new ExplosionEffect(){{
                             waveColor = Pal.lightTrail;
@@ -1284,7 +1286,7 @@ public class IceBlocks {
                             waveStroke = 5f;
                             waveRad = 20f;
                         }};
-                        despawnSound = Sounds.dullExplosion;
+                        despawnSound = Sounds.explosionDull;
 
                         intervalBullet = new BasicBulletType(1f, 5){{
                             width = 4f;
@@ -1293,8 +1295,8 @@ public class IceBlocks {
                             lifetime = 30f;
                             hitColor = trailColor = Pal.lightTrail;
                             frontColor = Color.white;
-                            trailWidth = 1.5f;
-                            trailLength = 3;
+                            trailWidth = 1.15f;
+                            trailLength = 6;
                             collideTerrain = true;
                             hitEffect = despawnEffect = new WaveEffect(){{
                                 colorFrom = colorTo = Pal.lightTrail;
@@ -1316,7 +1318,7 @@ public class IceBlocks {
             shake = 2f;
             outlineColor = IcePal.rkiOutline;
             size = 2;
-            shootSound = Sounds.artillery;
+            shootSound = IceSFX.shootSkimmer;
             envEnabled |= Env.space;
             reload = 110f;
             recoil = 3f;
@@ -1324,6 +1326,7 @@ public class IceBlocks {
             shootCone = 30f;
             scaledHealth = 260;
             rotateSpeed = 2.8f;
+            squareSprite = false;
 
             minRange = 20f;
             coolant = consumeCoolant(0.3f);
@@ -1354,7 +1357,7 @@ public class IceBlocks {
 
             inaccuracy = 2f;
             outlineColor = IcePal.rkiOutline;
-            shootSound = IceSFX.shock;
+            shootSound = IceSFX.shootCremator;
             heatColor = IcePal.thalliumLight;
             size = 2;
             envEnabled |= Env.space;
@@ -1364,6 +1367,7 @@ public class IceBlocks {
             shootCone = 55f;
             scaledHealth = 220;
             rotateSpeed = 4f;
+            squareSprite = false;
             drawer = new DrawTurret("rik-");
             coolant = consumeCoolant(0.2f);
         }};
@@ -1436,7 +1440,7 @@ public class IceBlocks {
             velocityRnd = 0.1f;
             size = 3;
             scaledHealth = 230;
-            shootSound = Sounds.pulseBlast;
+            shootSound = IceSFX.methBlast;
             drawer = new DrawTurret("rik-");
         }};
         shatter = new ItemTurret("shatter"){{
@@ -1474,7 +1478,7 @@ public class IceBlocks {
             inaccuracy = 10f;
             shake = 2f;
             outlineColor = IcePal.rkiOutline;
-            shootSound = Sounds.missileTrail;
+            shootSound = IceSFX.throwSFX;
             size = 3;
             envEnabled |= Env.space;
             ammoPerShot = 2;
@@ -1484,6 +1488,7 @@ public class IceBlocks {
             shootCone = 36f;
             scaledHealth = 205;
             rotateSpeed = 3.4f;
+            squareSprite = false;
 
             minRange = 30;
             limitRange(5);
@@ -1521,7 +1526,7 @@ public class IceBlocks {
             shootY = 0;
             size = 3;
             scaledHealth = 210;
-            shootSound = Sounds.pulseBlast;
+            shootSound = Sounds.shootArtillerySap;
             drawer = new DrawTurret("rik-"){{
                 parts.addAll(
                         new RegionPart("-side"){{
@@ -1553,7 +1558,7 @@ public class IceBlocks {
 
             inaccuracy = 360f;
             outlineColor = IcePal.rkiOutline;
-            shootSound = Sounds.missileTrail;
+            shootSound = Sounds.shootMissileLarge;
             heatColor = IcePal.poloniumLight;
             shoot.firstShotDelay = 20;
             size = 3;
@@ -1582,19 +1587,20 @@ public class IceBlocks {
             outlineColor = IcePal.rkiOutline;
             heatColor = IcePal.poloniumLight;
             scaledHealth = 190;
-            shootSound = IceSFX.blowUp;
+            shootSound = IceSFX.radArtillery;
             coolant = consumeCoolant(0.4f);
             minRange = 30f;
             limitRange(0f);
+            squareSprite = false;
             drawer = new DrawTurret("rik-");
             researchCostMultiplier = 0.75f;
         }};
         discharge = new PowerTurret("discharge"){{
-            requirements(Category.turret, with(thallium, 430, sporeWood, 310, silicon, 390, prinute, 260, polonium, 190, denseAlloy, 110));
+            requirements(Category.turret, with(thallium, 430, silicon, 390, prinute, 260, polonium, 190, cerymec, 110, denseAlloy, 110));
 
             shootType = new RailBulletType(){{
-                length = 240f;
-                damage = 340f;
+                length = 260f;
+                damage = 350f;
                 pierceArmor = true;
                 pierce = false;
                 lineEffect = IceFx.thalliumChainLightning;
@@ -1606,19 +1612,20 @@ public class IceBlocks {
 
             inaccuracy = 8f;
             outlineColor = IcePal.rkiOutline;
-            shootSound = IceSFX.shock;
-            heatColor = IcePal.thalliumLight;
+            shootSound = IceSFX.shootDischarge;
+            heatColor = IcePal.cerymecLight;
             shoot.shots = 4;
             shoot.shotDelay = 15;
             size = 4;
             envEnabled |= Env.space;
             reload = 175f;
-            shootY = -2.5f;
+            shootY = -3.75f;
             recoil = 3.8f;
             range = 240;
             shootCone = 70f;
             scaledHealth = 195;
             rotateSpeed = 4f;
+            squareSprite = false;
             drawer = new DrawTurret("rik-");
             coolant = consumeCoolant(0.4f);
         }};
@@ -1656,8 +1663,8 @@ public class IceBlocks {
                     waveStroke = 5f;
                     waveRad = 55f;
                 }};
-                despawnSound = Sounds.dullExplosion;
-                shootSound = Sounds.cannon;
+                despawnSound = Sounds.explosionDull;
+                shootSound = IceSFX.radCharge;
 
                 fragBullet = new BasicBulletType(2f, 20){{
                     width = 15f;
@@ -1737,9 +1744,9 @@ public class IceBlocks {
             recoil = 3f;
             size = 4;
             scaledHealth = 190;
-            shootSound = Sounds.spark;
             consumePower(2.2f);
             coolant = consumeCoolant(0.4f);
+            squareSprite = false;
         }
             @Override
             public void setStats(){

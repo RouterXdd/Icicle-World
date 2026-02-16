@@ -377,7 +377,7 @@ public class IceUnitTypes {
 
             }});
             weapons.add(new Weapon("icicle-world-decanter-sub-weapon"){{
-                shootSound = Sounds.pulseBlast;
+                shootSound = IceSFX.shootDecanter;
                 mirror = true;
                 rotationLimit = 30f;
                 rotateSpeed = 0.4f;
@@ -423,7 +423,7 @@ public class IceUnitTypes {
 
                 bullet = ewerBullet;
             }}, new Weapon("icicle-world-decanter-main-weapon"){{
-                shootSound = Sounds.pulseBlast;
+                shootSound = IceSFX.shootDecanter;
                 mirror = false;
                 rotationLimit = 30f;
                 rotateSpeed = 0.25f;
@@ -482,7 +482,8 @@ public class IceUnitTypes {
                 rotate = false;
                 shootCone = 40;
                 mirror = true;
-                shootSound = Sounds.pew;
+                shootSound = IceSFX.shootStem;
+                shootSoundVolume = 0.45f;
                 x = 6f;
                 y = 0.5f;
 
@@ -506,7 +507,7 @@ public class IceUnitTypes {
                 rotate = false;
                 shootCone = 45;
                 mirror = true;
-                shootSound = Sounds.flame2;
+                shootSound = Sounds.shootFlame;
                 x = 10f;
                 y = 1f;
                 shootY = 2f;
@@ -531,7 +532,7 @@ public class IceUnitTypes {
                 rotate = false;
                 shootCone = 50;
                 mirror = true;
-                shootSound = Sounds.cannon;
+                shootSound = Sounds.shootTank;
                 inaccuracy = 8;
                 x = 25f;
                 y = 0f;
@@ -630,7 +631,7 @@ public class IceUnitTypes {
                 x = 0f;
                 y = 0f;
                 shoot.shots = 2;
-                shootSound = Sounds.pulseBlast;
+                shootSound = IceSFX.shootFundament;
 
                 heatColor = IcePal.thalliumLightish;
                 cooldownTime = 40f;
@@ -659,7 +660,7 @@ public class IceUnitTypes {
                 radius = 47;
             }});
             weapons.add(new Weapon("icicle-world-groundwork-main-weapon"){{
-                    shootSound = Sounds.largeCannon;
+                    shootSound = IceSFX.shootGroundwork;
                     layerOffset = 0.1f;
                     reload = 210f;
                     shootY = 29f;
@@ -713,7 +714,7 @@ public class IceUnitTypes {
                         }};
                     }};
                 }},new Weapon("icicle-world-groundwork-weapon"){{
-                shootSound = Sounds.blaster;
+                shootSound = IceSFX.shootBolt;
                 y = 14f;
                 shootY = 3;
                 x = 21.5f;
@@ -782,7 +783,7 @@ public class IceUnitTypes {
                 }});
 
             weapons.add(new Weapon("icicle-world-quant-weapon"){{
-                shootSound = Sounds.blaster;
+                shootSound = IceSFX.methBlast;
                 y = 0f;
                 shootY = 3;
                 x = 0f;
@@ -851,7 +852,7 @@ public class IceUnitTypes {
             }});
 
             weapons.add(new Weapon("icicle-world-chronon-weapon"){{
-                shootSound = Sounds.blaster;
+                shootSound = IceSFX.methBlast;
                 y = 0f;
                 shootY = 5;
                 shootX = 3.5f;
@@ -928,7 +929,7 @@ public class IceUnitTypes {
                 y = -4.5f;
                 rotate = true;
                 ejectEffect = Fx.casing1;
-                shootSound = Sounds.missile;
+                shootSound = Sounds.shootMissile;
                 bullet = new BasicBulletType(3f, 30, "circle-bullet"){{
                     width = 8f;
                     height = 8f;
@@ -981,11 +982,11 @@ public class IceUnitTypes {
                     maxRange = 50f;
                     ignoreRotation = true;
 
-                    backColor = IcePal.methaneLight;
+                    backColor = Color.valueOf("5465b6");
                     frontColor = Color.white;
                     mixColorTo = Color.white;
 
-                    hitSound = Sounds.plasmaboom;
+                    hitSound = Sounds.explosionCleroi;
 
                     ejectEffect = Fx.none;
                     hitSize = 22f;
@@ -1005,7 +1006,7 @@ public class IceUnitTypes {
                     drag = -0.017f;
                     homingPower = 0.05f;
                     collideFloor = collideTerrain = true;
-                    trailColor = IcePal.methaneLight;
+                    trailColor = Color.valueOf("5465b6");
                     trailWidth = 3f;
                     trailLength = 8;
 
@@ -1022,7 +1023,7 @@ public class IceUnitTypes {
                 shootY = 3;
                 rotate = true;
                 ejectEffect = Fx.casing1;
-                shootSound = Sounds.blaster;
+                shootSound = IceSFX.methBlast;
                 shoot = new ShootAlternate(9.5f);
                 bullet = new BasicBulletType(5f, 20, "circle-bullet"){{
                     width = 8f;
@@ -1061,6 +1062,7 @@ public class IceUnitTypes {
             legLength = 8.5f;
             lightRadius = 130f;
             groundLayer = Layer.legUnit;
+            fogRadius = 8;
             weapons.add(new Weapon(){{
                 shootOnDeath = true;
                 reload = 30f;
@@ -1234,9 +1236,25 @@ public class IceUnitTypes {
             constructor = TankUnit::create;
             treadRects = new Rect[]{new Rect(38 - 70f, 14 - 62f, 12, 105)};
             researchCostMultiplier = 0f;
+            deathSound = IceSFX.purplesDeath;
+            deathExplosionEffect = new MultiEffect(
+                    IceFx.remnantWave,
+                    IceFx.remnantWaveReverse,
+                    new ParticleEffect(){{
+                        region = "icicle-world-square";
+                        spin = 5f;
+                        length = 38;
+                        lifetime = 90;
+                        particles = 32;
+                        sizeFrom = sizeTo = 3.5f;
+                        colorFrom = Color.valueOf("ffffffff");
+                        colorTo = Color.valueOf("FFFFFF00");
+                        interp = Interp.smooth;
+                    }}
+            );
 
             weapons.add(new Weapon("icicle-world-purple-weapon"){{
-                shootSound = Sounds.dullExplosion;
+                shootSound = Sounds.explosionDull;
                 layerOffset = 0.0001f;
                 reload = 110f;
                 shootY = 12f;
@@ -1305,6 +1323,21 @@ public class IceUnitTypes {
             itemCapacity = 0;
             targetFlags = new BlockFlag[]{BlockFlag.turret, null};
             circleTarget = true;
+            abilities.add(new MoveEffectAbility(){{
+                interval = 4f;
+                rotateEffect = true;
+                minVelocity = 0.1f;
+                effect = new ParticleEffect(){{
+                    region = "icicle-world-remnant-effect";
+                    colorFrom = Color.valueOf("ffffff59");
+                    colorTo = Color.valueOf("FFFFFF00");
+                    length = 0.1f;
+                    sizeFrom = 16;
+                    sizeInterp = Interp.smooth;
+                    offset = -90;
+                    cone = 0;
+                }};
+            }});
 
             weapons.add(new Weapon(){{
                 x = 0f;
@@ -1313,7 +1346,7 @@ public class IceUnitTypes {
                 mirror = false;
                 shootCone = 180f;
                 ejectEffect = Fx.none;
-                shootSound = Sounds.lasershoot;
+                shootSound = Sounds.shootLocus;
                 shoot.shots = 3;
                 shoot.shotDelay = 5;
                 bullet = new LaserBulletType(){{
@@ -1445,7 +1478,7 @@ public class IceUnitTypes {
                         recoil = 3f;
                         shake = 1f;
                         ejectEffect = Fx.casing3;
-                        shootSound = Sounds.bang;
+                        shootSound = IceSFX.shootGunExecutioner;
                         inaccuracy = 3f;
 
                         bullet = new BasicBulletType(8f, 130){{
@@ -1556,7 +1589,7 @@ public class IceUnitTypes {
             }});
 
             weapons.add(new Weapon("icicle-world-blue-weapon"){{
-                shootSound = Sounds.blaster;
+                shootSound = Sounds.shootMissilePlasma;
                 y = 10.5f;
                 shootY = 0;
                 x = 5f;
@@ -1617,7 +1650,7 @@ public class IceUnitTypes {
                 mirror = false;
                 shootCone = 70f;
                 ejectEffect = Fx.none;
-                shootSound = Sounds.pulseBlast;
+                shootSound = Sounds.shootMissilePlasma;
                 bullet = methaneSpike;
             }});
         }};
@@ -1745,7 +1778,7 @@ public class IceUnitTypes {
             hitSize = 12f;
             weapons.add(
                     new Weapon("icicle-world-basic-gun") {{
-                        shootSound = Sounds.blaster;
+                        shootSound = Sounds.shootElude;
                         reload = 20f;
                         x = 0f;
                         y = 7.75f;
@@ -1763,7 +1796,7 @@ public class IceUnitTypes {
             hitSize = 12f;
             weapons.add(
                     new Weapon("icicle-world-pounder-gun") {{
-                        shootSound = Sounds.blaster;
+                        shootSound = Sounds.shootAvert;
                         reload = 35f;
                         x = 0f;
                         y = 7.75f;
@@ -1791,7 +1824,7 @@ public class IceUnitTypes {
             hitSize = 12f;
             weapons.add(
                     new Weapon("icicle-world-destroyer-gun") {{
-                        shootSound = Sounds.blaster;
+                        shootSound = Sounds.shootAvert;
                         reload = 65f;
                         x = 0f;
                         y = 7.75f;
@@ -1820,7 +1853,7 @@ public class IceUnitTypes {
             hitSize = 12f;
             weapons.add(
                     new Weapon("icicle-world-annihilator-gun") {{
-                        shootSound = Sounds.blaster;
+                        shootSound = Sounds.shootAvert;
                         reload = 105f;
                         x = 0f;
                         y = 7.5f;
@@ -1869,7 +1902,7 @@ public class IceUnitTypes {
                     }});
             weapons.add(
                     new Weapon("barrel"){{
-                        shootSound = Sounds.blaster;
+                        shootSound = Sounds.shootElude;
                         reload = 20f;
                         x = 0f;
                         y = 5f;
@@ -1915,7 +1948,7 @@ public class IceUnitTypes {
                                 }});
                     }},
                     new Weapon("barrel"){{
-                        shootSound = Sounds.blaster;
+                        shootSound = Sounds.shootElude;
                         reload = 20f;
                         x = 0f;
                         y = -5f;
@@ -1962,7 +1995,7 @@ public class IceUnitTypes {
                                 }});
                     }},
                     new Weapon("barrel"){{
-                        shootSound = Sounds.blaster;
+                        shootSound = Sounds.shootElude;
                         reload = 20f;
                         x = 5f;
                         y = 0f;
@@ -2009,7 +2042,7 @@ public class IceUnitTypes {
                                 }});
                     }},
                     new Weapon("barrel"){{
-                        shootSound = Sounds.blaster;
+                        shootSound = Sounds.shootElude;
                         reload = 20f;
                         x = -5f;
                         y = 0f;

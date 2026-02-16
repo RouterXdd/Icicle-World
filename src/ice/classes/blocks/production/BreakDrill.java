@@ -49,7 +49,7 @@ public class BreakDrill extends Drill {
             if (dominantItem == null) {
                 return;
             }
-            if (reloadTime <= 0 && health > maxHealth * minHealth) {
+            if (reloadTime <= 0 && health > maxHealth * minHealth && canConsume()) {
                 if (teamColorLight){
                     if (blockTeam){
                         Lightning.create(this.team,team.color,damageLight ,this.x, this.y, Mathf.random(0, 360), lengthLight);

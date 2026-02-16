@@ -80,7 +80,7 @@ public class OreUpper extends Block {
         }
         @Override
         public void updateTile(){
-            progress += edelta() / mineSpeed;
+            if (!drilled) progress += edelta() / mineSpeed; else progress = 1;
             if (efficiency > 0 && !drilled){
                 if (progress > 1){
                     excavate(range);

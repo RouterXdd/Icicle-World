@@ -9,6 +9,7 @@ import arc.util.Time;
 import ice.IcicleVars;
 import ice.classes.type.meta.IcePlacement;
 import ice.content.IceBlocks;
+import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.entities.units.BuildPlan;
 import mindustry.input.Placement;
@@ -40,8 +41,8 @@ public class RegenConveyor extends Conveyor {
         @Override
         public void updateTile(){
             super.updateTile();
-            if (damaged() && !IcicleVars.hardMode){
-                heal(regenAmount * Time.delta);
+            if (damaged()){
+                if (!IcicleVars.hardMode || team == Vars.state.rules.waveTeam || Vars.state.rules.pvp) heal(regenAmount * Time.delta);
             }
         }
     }

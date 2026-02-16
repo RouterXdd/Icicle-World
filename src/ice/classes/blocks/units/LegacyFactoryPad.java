@@ -16,6 +16,8 @@ import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.world.blocks.units.UnitFactory;
 
+import static mindustry.Vars.headless;
+
 public class LegacyFactoryPad extends UnitFactory {
     public int[] capacities = {};
     public TextureRegion topRegion;
@@ -31,7 +33,7 @@ public class LegacyFactoryPad extends UnitFactory {
         configurable = true;
         clearOnDoubleTap = true;
         commandable = true;
-        ambientSound = Sounds.respawning;
+        ambientSound = Sounds.loopUnitBuilding;
     }
     @Override
     public void drawPlanRegion(BuildPlan plan, Eachable<BuildPlan> list){
@@ -111,19 +113,21 @@ public class LegacyFactoryPad extends UnitFactory {
                 if(progress >= plan.time ){
                     progress %= 1f;
 
-                    Unit unit = plan.unit.create(team);
-                    unit.set(x + Mathf.random(-0.001f,0.001f), y + Mathf.random(-0.001f,0.001f));
-                    unit.rotation = 90f;
-                    if (unit.hitSize < 26f) {
-                        Fx.spawn.at(x, y);
-                    }
-                    unit.add();
-                    if(unit.isCommandable()){
-                        if(commandPos != null){
-                            unit.command().commandPosition(commandPos);
+                    if (!headless) {
+                        Unit unit = plan.unit.create(team);
+                        unit.set(x + Mathf.random(-0.001f, 0.001f), y + Mathf.random(-0.001f, 0.001f));
+                        unit.rotation = 90f;
+                        if (unit.hitSize < 26f) {
+                            Fx.spawn.at(x, y);
                         }
+                        unit.add();
+                        if (unit.isCommandable()) {
+                            if (commandPos != null) {
+                                unit.command().commandPosition(commandPos);
+                            }
 
-                        unit.command().command(command == null && unit.type.defaultCommand != null ? unit.type.defaultCommand : command);
+                            unit.command().command(command == null && unit.type.defaultCommand != null ? unit.type.defaultCommand : command);
+                        }
                     }
 
                     consume();

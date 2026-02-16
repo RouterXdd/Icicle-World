@@ -29,7 +29,7 @@ public class IceFx {
 
     public static final Effect
     methaneCloud = new Effect(80f, e -> {
-        color(IcePal.methaneLightish);
+        color(Color.valueOf("5465b6"));
         randLenVectors(e.id, e.fin(), 7, 9f, (x, y, fin, fout) -> {
             Fill.circle(e.x + x, e.y + y, 5f * fout);
         });
@@ -140,14 +140,14 @@ public class IceFx {
             Fill.circle(e.x + x, e.y + y, e.fout() * 5f + 0.5f);
         });
 
-        color(IcePal.thalliumLight);
+        color(IcePal.cerymecLightish);
         stroke(e.fout());
 
         randLenVectors(e.id + 1, 4, 1f + 40f * e.finpow(), (x, y) -> {
             lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), 2f + e.fout() * 3f);
         });
 
-        Drawf.light(e.x, e.y, 60f, IcePal.poloniumMid, 0.8f * e.fout());
+        Drawf.light(e.x, e.y, 60f, IcePal.cerymecLightish, 0.8f * e.fout());
     }),
     poloniumSteam = new Effect(140f, e -> {
         color(IcePal.poloniumLightish, IcePal.poloniumMid, e.fin());
@@ -229,7 +229,7 @@ public class IceFx {
                     nx = e.x + normx * len + Tmp.v1.x;
                     ny = e.y + normy * len + Tmp.v1.y;
                 }
-                Draw.color(IcePal.thalliumLightish);
+                Draw.color(IcePal.cerymecLightish);
                 Lines.linePoint(nx, ny);
             }
 
@@ -237,12 +237,12 @@ public class IceFx {
         }
     }).followParent(false).rotWithParent(false),
     thalliumBomb = new Effect(40f, 100f, e -> {
-        color(IcePal.thalliumLight);
+        color(IcePal.cerymecLightish);
         stroke(e.fout() * 2f);
         float circleRad = 1f + e.finpow() * 40f;
         Lines.circle(e.x, e.y, circleRad);
 
-        color(IcePal.thalliumLight);
+        color(IcePal.cerymecLightish);
         for(int i = 0; i < 4; i++){
             Drawf.tri(e.x, e.y, 6f, 50f * e.fout(), i*90);
         }
@@ -252,6 +252,20 @@ public class IceFx {
             Drawf.tri(e.x, e.y, 3f, 20f * e.fout(), i*90);
         }
 
+        Drawf.light(e.x, e.y, circleRad * 1.6f, IcePal.cerymecLightish, e.fout());
+    }),
+    remnantWave = new Effect(85f, 100f, e -> {
+        color(Color.white);
+        stroke(e.fout() * 2f);
+        float circleRad = 1f + e.finpow() * 40f;
+        Lines.poly(e.x, e.y, 3, 48f * e.fin(), e.fout()*135);
+        Drawf.light(e.x, e.y, circleRad * 1.6f, IcePal.thalliumLight, e.fout());
+    }),
+    remnantWaveReverse = new Effect(85f, 100f, e -> {
+        color(Color.white);
+        stroke(e.fout() * 2f);
+        float circleRad = 1f + e.finpow() * 40f;
+        Lines.poly(e.x, e.y, 3, 48f * e.fin(), -e.fout()*135);
         Drawf.light(e.x, e.y, circleRad * 1.6f, IcePal.thalliumLight, e.fout());
     }),
     regenSuppressSootSeek = new Effect(140f, e -> {

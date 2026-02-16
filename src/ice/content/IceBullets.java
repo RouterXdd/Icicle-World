@@ -41,6 +41,7 @@ public class IceBullets {
             frontColor = Color.white;
             trailWidth = 1.8f;
             trailLength = 100;
+            shootSound = IceSFX.shootBolt;
             hitEffect = despawnEffect = Fx.hitBulletColor;
             collideTerrain = true;
         }};
@@ -59,6 +60,7 @@ public class IceBullets {
             trailWidth = 1.8f;
             trailLength = 100;
             hitEffect = despawnEffect = Fx.hitBulletColor;
+            shootSound = IceSFX.shootBolt;
             collideTerrain = true;
             buildingDamageMultiplier = 0.0001f;
         }};
@@ -162,7 +164,7 @@ public class IceBullets {
             splashDamageRadius = rad;
             hitShake = 4f;
             trailRotation = collideTerrain = true;
-            hitSound = Sounds.plasmaboom;
+            hitSound = Sounds.explosionCleroi;
 
             trailEffect = new Effect(12f, e -> {
                 color(IcePal.thalliumLightish);
@@ -252,7 +254,7 @@ public class IceBullets {
                 waveRad = 20f;
             }};
             collideTerrain = true;
-            despawnSound = Sounds.dullExplosion;
+            despawnSound = Sounds.explosionDull;
 
             intervalBullet = new BasicBulletType(2f, 5){{
                 width = 6f;
@@ -311,7 +313,7 @@ public class IceBullets {
                 waveStroke = 5f;
                 waveRad = 20f;
             }};
-            despawnSound = Sounds.dullExplosion;
+            despawnSound = Sounds.explosionDull;
 
             intervalBullet = new BasicBulletType(2f, 3){{
                 width = 6f;

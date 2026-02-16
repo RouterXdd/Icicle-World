@@ -100,12 +100,10 @@ public class RkiTrueGenerator extends PlanetGenerator {
         float height = rawHeight(position);
         return Math.max(height, water);
     }
-
     @Override
-    public Color getColor(Vec3 position){
+    public void getColor(Vec3 position, Color out){
         Block block = rawHeight(position) < 0.4 ? (Mathf.chance(0.35f) ? ice : redIce) : (Mathf.chance(0.7f) ? snow : iceSnow);
-
-        return Tmp.c1.set(block.mapColor).a(1f - block.albedo);
+        out.set(Tmp.c1.set(block.mapColor).a(1f - block.albedo - 0.075f));
     }
 
     @Override

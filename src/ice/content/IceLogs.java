@@ -12,7 +12,9 @@ public class IceLogs {
             venixen1, venixen2,
             //sharded
             //genesis
-            genesis1
+            genesis1, genesis2,
+            //origin
+            origin1
     ;
     public static void load(){
         crux1 = new LogFile("crux-getout", false);
@@ -20,5 +22,7 @@ public class IceLogs {
         venixen1 = new LogFile("ignition-log", false);
         venixen2 = new LogFile("mine-log", false);
         genesis1 = new LogFile("methane-pur-threat", false);
+        genesis2 = new LogFile("execution-prelude", false);
+        origin1 = new LogFile("memory", false);
     }
 }

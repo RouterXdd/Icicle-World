@@ -60,7 +60,7 @@ public class IcePlanets {
                 r.onlyDepositCore = true;
             };
             allowCampaignRules = true;
-            campaignRules.fog = true;
+            campaignRuleDefaults.fog = true;
             campaignRuleDefaults.showSpawns = true;
             campaignRuleDefaults.randomWaveAI = false;
 
