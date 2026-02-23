@@ -9,7 +9,7 @@ import mindustry.graphics.Pal;
 import mindustry.type.StatusEffect;
 
 public class IceStatuses {
-    public static StatusEffect inSoot, positiveCharge, negativeCharge, rusting, radiation, flash, enmity;
+    public static StatusEffect inSoot, positiveCharge, negativeCharge, rusting, radiation, flash, enmity, weakness, weakness2;
     public static void load(){
         inSoot = new StatusEffect("in-soot"){{
             color = IcePal.sootColor;
@@ -50,6 +50,14 @@ public class IceStatuses {
             speedMultiplier = IcicleVars.hardMode ? 1.5f : 2f;
             healthMultiplier = IcicleVars.hardMode ? 1.25f : 1.5f;
             reloadMultiplier = IcicleVars.hardMode ? 1.5f : 2f;
+        }};
+        weakness = new StatusEffect("weakness"){{
+            color = Pal.lightishGray;
+            healthMultiplier = 0.6f;
+        }};
+        weakness2 = new StatusEffect("weakness2"){{
+            color = Pal.gray;
+            healthMultiplier = 0.45f;
         }};
     }
 }
