@@ -424,7 +424,7 @@ public class IceBlocks {
                     new DrawDefault()
             );
 
-            consumePower(190f / 60f);
+            consumePower(220f / 60f);
             consumeLiquid(methanum, 8f / 60f);
         }};
         quarry = new Separator("quarry"){{
@@ -466,7 +466,7 @@ public class IceBlocks {
             ambientSoundVolume = 0.11f;
 
             consumeItems(with(scrap, 2, sporeWood, 4, prinute, 1));
-            consumePower(2.8f);
+            consumePower(3.5f);
         }};
         enmitiumCrucible = new GenericCrafter("enmitium-crucible"){{
             requirements(Category.crafting, with(thallium, 320, ceramic, 110, silicon, 135, livesteel, 90));
@@ -549,7 +549,7 @@ public class IceBlocks {
             ambientSoundVolume = 0.18f;
 
             consumeItems(with(scrap, 4, ceramic, 2, polonium, 2));
-            consumePower(7.5f);
+            consumePower(12f);
         }};
         protoDrill = new BreakDrill("proto-drill"){{
             requirements(Category.production, with(thallium, 20));
@@ -942,7 +942,7 @@ public class IceBlocks {
         }};
         repairPylon = new Pylon("repair-pylon"){{
             requirements(Category.effect, with(thallium, 330, prinute, 145, silicon, 110, polonium, 75));
-            consumePower(5.3f);
+            consumePower(5f);
             size = 3;
             reload = 170f;
             range = 85f;
@@ -1016,9 +1016,9 @@ public class IceBlocks {
         largeLamp = new LightBlock("large-lamp"){{
             requirements(Category.effect, BuildVisibility.lightingOnly, with(thallium, 60, prinute, 25, silicon, 10, cerymec, 5));
             size = 2;
-            brightness = 0.65f;
+            brightness = 0.6f;
             radius = 200f;
-            consumePower(1.35f);
+            consumePower(1.2f);
         }};
         oldNode = new PowerNode("old-node"){{
             requirements(Category.power, with(thallium, 4, sporeWood, 6));
@@ -1050,7 +1050,7 @@ public class IceBlocks {
             health = 220;
             armor = 3;
             size = 2;
-            laserRange = 9.5f;
+            laserRange = 10f;
             maxNodes = 3;
             fogRadius = 2;
             laserColor2 = IcePal.thalliumLight;
@@ -1094,7 +1094,7 @@ public class IceBlocks {
             requirements(Category.power, with(thallium, 40, scrap, 25));
             scaledHealth = 20f;
             powerProduction = 3f;
-            itemDuration = 100f;
+            itemDuration = 180f;
             size = 2;
 
             ambientSound = Sounds.loopSmelter;
@@ -1104,6 +1104,20 @@ public class IceBlocks {
             consumeItem(sporeWood, 2);
 
             drawer = new DrawMulti(new DrawDefault(), new DrawWarmupRegion());
+        }};
+        liquidTurbine = new UndergroundPanels("liquid-turbine"){{
+            requirements(Category.power, with(thallium, 95, prinute, 42, soptin, 60));
+            powerProduction = 1f;
+            radius = -5.5f;
+            size = 2;
+            attribute = meth;
+            floating = true;
+            ambientSound = Sounds.loopHum;
+            ambientSoundVolume = 0.012f;
+            researchCostMultiplier = 0.08f;
+            drawer = new DrawMulti(new DrawRegion("-vint", 3, true){{
+                layer = 1;
+            }}, new DrawDefault(), new DrawRegion("-top"));
         }};
         methaneBurner = new ConsumeGenerator("methane-burner"){{
             requirements(Category.power, with(thallium, 140, prinute, 60, silicon, 75));
@@ -1132,7 +1146,7 @@ public class IceBlocks {
             ambientSoundVolume = 0.24f;
             size = 4;
             health = 700;
-            itemDuration = 380f;
+            itemDuration = 400f;
             powerProduction = 30f;
             fuelItem = poloniumCharge;
             lightColor = IcePal.poloniumLightish;
@@ -1140,20 +1154,6 @@ public class IceBlocks {
             explodeEffect = IceFx.nuclearReactorExplosion;
             consumeItem(poloniumCharge, 1);
             consumeLiquid(water, 4f / 60).update(false);
-        }};
-        liquidTurbine = new UndergroundPanels("liquid-turbine"){{
-            requirements(Category.power, with(thallium, 95, prinute, 42, soptin, 60));
-            powerProduction = 0.78f;
-            radius = -5.5f;
-            size = 2;
-            attribute = meth;
-            floating = true;
-            ambientSound = Sounds.loopHum;
-            ambientSoundVolume = 0.012f;
-            researchCostMultiplier = 0.08f;
-            drawer = new DrawMulti(new DrawRegion("-vint", 3, true){{
-                layer = 1;
-            }}, new DrawDefault(), new DrawRegion("-top"));
         }};
         coreAngry = new CoreBlock("core-angry"){{
             requirements(Category.effect, with(thallium, 860, sporeWood, 600));
@@ -1608,7 +1608,7 @@ public class IceBlocks {
                 hitEffect = IceFx.thalliumBlastExplosion;
                 collideTerrain = true;
             }};
-            consumePower(9.7f);
+            consumePower(10f);
 
             inaccuracy = 8f;
             outlineColor = IcePal.rkiOutline;
@@ -1744,7 +1744,7 @@ public class IceBlocks {
             recoil = 3f;
             size = 4;
             scaledHealth = 190;
-            consumePower(2.2f);
+            consumePower(7.5f);
             coolant = consumeCoolant(0.4f);
             squareSprite = false;
         }

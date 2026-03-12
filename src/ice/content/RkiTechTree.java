@@ -233,6 +233,7 @@ public class RkiTechTree {
 
                         });
                     });
+                    node(remnant, Seq.with(new SectorComplete(brokenComplex)), () -> {});
                 });
             });
             //cores

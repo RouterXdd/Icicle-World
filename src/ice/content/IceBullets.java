@@ -133,7 +133,7 @@ public class IceBullets {
             hittable = false;
         }};
         fundamentLightningBall = new EmpBulletType(){{
-            float rad = 30f;
+            float rad = 45f;
 
             homingRange = 30;
             homingPower = 0.6f;
@@ -161,10 +161,11 @@ public class IceBullets {
             trailColor = IcePal.thalliumLightish;
             trailInterval = 3f;
             splashDamage = 30f;
-            splashDamageRadius = rad;
+            splashDamageRadius = radius = rad;
             hitShake = 4f;
             trailRotation = collideTerrain = true;
             hitSound = Sounds.explosionCleroi;
+
 
             trailEffect = new Effect(12f, e -> {
                 color(IcePal.thalliumLightish);

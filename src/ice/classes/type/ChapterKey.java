@@ -6,7 +6,7 @@ import mindustry.Vars;
 
 public class ChapterKey extends LogFile{
     public ChapterKey(String name, boolean hidden) {
-        super(name, hidden);
+        super(name, hidden, "origin");
         hideDetails = false;
     }
     public void onUnlock(){

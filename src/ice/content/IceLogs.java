@@ -17,12 +17,12 @@ public class IceLogs {
             origin1
     ;
     public static void load(){
-        crux1 = new LogFile("crux-getout", false);
-        malis1 = new LogFile("malis-fortress-attack", false);
-        venixen1 = new LogFile("ignition-log", false);
-        venixen2 = new LogFile("mine-log", false);
-        genesis1 = new LogFile("methane-pur-threat", false);
-        genesis2 = new LogFile("execution-prelude", false);
-        origin1 = new LogFile("memory", false);
+        crux1 = new LogFile("crux-getout", false, "crux");
+        malis1 = new LogFile("malis-fortress-attack", false, "malis");
+        venixen1 = new LogFile("ignition-log", false, "venixen");
+        venixen2 = new LogFile("mine-log", false, "venixen");
+        genesis1 = new LogFile("methane-pur-threat", false, "genesis");
+        genesis2 = new LogFile("execution-prelude", false, "genesis");
+        origin1 = new LogFile("memory", false, "origin");
     }
 }

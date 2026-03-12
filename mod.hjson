@@ -3,6 +3,6 @@ name: "icicle-world"
 author: "R.O.T.\nSpecial thanks:\nyesC48 for editing english translation\nxhstoyea for chinese translation"
 main: "ice.IcicleMod"
 description: "A mod that adds a new planet, where we will play in underground"
-version: 1.0
-minGameVersion: 154
+version: 9.5
+minGameVersion: 155
 java: true

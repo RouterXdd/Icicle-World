@@ -53,11 +53,21 @@ public class IceStatuses {
         }};
         weakness = new StatusEffect("weakness"){{
             color = Pal.lightishGray;
-            healthMultiplier = 0.6f;
-        }};
+            healthMultiplier = 0.35f;
+        }
+            @Override
+            public boolean isHidden(){
+                return !IcicleVars.debug;
+            }
+        };
         weakness2 = new StatusEffect("weakness2"){{
             color = Pal.gray;
-            healthMultiplier = 0.45f;
-        }};
+            healthMultiplier = 0.2f;
+        }
+            @Override
+            public boolean isHidden(){
+                return !IcicleVars.debug;
+            }
+        };
     }
 }

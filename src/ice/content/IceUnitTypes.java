@@ -4,6 +4,7 @@ import arc.Core;
 import arc.graphics.*;
 import arc.math.*;
 import arc.math.geom.Rect;
+import arc.struct.ObjectSet;
 import arc.util.Time;
 import arc.util.Tmp;
 import ice.classes.entities.abilities.*;
@@ -97,33 +98,34 @@ public class IceUnitTypes {
 
                 bullet = pointCoreBullet;
             }},
-                    new RepairBeamWeapon("icicle-world-malice-repair-gun"){{
-                        widthSinMag = 0.065f;
-                        reload = 20f;
-                        x = 0f;
-                        y = -2f;
-                        rotate = true;
-                        shootY = 2f;
-                        beamWidth = 0.5f;
-                        repairSpeed = 1.25f;
-                        fractionRepairSpeed = 0.2f;
-                        aimDst = 0f;
-                        shootCone = 20f;
-                        mirror = false;
-                        top = true;
+            new RepairBeamWeapon("icicle-world-malice-repair-gun"){{
+                widthSinMag = 0.065f;
+                reload = 20f;
+                x = 0f;
+                y = -2f;
+                rotate = true;
+                shootY = 2f;
+                beamWidth = 0.5f;
+                repairSpeed = 1.25f;
+                fractionRepairSpeed = 0.2f;
+                aimDst = 0f;
+                shootCone = 20f;
+                mirror = false;
+                top = true;
 
-                        targetUnits = false;
-                        targetBuildings = true;
-                        autoTarget = true;
-                        aiControllable = true;
-                        controllable = false;
-                        laserColor = IcePal.thalliumMid;
-                        healColor = IcePal.thalliumMid;
+                targetUnits = false;
+                targetBuildings = true;
+                autoTarget = true;
+                aiControllable = true;
+                controllable = false;
+                laserColor = IcePal.thalliumMid;
+                healColor = IcePal.thalliumMid;
 
-                        bullet = new BulletType(){{
-                            maxRange = 35f;
-                        }};
-                    }});
+                bullet = new BulletType(){{
+                    maxRange = 35f;
+                }};
+            }});
+            databaseTag = "core";
         }};
         charity = new RkiUnitType("charity"){{
             aiController = BuilderAI::new;
@@ -202,6 +204,7 @@ public class IceUnitTypes {
                             maxRange = 46.5f;
                         }};
                     }});
+            databaseTag = "core";
         }
             @Override
             public void load() {
@@ -253,6 +256,7 @@ public class IceUnitTypes {
                 sameTypeHealMult = 1f;
                 y = -11;
             }});
+            databaseTag = "core";
         }
             @Override
             public void load() {
@@ -294,6 +298,7 @@ public class IceUnitTypes {
 
                 bullet = vesselBullet;
             }});
+            databaseTag = "spider";
         }};
         ewer = new RkiUnitType("ewer"){{
             drag = 0.1f;
@@ -328,6 +333,7 @@ public class IceUnitTypes {
 
                 bullet = ewerBullet;
             }});
+            databaseTag = "spider";
         }};
         decanter = new RkiUnitType("decanter"){{
             drag = 0.1f;
@@ -467,6 +473,7 @@ public class IceUnitTypes {
                     collideTerrain = true;
                 }};
             }});
+            databaseTag = "spider";
         }};
         stem = new RkiUnitType("stem"){{
             speed = 1.05f;
@@ -492,6 +499,7 @@ public class IceUnitTypes {
 
                 bullet = stemBullet;
             }});
+            databaseTag = "mech";
         }};
         xylem = new RkiUnitType("xylem"){{
             speed = 0.65f;
@@ -516,6 +524,7 @@ public class IceUnitTypes {
 
                 bullet = xylemFlame;
             }});
+            databaseTag = "mech";
         }};
         stalk = new RkiUnitType("stalk"){{
             speed = 0.42f;
@@ -576,6 +585,7 @@ public class IceUnitTypes {
                     }});
                 }};
             }});
+            databaseTag = "mech";
         }};
         basis = new RkiTankUnitType("basis"){{
             hitSize = 12f;
@@ -604,6 +614,7 @@ public class IceUnitTypes {
 
                 bullet = basisBullet;
             }});
+            databaseTag = "tank";
         }};
         fundament = new RkiTankUnitType("fundament"){{
             hitSize = 27f;
@@ -638,6 +649,7 @@ public class IceUnitTypes {
 
                 bullet = fundamentLightningBall;
             }});
+            databaseTag = "tank";
         }};
         groundwork = new RkiTankUnitType("groundwork"){{
             hitSize = 37.5f;
@@ -663,7 +675,7 @@ public class IceUnitTypes {
                     shootSound = IceSFX.shootGroundwork;
                     layerOffset = 0.1f;
                     reload = 210f;
-                    shootY = 29f;
+                    shootY = 32f;
                     shake = 6f;
                     recoil = 6f;
                     rotate = true;
@@ -746,6 +758,7 @@ public class IceUnitTypes {
                     collideTerrain = true;
                 }};
             }});
+            databaseTag = "tank";
         }};
         quant = new RkiUnitType("quant"){{
             hovering = true;
@@ -813,6 +826,7 @@ public class IceUnitTypes {
                     hitEffect = despawnEffect = Fx.hitBulletColor;
                 }};
             }});
+            databaseTag = "hover";
         }};
         chronon = new RkiUnitType("chronon"){{
             hovering = true;
@@ -880,6 +894,7 @@ public class IceUnitTypes {
                     hitEffect = despawnEffect = Fx.hitBulletColor;
                 }};
             }});
+            databaseTag = "hover";
         }};
         sin = new RkiUnitType("sin"){{
             speed = 0.95f;
@@ -1090,6 +1105,7 @@ public class IceUnitTypes {
                     collidesAir = true;
                 }};
             }});
+            databaseTag = "special";
         }};
         sunLight = new RkiUnitType("sun-light"){{
 
@@ -1103,6 +1119,7 @@ public class IceUnitTypes {
             legLength = 8.5f;
             lightRadius = 130f;
             groundLayer = Layer.legUnit;
+            hidden = true;
             weapons.add(new Weapon(){{
                 shootOnDeath = true;
                 reload = 30f;
@@ -1207,24 +1224,25 @@ public class IceUnitTypes {
 
                 bullet = yellowBlast;
             }},
-                    new Weapon("icicle-world-yellow-back-cannon"){{
-                        top = true;
-                        reload = 110f;
-                        rotate = false;
-                        shootCone = 50;
-                        mirror = true;
-                        recoil = 1.5f;
-                        layerOffset = 0.00001f;
-                        x = 4f;
-                        y = -3.5f;
-                        shoot.shots = 3;
-                        shoot.shotDelay = 6;
+            new Weapon("icicle-world-yellow-back-cannon"){{
+                top = true;
+                reload = 110f;
+                rotate = false;
+                shootCone = 50;
+                mirror = true;
+                recoil = 1.5f;
+                layerOffset = 0.00001f;
+                x = 4f;
+                y = -3.5f;
+                shoot.shots = 3;
+                shoot.shotDelay = 6;
 
-                        inaccuracy = 12f;
-                        ejectEffect = IceFx.pointEject;
+                inaccuracy = 12f;
+                ejectEffect = IceFx.pointEject;
 
-                        bullet = yellowPlasma;
-                    }});
+                bullet = yellowPlasma;
+            }});
+            databaseTag = "executioner";
         }};
         purple = new RkiTankUnitType("purple"){{
             hitSize = 28f;
@@ -1295,6 +1313,7 @@ public class IceUnitTypes {
                     trailInterval = 3f;
                 }};
             }});
+            databaseTag = "executioner";
         }
         public void killed(Unit unit) {
                     Unit u = remnant.create(unit.team);
@@ -1359,6 +1378,7 @@ public class IceUnitTypes {
                     colors = new Color[]{Color.white.cpy().a(0.4f), Color.white, Color.white};
                 }};
             }});
+            databaseTag = "executioner";
         }};
         red = new RkiUnitType("red"){{
             speed = 0.56f;
@@ -1519,6 +1539,7 @@ public class IceUnitTypes {
                         }};
                     }}
             );
+            databaseTag = "executioner";
         }};
         blue = new RkiUnitType("blue"){{
             hovering = true;
@@ -1622,6 +1643,7 @@ public class IceUnitTypes {
                     hitEffect = despawnEffect = Fx.hitBulletColor;
                 }};
             }});
+            databaseTag = "executioner";
         }};
         shieldDrone = new RkiUnitType("shield-drone"){{
             controller = u -> new ShielderAI();
@@ -1653,6 +1675,7 @@ public class IceUnitTypes {
                 shootSound = Sounds.shootMissilePlasma;
                 bullet = methaneSpike;
             }});
+            databaseTag = "special";
         }};
         born = new MethaniteUnitType("born"){{
             drag = 0.1f;
