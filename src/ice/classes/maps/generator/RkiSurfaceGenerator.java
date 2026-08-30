@@ -341,13 +341,12 @@ public class RkiSurfaceGenerator extends PlanetGenerator{
         state.rules.env = sector.planet.defaultEnv;
         state.rules.placeRangeCheck = true;
 
-        //TODO remove slag and arkycite around core.
         Schematics.placeLaunchLoadout(spawnX, spawnY);
 
         //all sectors are wave sectors
         state.rules.winWave = sector.info.winWave = 5 * (int)Math.max(sector.threat * 10, 1);
         state.rules.waves = true;
-        state.rules.showSpawns = true;
+        state.rules.hideSpawns = false;
         state.rules.spawns = Waves.generate(sector.threat, new Rand(sector.id), state.rules.attackMode, state.rules.attackMode && spawner.countGroundSpawns() == 0, false);
     }
 }

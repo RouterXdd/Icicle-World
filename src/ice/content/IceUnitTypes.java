@@ -24,7 +24,6 @@ import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.*;
-import mindustry.type.ammo.*;
 import mindustry.type.weapons.*;
 import mindustry.world.meta.BlockFlag;
 import mindustry.world.meta.Stat;
@@ -361,8 +360,6 @@ public class IceUnitTypes {
             legStraightLength = 0.9f;
             legMaxLength = 1.2f;
 
-            ammoType = new ItemAmmoType(scrap, 30);
-
             legSplashDamage = 32;
             legSplashRange = 32;
             drownTimeMultiplier = 2f;
@@ -494,7 +491,7 @@ public class IceUnitTypes {
                 x = 6f;
                 y = 0.5f;
 
-                inaccuracy = 20f;
+                inaccuracy = 8f;
                 ejectEffect = Fx.casing2;
 
                 bullet = stemBullet;
@@ -695,7 +692,7 @@ public class IceUnitTypes {
                         height = 24f;
                         lifetime = 26f;
                         hitSize = 7f;
-                        buildingDamageMultiplier = 0.45f;
+                        buildingDamageMultiplier = 0.8f;
 
                         smokeEffect = Fx.shootSmokeTitan;
                         splashDamage = 270;
@@ -1387,7 +1384,6 @@ public class IceUnitTypes {
             health = 21050;
             armor = 8f;
             mechFrontSway = 1f;
-            ammoType = new ItemAmmoType(IceItems.prinute);
             constructor = MechUnit::create;
 
             mechStepParticles = true;
@@ -1661,8 +1657,6 @@ public class IceUnitTypes {
             engineOffset = 6.55f;
             range = 50f;
             isEnemy = playerControllable = logicControllable = useUnitCap = false;
-
-            ammoType = new PowerAmmoType(500);
 
             abilities.add(new ForceFieldAbility(55f, 0.5f, 1000f, 55f * 6, 8, 0));
             weapons.add(new Weapon(){{

@@ -94,9 +94,11 @@ public class IceBullets {
             width = 4f;
             height = 9f;
             lifetime = 20f;
-            hitColor = backColor = IcePal.sporeMid;
+            hitColor = backColor = trailColor = IcePal.sporeMid;
             frontColor = IcePal.sporeLight;
             collideTerrain = true;
+            trailWidth = 1.5f;
+            trailLength = 5;
         }};
         ewerBullet = new BasicBulletType(8f, 40){{
             width = 11f;

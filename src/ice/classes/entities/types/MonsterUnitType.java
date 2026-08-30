@@ -7,7 +7,6 @@ import ice.graphics.IcePal;
 import mindustry.entities.abilities.LiquidExplodeAbility;
 import mindustry.type.Liquid;
 import mindustry.type.UnitType;
-import mindustry.type.ammo.ItemAmmoType;
 import static mindustry.content.StatusEffects.*;
 import static ice.content.IceStatuses.*;
 

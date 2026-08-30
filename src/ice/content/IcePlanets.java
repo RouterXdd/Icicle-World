@@ -51,7 +51,7 @@ public class IcePlanets {
                 r.waveTeam = IceTeams.genesis;
                 r.loadout = ItemStack.list(thallium, 200, sporeWood, 80);
                 r.placeRangeCheck = false;
-                r.showSpawns = true;
+                r.hideSpawns = false;
                 r.fog = true;
                 r.staticFog = true;
                 r.lighting = true;
@@ -61,7 +61,7 @@ public class IcePlanets {
             };
             allowCampaignRules = true;
             campaignRuleDefaults.fog = true;
-            campaignRuleDefaults.showSpawns = true;
+            campaignRuleDefaults.hideSpawns = false;
             campaignRuleDefaults.randomWaveAI = false;
 
             unlockedOnLand.add(IceBlocks.coreAngry);

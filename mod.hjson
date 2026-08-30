@@ -4,5 +4,5 @@ author: "R.O.T.\nSpecial thanks:\nyesC48 for editing english translation\nxhstoy
 main: "ice.IcicleMod"
 description: "A mod that adds a new planet, where we will play in underground"
 version: 0.9.5
-minGameVersion: 155
+minGameVersion: 159
 java: true

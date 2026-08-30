@@ -14,6 +14,7 @@ public class BoomerangBullet extends BasicBulletType {
         super.update(b);
         if (b.timer.get(1, b.lifetime / cut)){
             b.vel.setAngle(b.rotation() + 180);
+            b.collided().add(-pierceCap);
         }
     }
 }
