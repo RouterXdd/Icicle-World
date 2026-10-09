@@ -1,4 +1,4 @@
-![text](https://github.com/RouterXdd/Icicle-World/assets/91018607/002c2bd6-30ec-49c9-b322-a831f07f3821)
+<img width="942" height="471" alt="text" src="https://github.com/user-attachments/assets/1bf5c5d8-4dd0-4459-86e0-76cfc0b5ca3b" />
 
 Java mod, which adds an ice planet (Rki)  with own campain with new mechanics...
 and being trapped in underground without hope to survive
